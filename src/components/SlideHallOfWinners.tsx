@@ -52,7 +52,7 @@ export const SlideHallOfWinners: React.FC<SlideHallOfWinnersProps> = ({ winners 
                 }`}
               >
                 {/* Left: Medal Rank, Winner Name & Draw Info */}
-                <div className="flex items-center gap-8 min-w-0">
+                <div className="flex items-center gap-8 min-w-0 flex-1 pr-6">
                   <div
                     className={`w-20 h-20 rounded-2xl flex items-center justify-center font-black text-3xl shrink-0 shadow-lg ${
                       isChampion
@@ -63,40 +63,40 @@ export const SlideHallOfWinners: React.FC<SlideHallOfWinnersProps> = ({ winners 
                     {isChampion ? "#1" : `♠`}
                   </div>
 
-                  <div className="flex flex-col min-w-0">
+                  <div className="flex flex-col min-w-0 flex-1">
                     <div className="flex items-center gap-4">
                       <h3
-                        className={`text-4xl lg:text-5xl font-black tracking-wide uppercase whitespace-nowrap overflow-hidden text-ellipsis font-playfair ${
-                          isChampion ? "text-white" : "text-neutral-400"
+                        className={`text-3xl lg:text-4xl font-black tracking-wide uppercase whitespace-nowrap overflow-hidden text-ellipsis font-playfair ${
+                          isChampion ? "text-white" : "text-neutral-300"
                         }`}
                       >
                         {winner.winnerName}
                       </h3>
                       {isChampion && (
-                        <span className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider bg-[#D4AF37]/20 border border-[#D4AF37]/70 text-[#F3E5AB] px-3.5 py-1 rounded-full whitespace-nowrap font-outfit">
+                        <span className="flex items-center gap-1.5 text-xs font-black uppercase tracking-wider bg-[#D4AF37]/20 border border-[#D4AF37]/70 text-[#F3E5AB] px-3.5 py-1 rounded-full whitespace-nowrap font-outfit shrink-0">
                           <Star className="w-4 h-4 fill-[#D4AF37] text-[#D4AF37]" />
                           RECENT $2,700 JACKPOT WINNER
                         </span>
                       )}
                     </div>
 
-                    <div className="flex items-center gap-4 text-base font-semibold text-neutral-300 uppercase tracking-wider mt-2 whitespace-nowrap font-outfit">
-                      <span>DRAW DATE: <strong className="text-white font-bold">{winner.drawDate} ({winner.drawDay})</strong></span>
+                    <div className="flex items-center gap-4 text-base font-semibold text-neutral-300 uppercase tracking-wider mt-2 whitespace-nowrap overflow-hidden font-outfit">
+                      <span className="shrink-0">DRAW DATE: <strong className="text-white font-bold">{winner.drawDate} ({winner.drawDay})</strong></span>
                       {winner.event > 0 && (
                         <>
-                          <span className="text-neutral-500">•</span>
-                          <span>EVENT #{winner.event}</span>
+                          <span className="text-neutral-500 shrink-0">•</span>
+                          <span className="shrink-0">EVENT #{winner.event}</span>
                         </>
                       )}
-                      <span className="text-neutral-500">•</span>
-                      <span>{winner.comment || `TICKET: ${winner.ticketNumber}`}</span>
+                      <span className="text-neutral-500 shrink-0">•</span>
+                      <span className="truncate">{winner.comment || `TICKET: ${winner.ticketNumber}`}</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Right: Card Drawn & Jackpot Amount */}
-                <div className="flex items-center gap-10 shrink-0">
-                  <div className="flex flex-col items-end">
+                <div className="flex items-center gap-8 shrink-0">
+                  <div className="flex flex-col items-end min-w-[210px]">
                     <span className="text-xs font-bold text-neutral-400 uppercase tracking-wider font-outfit">
                       {isChampion ? "WINNING CARD" : "STATUS"}
                     </span>
@@ -106,7 +106,7 @@ export const SlideHallOfWinners: React.FC<SlideHallOfWinnersProps> = ({ winners 
                     </div>
                   </div>
 
-                  <div className="flex flex-col items-end min-w-[220px]">
+                  <div className="flex flex-col items-end min-w-[210px]">
                     <span className="text-xs font-bold text-[#D4AF37] uppercase tracking-wider font-outfit">
                       {isChampion ? "JACKPOT PAID" : "POOL TARGET"}
                     </span>

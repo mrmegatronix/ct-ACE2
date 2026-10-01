@@ -54,8 +54,8 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
 
       {/* Center: BIGGER CENTERED TITLE */}
       <div className="flex-1 flex flex-col items-center justify-center text-center px-4">
-        <h1 className="text-4xl lg:text-5xl font-black font-playfair tracking-widest uppercase bg-gradient-to-r from-[#FFF] via-[#F3E5AB] to-[#D4AF37] bg-clip-text text-transparent whitespace-nowrap drop-shadow-[0_2px_15px_rgba(212,175,55,0.5)]">
-          CHASE THE <span className="text-[#D4AF37] font-serif drop-shadow-[0_0_15px_rgba(212,175,55,0.8)]">♠</span> ACE
+        <h1 className="text-3xl lg:text-4xl font-black font-outfit tracking-widest uppercase bg-gradient-to-r from-[#FFF] via-[#F3E5AB] to-[#D4AF37] bg-clip-text text-transparent whitespace-nowrap">
+          CHASE THE <span className="text-[#D4AF37] drop-shadow-[0_0_10px_rgba(212,175,55,0.7)]">♠</span> ACE
         </h1>
         <p className="text-xs font-black text-[#D4AF37] uppercase tracking-[0.3em] mt-1 whitespace-nowrap">
           {isGameplayPaused ? "GAME PLAY PAUSED • BUILDING TO $500 STARTING POOL" : "OFFICIAL DIGITAL SIGNAGE"}

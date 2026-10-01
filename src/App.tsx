@@ -159,17 +159,17 @@ export function App() {
         case "a":
         case "A":
           e.preventDefault();
-          window.open("/admin.html", "_blank");
+          window.open(`${import.meta.env.BASE_URL}admin.html`, "_blank");
           break;
         case "r":
         case "R":
           e.preventDefault();
-          window.open("/remote.html", "_blank");
+          window.open(`${import.meta.env.BASE_URL}remote.html`, "_blank");
           break;
         case "p":
         case "P":
           e.preventDefault();
-          window.open("/preview.html", "_blank");
+          window.open(`${import.meta.env.BASE_URL}preview.html`, "_blank");
           break;
         default:
           if (e.key >= "1" && e.key <= "9") {

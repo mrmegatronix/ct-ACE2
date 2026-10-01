@@ -3,7 +3,7 @@ import type { SignageData, WinnerRecord, GameCard } from "../types";
 export const GOOGLE_SHEETS_CSV_URL =
   "https://docs.google.com/spreadsheets/d/e/2PACX-1vQDwqNaCeNn7Q6WSgc5gN8aOS08Ltkxu2v9QBSVuaKrJFX61PZ1Nuninkqh_F62wQ5t47usf2e19dxx/pub?output=csv";
 
-export const LOCAL_CSV_URL = "/data.csv";
+export const LOCAL_CSV_URL = `${import.meta.env.BASE_URL}data.csv`;
 
 // Real historical winner from the completed $2,700 season (September 26, 2026)
 // NO fake data or fabricated people!

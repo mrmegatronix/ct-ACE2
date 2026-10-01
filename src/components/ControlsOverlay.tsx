@@ -80,7 +80,7 @@ export const ControlsOverlay: React.FC<ControlsOverlayProps> = ({
 
           {/* Quick links to Admin and Remote */}
           <a
-            href="/admin.html"
+            href={`${import.meta.env.BASE_URL}admin.html`}
             target="_blank"
             rel="noreferrer"
             className="px-2 py-1 hover:text-white hover:bg-neutral-800 rounded-lg transition-colors text-[11px] font-bold uppercase text-[#D4AF37]"
@@ -90,7 +90,7 @@ export const ControlsOverlay: React.FC<ControlsOverlayProps> = ({
           </a>
 
           <a
-            href="/remote.html"
+            href={`${import.meta.env.BASE_URL}remote.html`}
             target="_blank"
             rel="noreferrer"
             className="px-2 py-1 hover:text-white hover:bg-neutral-800 rounded-lg transition-colors text-[11px] font-bold uppercase text-neutral-400"
@@ -100,7 +100,7 @@ export const ControlsOverlay: React.FC<ControlsOverlayProps> = ({
           </a>
 
           <a
-            href="/preview.html"
+            href={`${import.meta.env.BASE_URL}preview.html`}
             target="_blank"
             rel="noreferrer"
             className="px-2 py-1 hover:text-white hover:bg-neutral-800 rounded-lg transition-colors text-[11px] font-bold uppercase text-amber-300"

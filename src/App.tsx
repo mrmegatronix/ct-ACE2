@@ -266,7 +266,7 @@ export function App() {
         onLogoClick={() => setCurrentSlide(0)}
       />
 
-      <main className="relative z-10 w-full flex-1 pt-[96px] pb-3 flex items-center justify-center overflow-hidden">
+      <main className="relative z-10 w-full flex-1 pt-[104px] pb-3 flex items-center justify-center overflow-hidden">
         <AnimatePresence mode="wait">
           {currentSlide === 0 && (
             <motion.div

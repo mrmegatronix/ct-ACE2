@@ -4,6 +4,7 @@ import { fetchSignageData } from "./services/dataService";
 import { getNextDrawTarget, setupDailyRefreshValve } from "./services/nzTime";
 import { AceParticlesCanvas } from "./components/AceParticlesCanvas";
 import { TopHeader } from "./components/TopHeader";
+import { SlideIntro } from "./components/SlideIntro";
 import { SlideGameDeck } from "./components/SlideGameDeck";
 import { SlideCountdown } from "./components/SlideCountdown";
 import { SlideHallOfWinners } from "./components/SlideHallOfWinners";
@@ -19,7 +20,7 @@ export function App() {
 
   const [data, setData] = useState<SignageData | null>(null);
   const [currentSlide, setCurrentSlide] = useState(isFixedParam ? parsedSlide : 0);
-  const totalSlides = 3;
+  const totalSlides = 4;
 
   const [slideDurationSec, setSlideDurationSec] = useState(20);
   const [isPaused, setIsPaused] = useState(isFixedParam);
@@ -252,23 +253,44 @@ export function App() {
     <div className="relative w-screen h-screen overflow-hidden bg-[#0A0A0A] text-white flex flex-col font-sans select-none">
       <AceParticlesCanvas />
 
-      <TopHeader
-        jackpot={data?.jackpot || 100}
-        targetJackpot={targetJackpot}
-        isGameplayPaused={isGameplayPaused}
-        resumeDateStr={resumeDateStr}
-        drawTarget={drawTarget}
-        activeSlideIndex={currentSlide}
-        totalSlides={totalSlides}
-        isPaused={isPaused}
-        isLocked={isLocked}
-        currentDurationSec={slideDurationSec}
-        onLogoClick={() => setCurrentSlide(0)}
-      />
+      {currentSlide !== 0 && (
+        <TopHeader
+          jackpot={data?.jackpot || 100}
+          targetJackpot={targetJackpot}
+          isGameplayPaused={isGameplayPaused}
+          resumeDateStr={resumeDateStr}
+          drawTarget={drawTarget}
+          activeSlideIndex={currentSlide}
+          totalSlides={totalSlides}
+          isPaused={isPaused}
+          isLocked={isLocked}
+          currentDurationSec={slideDurationSec}
+          onLogoClick={() => setCurrentSlide(0)}
+        />
+      )}
 
-      <main className="relative z-10 w-full flex-1 pt-[104px] pb-3 flex items-center justify-center overflow-hidden">
+      <main className={`relative z-10 w-full flex-1 ${currentSlide === 0 ? "pt-0 pb-0" : "pt-[104px] pb-3"} flex items-center justify-center overflow-hidden`}>
         <AnimatePresence mode="wait">
           {currentSlide === 0 && (
+            <motion.div
+              key="slide-intro"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 1.05 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+              className="w-full h-full flex items-center justify-center"
+            >
+              <SlideIntro
+                jackpot={data?.jackpot || 100}
+                targetJackpot={targetJackpot}
+                isGameplayPaused={isGameplayPaused}
+                resumeDateStr={resumeDateStr}
+                onStartClick={nextSlide}
+              />
+            </motion.div>
+          )}
+
+          {currentSlide === 1 && (
             <motion.div
               key="slide-deck"
               initial={{ opacity: 0, scale: 0.98 }}
@@ -301,7 +323,7 @@ export function App() {
             </motion.div>
           )}
 
-          {currentSlide === 1 && (
+          {currentSlide === 2 && (
             <motion.div
               key="slide-countdown"
               initial={{ opacity: 0, scale: 0.98 }}
@@ -319,7 +341,7 @@ export function App() {
             </motion.div>
           )}
 
-          {currentSlide === 2 && (
+          {currentSlide === 3 && (
             <motion.div
               key="slide-winners"
               initial={{ opacity: 0, scale: 0.98 }}

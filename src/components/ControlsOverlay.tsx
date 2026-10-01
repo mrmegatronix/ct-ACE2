@@ -28,8 +28,8 @@ export const ControlsOverlay: React.FC<ControlsOverlayProps> = ({
 
   return (
     <>
-      {/* Floating Bottom Subtle Control HUD */}
-      <div className="fixed bottom-3 right-6 z-50 flex items-center gap-3 select-none">
+      {/* Floating Bottom Control HUD (Hidden until mouse over) */}
+      <div className="fixed bottom-0 right-0 p-4 z-50 flex items-center gap-3 select-none opacity-0 hover:opacity-100 focus-within:opacity-100 transition-opacity duration-300">
         {/* Interaction Pause Indicator */}
         {isUserInteracting && (
           <div className="bg-amber-950/80 border border-amber-500/70 text-amber-200 text-[11px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-full flex items-center gap-1.5 shadow-lg backdrop-blur-md animate-pulse">

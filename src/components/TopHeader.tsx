@@ -4,29 +4,23 @@ import type { DrawTarget } from "../types";
 import { Badge } from "./ui/badge";
 
 interface TopHeaderProps {
-  jackpot: number;
-  targetJackpot: number;
+  jackpot?: number;
+  targetJackpot?: number;
   isGameplayPaused: boolean;
-  resumeDateStr: string;
-  drawTarget: DrawTarget;
-  activeSlideIndex: number;
-  totalSlides: number;
+  resumeDateStr?: string;
+  drawTarget?: DrawTarget;
+  activeSlideIndex?: number;
+  totalSlides?: number;
   isPaused: boolean;
   isLocked: boolean;
-  currentDurationSec: number;
+  currentDurationSec?: number;
   onLogoClick?: () => void;
 }
 
 export const TopHeader: React.FC<TopHeaderProps> = ({
-  jackpot,
-  targetJackpot,
   isGameplayPaused,
-  resumeDateStr,
-  activeSlideIndex,
-  totalSlides,
   isPaused,
   isLocked,
-  currentDurationSec,
   onLogoClick,
 }) => {
   const [clock, setClock] = useState(getNzClockParts());
@@ -37,8 +31,6 @@ export const TopHeader: React.FC<TopHeaderProps> = ({
     }, 1000);
     return () => clearInterval(timer);
   }, []);
-
-  const slideNames = ["GAME DECK", "COUNTDOWN", "HALL OF WINNERS"];
 
   return (
     <header className="fixed top-0 left-0 right-0 z-40 h-[104px] bg-[#0A0A0A]/95 backdrop-blur-md border-b border-[#D4AF37]/35 px-10 flex items-center justify-between select-none shadow-[0_4px_30px_rgba(0,0,0,0.8)]">

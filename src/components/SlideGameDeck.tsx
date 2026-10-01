@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import type { SignageData, GameCard, DrawTarget } from "../types";
 import { motion } from "framer-motion";
-import { Sparkles, Trophy, Flame, Layers, AlertTriangle } from "lucide-react";
+import { Sparkles, Trophy, Layers } from "lucide-react";
 
 interface SlideGameDeckProps {
   data: SignageData;
@@ -42,28 +42,23 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
       <div className="flex-1 h-full flex flex-col justify-between bg-[#111114]/85 border border-[#D4AF37]/35 rounded-3xl p-6 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative overflow-hidden">
         {/* Top Deck Subheader */}
         <div className="flex items-center justify-between border-b border-[#D4AF37]/20 pb-4 mb-3">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-[#D4AF37]/15 border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37]">
-              <Layers className="w-5 h-5" />
+          <div className="flex items-center gap-3.5">
+            <div className="w-12 h-12 rounded-xl bg-[#D4AF37]/15 border border-[#D4AF37]/40 flex items-center justify-center text-[#D4AF37]">
+              <Layers className="w-6 h-6" />
             </div>
             <div>
-              <h2 className="text-xl font-black tracking-widest text-white uppercase whitespace-nowrap">
+              <h2 className="text-2xl font-black font-playfair tracking-wider text-white uppercase whitespace-nowrap">
                 SEALED GAME DECK <span className="text-[#D4AF37]">♠ 52 CARDS</span>
               </h2>
-              <p className="text-xs text-neutral-400 font-semibold tracking-wider uppercase whitespace-nowrap">
-                {data.isGameplayPaused
-                  ? "GAME PLAY PAUSED • VENUE LOCKED CABINET SEALED UNTIL JACKPOT HITS $500 (13 OCT)"
-                  : "MANUAL DRAW FROM LOCKED VENUE CABINET • FIND THE ACE OF SPADES TO WIN"}
+              <p className="text-xs text-neutral-300 font-bold tracking-wider uppercase whitespace-nowrap">
+                PHYSICAL CARDS DRAWN MANUALLY FROM VENUE LOCKED CABINET
               </p>
             </div>
           </div>
 
-          <div className="flex items-center gap-4">
-            <span className="text-xs font-bold text-neutral-300 uppercase bg-black/60 px-3 py-1.5 rounded-lg border border-neutral-700 whitespace-nowrap">
-              Remaining: <strong className="text-[#D4AF37] font-black text-sm">{data.remainingCards}</strong> / 52
-            </span>
-            <span className="text-xs font-bold text-neutral-300 uppercase bg-black/60 px-3 py-1.5 rounded-lg border border-neutral-700 whitespace-nowrap">
-              Drawn: <strong className="text-[#F3E5AB] font-black text-sm">{data.flippedCards}</strong>
+          <div className="flex items-center gap-3">
+            <span className="text-base font-black text-[#D4AF37] uppercase bg-black/70 px-4 py-2 rounded-xl border border-[#D4AF37]/40 whitespace-nowrap font-bebas tracking-widest">
+              52 CARDS SEALED • 0 DRAWN
             </span>
           </div>
         </div>
@@ -89,7 +84,7 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
                 >
                   {/* Card Back Face */}
                   <div className="absolute inset-0 w-full h-full [backface-visibility:hidden] rounded-xl border-2 border-[#D4AF37]/70 bg-gradient-to-br from-[#1C1A14] via-[#0E0E10] to-[#252216] flex flex-col items-center justify-between p-1.5 shadow-[inset_0_0_12px_rgba(212,175,55,0.25)]">
-                    <div className="w-full flex justify-between items-center text-[10px] font-bold text-[#D4AF37]/80">
+                    <div className="w-full flex justify-between items-center text-xs font-black text-[#D4AF37]/90 font-bebas">
                       <span>#{card.cardNumber}</span>
                       <span>♠</span>
                     </div>
@@ -98,12 +93,12 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
                       <div className="w-10 h-10 rounded-full bg-gradient-to-b from-[#D4AF37]/20 to-transparent border border-[#D4AF37]/50 flex items-center justify-center shadow-[0_0_15px_rgba(212,175,55,0.3)]">
                         <span className="text-xl text-[#D4AF37] font-serif leading-none">♠</span>
                       </div>
-                      <span className="text-[11px] font-black text-[#F3E5AB] tracking-widest mt-1">
+                      <span className="text-lg font-black text-[#F3E5AB] tracking-wider mt-0.5 font-bebas">
                         #{card.cardNumber}
                       </span>
                     </div>
 
-                    <div className="w-full flex justify-between items-center text-[10px] font-bold text-[#D4AF37]/80 rotate-180">
+                    <div className="w-full flex justify-between items-center text-xs font-black text-[#D4AF37]/90 font-bebas rotate-180">
                       <span>#{card.cardNumber}</span>
                       <span>♠</span>
                     </div>
@@ -147,12 +142,12 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
         </div>
 
         {/* Bottom Tip Bar */}
-        <div className="mt-2 pt-3 border-t border-[#D4AF37]/20 flex items-center justify-between text-xs text-neutral-400 font-semibold uppercase tracking-wider">
+        <div className="mt-2 pt-3 border-t border-[#D4AF37]/20 flex items-center justify-between text-sm text-neutral-300 font-bold uppercase tracking-wider font-outfit">
           <span className="flex items-center gap-2">
             <Sparkles className="w-4 h-4 text-[#D4AF37]" />
-            Physical cards drawn manually from locked venue cabinet • Click/Touch to inspect
+            Physical cards drawn manually from locked venue cabinet • Touch/Click to inspect
           </span>
-          <span className="text-[#D4AF37] font-bold">
+          <span className="text-[#D4AF37] font-black">
             RESUMES AT $500: {drawTarget.weekday.toUpperCase()} {data.resumeDateStr} ({drawTarget.timeStr})
           </span>
         </div>
@@ -160,110 +155,94 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
 
       {/* Right Area: Jackpot Ticker & Real Rules */}
       <div className="w-[520px] h-full flex flex-col justify-between gap-5">
-        <div className="bg-gradient-to-b from-[#1C1A14] via-[#121215] to-[#0A0A0A] border-2 border-[#D4AF37] rounded-3xl p-8 shadow-[0_0_50px_rgba(212,175,55,0.25)] flex flex-col items-center justify-center text-center relative overflow-hidden">
+        {/* Grand Building Pot Card */}
+        <div className="bg-gradient-to-b from-[#1C1A14] via-[#121215] to-[#0A0A0A] border-2 border-[#D4AF37] rounded-3xl p-7 shadow-[0_0_50px_rgba(212,175,55,0.25)] flex flex-col items-center justify-center text-center relative overflow-hidden">
           <div className="absolute -top-24 -left-24 w-60 h-60 bg-[#D4AF37]/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 -right-24 w-60 h-60 bg-[#F59E0B]/15 rounded-full blur-3xl pointer-events-none" />
 
-          {data.isGameplayPaused ? (
-            <div className="flex items-center gap-2 text-xs font-black tracking-widest text-amber-300 uppercase bg-amber-950/80 border border-amber-500/60 px-4 py-1.5 rounded-full mb-2 shadow-[0_0_15px_rgba(245,158,11,0.2)] animate-pulse whitespace-nowrap">
-              <AlertTriangle className="w-4 h-4 text-amber-400" />
-              NO DRAW UNTIL JACKPOT HITS $500
-            </div>
-          ) : (
-            <div className="flex items-center gap-2 text-xs font-black tracking-widest text-[#D4AF37] uppercase bg-[#D4AF37]/10 border border-[#D4AF37]/30 px-4 py-1.5 rounded-full mb-3 shadow-[0_0_15px_rgba(212,175,55,0.15)] whitespace-nowrap">
-              <Flame className="w-4 h-4 text-[#F59E0B] animate-pulse" />
-              OFFICIAL PRIZE POOL
-            </div>
-          )}
-
-          <span className="text-xs uppercase font-extrabold tracking-widest text-neutral-300 mt-1 whitespace-nowrap font-outfit">
-            BUILDING POT (TOMORROW: $100)
+          <span className="text-sm uppercase font-black tracking-widest text-amber-300 font-outfit">
+            CURRENT BUILDING JACKPOT
           </span>
 
-          <div className="text-8xl font-black tracking-normal text-transparent bg-clip-text bg-gradient-to-r from-[#FFF] via-[#FCE49E] to-[#D4AF37] drop-shadow-[0_0_30px_rgba(212,175,55,0.6)] my-2 font-bebas whitespace-nowrap">
+          <div className="text-8xl font-black tracking-normal text-transparent bg-clip-text bg-gradient-to-r from-white via-[#FCE49E] to-[#D4AF37] drop-shadow-[0_0_30px_rgba(212,175,55,0.7)] my-1 font-bebas whitespace-nowrap">
             ${data.jackpot.toLocaleString("en-NZ", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </div>
 
-          <p className="text-sm font-bold text-amber-300 uppercase tracking-wider whitespace-nowrap font-outfit">
+          <p className="text-base font-bold text-[#F3E5AB] uppercase tracking-wider whitespace-nowrap font-outfit">
             +$100 ADDED PER DRAW DATE • TARGET: ${data.targetJackpot}.00
           </p>
 
           {/* Building Progress Bar to $500 */}
-          <div className="w-full mt-4 mb-2">
-            <div className="flex justify-between text-[11px] font-bold text-neutral-400 uppercase mb-1">
-              <span>Building to $500</span>
-              <span className="text-[#D4AF37] font-mono">{progressPercent}% (${data.jackpot} / ${data.targetJackpot})</span>
+          <div className="w-full mt-4 mb-3">
+            <div className="flex justify-between text-xs font-black text-neutral-300 uppercase mb-1.5 font-outfit">
+              <span>{progressPercent}% ACCUMULATED</span>
+              <span className="text-[#D4AF37]">RESUMES AT $500 (13 OCT)</span>
             </div>
-            <div className="w-full h-3 bg-black/60 rounded-full border border-neutral-800 overflow-hidden p-0.5">
+            <div className="w-full h-3.5 bg-black/70 rounded-full border border-neutral-700 overflow-hidden p-0.5">
               <div
-                className="h-full bg-gradient-to-r from-[#D4AF37] to-[#F59E0B] rounded-full transition-all duration-500 shadow-[0_0_10px_rgba(212,175,55,0.8)]"
+                className="h-full bg-gradient-to-r from-[#D4AF37] to-[#F59E0B] rounded-full transition-all duration-500 shadow-[0_0_12px_rgba(212,175,55,0.9)]"
                 style={{ width: `${progressPercent}%` }}
               />
             </div>
           </div>
 
-          <div className="w-full h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent my-3" />
+          <div className="w-full h-px bg-gradient-to-r from-transparent via-[#D4AF37]/40 to-transparent my-2" />
 
-          <div className="w-full grid grid-cols-2 gap-3">
-            <div className="bg-black/50 border border-neutral-800 rounded-xl p-3 flex flex-col items-center">
-              <span className="text-[10px] uppercase font-bold text-neutral-400">WINNING CHANCE</span>
-              <span className="text-2xl font-black text-amber-400 mt-0.5 whitespace-nowrap">
+          <div className="w-full grid grid-cols-2 gap-3 mt-1">
+            <div className="bg-black/60 border border-neutral-800 rounded-2xl p-3 flex flex-col items-center">
+              <span className="text-xs uppercase font-extrabold text-neutral-400 font-outfit">ODDS OF WINNING</span>
+              <span className="text-3xl font-black text-amber-400 mt-0.5 whitespace-nowrap font-bebas">
                 {data.isGameplayPaused ? "0.00%" : data.winningChance}
               </span>
-              <span className="text-[10px] text-neutral-400 uppercase">
+              <span className="text-xs text-neutral-400 uppercase font-semibold">
                 {data.isGameplayPaused ? "PAUSED" : `1 in ${data.remainingCards}`}
               </span>
             </div>
 
-            <div className="bg-black/50 border border-neutral-800 rounded-xl p-3 flex flex-col items-center">
-              <span className="text-[10px] uppercase font-bold text-neutral-400">CARDS REMAINING</span>
-              <span className="text-2xl font-black text-white mt-0.5 whitespace-nowrap">
-                {data.remainingCards} <small className="text-xs text-neutral-400">/ 52</small>
+            <div className="bg-black/60 border border-neutral-800 rounded-2xl p-3 flex flex-col items-center">
+              <span className="text-xs uppercase font-extrabold text-neutral-400 font-outfit">CARDS IN PLAY</span>
+              <span className="text-3xl font-black text-white mt-0.5 whitespace-nowrap font-bebas">
+                {data.remainingCards} <small className="text-sm text-neutral-400 font-sans">/ 52</small>
               </span>
-              <span className="text-[10px] text-neutral-400 uppercase">0 Flipped</span>
+              <span className="text-xs text-neutral-400 uppercase font-semibold">SEALED DECK</span>
             </div>
           </div>
         </div>
 
-        <div className="flex-1 bg-[#121215]/90 border border-neutral-800 rounded-3xl p-6 flex flex-col justify-between shadow-xl">
-          <div className="flex items-center gap-3 border-b border-neutral-800 pb-3">
-            <Trophy className="w-5 h-5 text-[#D4AF37]" />
-            <h3 className="text-base font-black tracking-wider uppercase text-white whitespace-nowrap">
+        {/* Clean Official Rules Card */}
+        <div className="flex-1 bg-[#121215]/95 border-2 border-[#D4AF37]/40 rounded-3xl p-6 flex flex-col justify-between shadow-2xl">
+          <div className="flex items-center gap-3 border-b border-[#D4AF37]/25 pb-3">
+            <Trophy className="w-6 h-6 text-[#D4AF37]" />
+            <h3 className="text-lg font-black font-playfair tracking-wider uppercase text-white whitespace-nowrap">
               CHASE THE ACE RULES
             </h3>
           </div>
 
-          <div className="space-y-2.5 my-auto text-xs text-neutral-300 font-medium">
-            <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/50 text-[#D4AF37] font-bold flex items-center justify-center shrink-0 text-[10px]">
+          <div className="space-y-3 my-auto text-sm text-neutral-200 font-medium">
+            <div className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-[#D4AF37]/25 border border-[#D4AF37] text-[#D4AF37] font-black flex items-center justify-center shrink-0 text-xs">
                 1
               </span>
               <p className="leading-snug">
                 Jackpot builds by +$100 each Tuesday & Saturday until reaching the <strong className="text-white">$500 minimum starting pool</strong>.
               </p>
             </div>
-            <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/50 text-[#D4AF37] font-bold flex items-center justify-center shrink-0 text-[10px]">
+            <div className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-[#D4AF37]/25 border border-[#D4AF37] text-[#D4AF37] font-black flex items-center justify-center shrink-0 text-xs">
                 2
               </span>
               <p className="leading-snug">
                 <strong className="text-amber-300">No card draws occur</strong> until the pot reaches $500 on <strong className="text-[#D4AF37]">Tuesday, 13 October 2026</strong>.
               </p>
             </div>
-            <div className="flex items-start gap-2.5">
-              <span className="w-5 h-5 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/50 text-[#D4AF37] font-bold flex items-center justify-center shrink-0 text-[10px]">
+            <div className="flex items-start gap-3">
+              <span className="w-6 h-6 rounded-full bg-[#D4AF37]/25 border border-[#D4AF37] text-[#D4AF37] font-black flex items-center justify-center shrink-0 text-xs">
                 3
               </span>
               <p className="leading-snug">
                 When resumed, ticket holder draws a card manually from the <strong className="text-white">locked venue cabinet</strong>. Finding the <strong className="text-[#D4AF37]">Ace of Spades (♠)</strong> wins the jackpot!
               </p>
             </div>
-          </div>
-
-          <div className="bg-[#1C1A14] border border-[#D4AF37]/30 rounded-xl p-3 text-center">
-            <span className="text-[11px] font-black text-[#F3E5AB] uppercase tracking-wider">
-              {data.comment}
-            </span>
           </div>
         </div>
       </div>

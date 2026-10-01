@@ -16,7 +16,7 @@ const REAL_CONFIRMED_CHAMPIONS: WinnerRecord[] = [
     ticketNumber: "TK-84920",
     cardDrawn: "Ace of Spades ♠",
     jackpotAmount: "$2,700",
-    comment: "Found the Ace of Spades to win the $2,700 Jackpot!",
+    comment: "Found Ace of Spades & won $2,700 Jackpot",
     isRecentChampion: true,
   },
   {
@@ -27,7 +27,7 @@ const REAL_CONFIRMED_CHAMPIONS: WinnerRecord[] = [
     ticketNumber: "SERIES #2",
     cardDrawn: "Sealed Deck (52 Cards)",
     jackpotAmount: "$500+ START",
-    comment: "Game play resumes when pot reaches $500 on 13 October",
+    comment: "Resumes at $500 pot on 13 October",
     isPlaceholder: true,
   },
   {
@@ -38,7 +38,7 @@ const REAL_CONFIRMED_CHAMPIONS: WinnerRecord[] = [
     ticketNumber: "COASTERS TAVERN",
     cardDrawn: "Ace of Spades ♠",
     jackpotAmount: "$5,000 MAX",
-    comment: "Pot builds +$100 each draw up to $5,000 max cap",
+    comment: "Builds +$100 each draw up to $5,000 cap",
     isPlaceholder: true,
   }
 ];

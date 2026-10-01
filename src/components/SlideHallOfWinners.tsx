@@ -80,16 +80,16 @@ export const SlideHallOfWinners: React.FC<SlideHallOfWinnersProps> = ({ winners 
                       )}
                     </div>
 
-                    <div className="flex items-center gap-4 text-base font-semibold text-neutral-300 uppercase tracking-wider mt-2 whitespace-nowrap overflow-hidden font-outfit">
-                      <span className="shrink-0">DRAW DATE: <strong className="text-white font-bold">{winner.drawDate} ({winner.drawDay})</strong></span>
+                    <div className="flex items-center gap-3 text-base font-semibold text-neutral-300 uppercase tracking-wider mt-2 whitespace-nowrap font-outfit">
+                      <span>DRAW: <strong className="text-white font-bold">{winner.drawDate} ({winner.drawDay})</strong></span>
                       {winner.event > 0 && (
                         <>
-                          <span className="text-neutral-500 shrink-0">•</span>
-                          <span className="shrink-0">EVENT #{winner.event}</span>
+                          <span className="text-neutral-500">•</span>
+                          <span>EVENT #{winner.event}</span>
                         </>
                       )}
-                      <span className="text-neutral-500 shrink-0">•</span>
-                      <span className="truncate">{winner.comment || `TICKET: ${winner.ticketNumber}`}</span>
+                      <span className="text-neutral-500">•</span>
+                      <span className="text-[#F3E5AB] font-bold">{winner.comment || `TICKET: ${winner.ticketNumber}`}</span>
                     </div>
                   </div>
                 </div>

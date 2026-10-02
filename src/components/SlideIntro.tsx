@@ -124,7 +124,7 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
               ease: "easeInOut",
             }}
           >
-          <div className="relative w-44 h-64 rounded-2xl p-1 bg-gradient-to-b from-[#FFE082] via-[#D4AF37] to-[#78540B] shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_40px_rgba(212,175,55,0.5)] transform-gpu">
+          <div className="relative w-44 h-64 rounded-2xl p-1 bg-gradient-to-b from-[#FFE082] via-[#D4AF37] to-[#78540B] shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_40px_rgba(212,175,55,0.5)] transform-gpu metallic-sheen-sweep">
             {/* Inner Card Face */}
             <div className="w-full h-full rounded-xl bg-gradient-to-br from-[#1A1813] via-[#0E0E10] to-[#1F1B12] border border-[#D4AF37]/80 flex flex-col items-center justify-between p-3 relative overflow-hidden">
               {/* Foil Sweep Shimmer */}
@@ -176,7 +176,7 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
           </div>
 
           {/* Colossal Main Word: ACE */}
-          <h1 className="text-8xl lg:text-[140px] xl:text-[160px] font-black font-outfit tracking-[0.1em] uppercase leading-none text-transparent bg-clip-text bg-gradient-to-b from-white via-[#FCE49E] to-[#C99726] drop-shadow-[0_10px_40px_rgba(212,175,55,0.7)] whitespace-nowrap flex items-center gap-4 my-1">
+          <h1 className="text-8xl lg:text-[140px] xl:text-[160px] font-black font-outfit tracking-[0.1em] uppercase leading-none text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF] via-[#FCE49E] to-[#C99726] drop-shadow-[0_10px_40px_rgba(212,175,55,0.7)] whitespace-nowrap flex items-center gap-4 my-1 animate-metallic-text">
             <span>ACE</span>
             <span className="text-[#D4AF37] drop-shadow-[0_0_35px_rgba(212,175,55,0.9)] animate-pulse">
               ♠
@@ -196,7 +196,7 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
         className="relative z-10 w-full max-w-[1500px] grid grid-cols-3 gap-6 will-change-[transform,opacity]"
       >
         {/* Tile 1: Jackpot Pool */}
-        <div className="bg-gradient-to-r from-[#171510]/90 to-[#0F0E0B]/90 border-2 border-[#D4AF37]/50 rounded-2xl p-4 flex items-center gap-5 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-md">
+        <div className="bg-gradient-to-r from-[#171510]/90 to-[#0F0E0B]/90 border-2 border-[#D4AF37]/50 rounded-2xl p-4 flex items-center gap-5 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-md metallic-sheen-sweep">
           <div className="w-14 h-14 rounded-xl bg-[#D4AF37]/20 border border-[#D4AF37] flex items-center justify-center text-[#D4AF37] shrink-0">
             <Flame className="w-8 h-8 text-amber-400 animate-pulse" />
           </div>

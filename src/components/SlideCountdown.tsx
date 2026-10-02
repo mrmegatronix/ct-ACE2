@@ -97,7 +97,7 @@ export const SlideCountdown: React.FC<SlideCountdownProps> = ({
       <div className="absolute w-[600px] h-[600px] rounded-full border border-[#D4AF37]/20 pointer-events-none" />
 
       {/* Main Glassmorphic Container */}
-      <div className="w-full max-w-[1500px] bg-gradient-to-b from-[#141418]/90 via-[#0D0D10]/95 to-[#08080A]/95 border-2 border-[#D4AF37] rounded-[36px] p-12 flex flex-col items-center text-center shadow-[0_0_80px_rgba(212,175,55,0.22)] relative overflow-hidden">
+      <div className="w-full max-w-[1500px] bg-gradient-to-b from-[#141418]/90 via-[#0D0D10]/95 to-[#08080A]/95 border-2 border-[#D4AF37] rounded-[36px] p-12 flex flex-col items-center text-center shadow-[0_0_80px_rgba(212,175,55,0.22)] relative overflow-hidden metallic-sheen-sweep">
         {/* Top Metallic Gold Glow Accent Bar */}
         <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent shadow-[0_0_20px_#D4AF37]" />
 

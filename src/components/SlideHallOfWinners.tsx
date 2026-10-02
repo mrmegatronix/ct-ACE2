@@ -107,7 +107,7 @@ export const SlideHallOfWinners: React.FC<SlideHallOfWinnersProps> = ({ winners 
                 variants={rowVariants}
                 className={`w-full flex items-center justify-between px-10 py-6 rounded-3xl border-2 transition-all shadow-[0_12px_40px_rgba(0,0,0,0.8)] will-change-[transform,opacity] ${
                   isChampion
-                    ? "bg-gradient-to-r from-[#201C12]/95 via-[#151418]/95 to-[#0E0E12]/95 border-[#D4AF37] shadow-[0_0_40px_rgba(212,175,55,0.25)]"
+                    ? "bg-gradient-to-r from-[#201C12]/95 via-[#151418]/95 to-[#0E0E12]/95 border-[#D4AF37] shadow-[0_0_40px_rgba(212,175,55,0.25)] metallic-sheen-sweep relative overflow-hidden"
                     : isPlaceholder
                     ? "bg-[#0E0E12]/70 border-neutral-800 border-dashed"
                     : "bg-[#121216]/90 border-[#D4AF37]/30 hover:border-[#D4AF37]/60"
@@ -175,7 +175,7 @@ export const SlideHallOfWinners: React.FC<SlideHallOfWinnersProps> = ({ winners 
                     <span
                       className={`text-7xl font-black font-bebas tracking-wide whitespace-nowrap leading-none mt-1 ${
                         isChampion
-                          ? "text-white drop-shadow-[0_0_20px_rgba(212,175,55,0.6)]"
+                          ? "text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF] via-[#FCE49E] to-[#D4AF37] drop-shadow-[0_0_20px_rgba(212,175,55,0.6)] animate-metallic-text"
                           : "text-neutral-400"
                       }`}
                     >

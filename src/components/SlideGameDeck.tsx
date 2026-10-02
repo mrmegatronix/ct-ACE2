@@ -219,7 +219,7 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
         className="w-[520px] h-full flex flex-col justify-between gap-5 will-change-[transform,opacity]"
       >
         {/* Grand Building Pot Card */}
-        <div className="bg-gradient-to-b from-[#1C1A14] via-[#121215] to-[#0A0A0A] border-2 border-[#D4AF37] rounded-3xl p-7 shadow-[0_0_50px_rgba(212,175,55,0.25)] flex flex-col items-center justify-center text-center relative overflow-hidden">
+        <div className="bg-gradient-to-b from-[#1C1A14] via-[#121215] to-[#0A0A0A] border-2 border-[#D4AF37] rounded-3xl p-7 shadow-[0_0_50px_rgba(212,175,55,0.25)] flex flex-col items-center justify-center text-center relative overflow-hidden metallic-sheen-sweep">
           <div className="absolute -top-24 -left-24 w-60 h-60 bg-[#D4AF37]/15 rounded-full blur-3xl pointer-events-none" />
           <div className="absolute -bottom-24 -right-24 w-60 h-60 bg-[#F59E0B]/15 rounded-full blur-3xl pointer-events-none" />
 
@@ -227,7 +227,7 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
             CURRENT BUILDING JACKPOT
           </span>
 
-          <div className="text-8xl font-black tracking-normal text-transparent bg-clip-text bg-gradient-to-r from-white via-[#FCE49E] to-[#D4AF37] drop-shadow-[0_0_30px_rgba(212,175,55,0.7)] my-1 font-bebas whitespace-nowrap">
+          <div className="text-8xl font-black tracking-normal text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF] via-[#FCE49E] to-[#D4AF37] drop-shadow-[0_0_30px_rgba(212,175,55,0.7)] my-1 font-bebas whitespace-nowrap animate-metallic-text">
             ${data.jackpot.toLocaleString("en-NZ", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
           </div>
 

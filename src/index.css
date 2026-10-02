@@ -135,3 +135,60 @@
     @apply font-mono;
     }
 }
+
+/* Metallic Sheen Sweep Animations */
+@keyframes metallic-sheen-sweep {
+  0% {
+    transform: translateX(-160%) skewX(-25deg);
+  }
+  45%, 100% {
+    transform: translateX(260%) skewX(-25deg);
+  }
+}
+
+@keyframes text-metallic-sheen {
+  0% {
+    background-position: 200% 0;
+  }
+  50%, 100% {
+    background-position: -200% 0;
+  }
+}
+
+.metallic-sheen-sweep {
+  position: relative;
+  overflow: hidden;
+}
+
+.metallic-sheen-sweep::after {
+  content: "";
+  position: absolute;
+  top: -60%;
+  bottom: -60%;
+  left: 0;
+  width: 70%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.04) 20%,
+    rgba(255, 255, 255, 0.45) 50%,
+    rgba(255, 255, 255, 0.04) 80%,
+    transparent 100%
+  );
+  transform: translateX(-160%) skewX(-25deg);
+  animation: metallic-sheen-sweep 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+  pointer-events: none;
+  z-index: 20;
+}
+
+.animate-metallic-text {
+  background-size: 250% 100% !important;
+  animation: text-metallic-sheen 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .metallic-sheen-sweep::after,
+  .animate-metallic-text {
+    animation: none !important;
+  }
+}

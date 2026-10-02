@@ -1,5 +1,5 @@
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Crown, Sparkles, Shield, Flame } from "lucide-react";
 
 interface SlideIntroProps {
@@ -16,10 +16,70 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
   isGameplayPaused,
   onStartClick,
 }) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.08,
+        delayChildren: shouldReduceMotion ? 0 : 0.05,
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: shouldReduceMotion ? 1 : 0.98,
+      transition: { duration: 0.2, ease: [0.7, 0, 0.84, 0] as const },
+    },
+  };
+
+  const topBadgeVariants: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : -20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
+  const heroCardEntranceVariants: Variants = {
+    hidden: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.92, y: shouldReduceMotion ? 0 : 15 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
+  const titleVariants: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 18, scale: shouldReduceMotion ? 1 : 0.96 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
+  const bottomTilesVariants: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 25 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
   return (
-    <div
+    <motion.div
       onClick={onStartClick}
-      className="relative w-full h-full flex flex-col items-center justify-between px-12 py-10 max-w-[1920px] mx-auto select-none overflow-hidden cursor-pointer"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="relative w-full h-full flex flex-col items-center justify-between px-12 py-10 max-w-[1920px] mx-auto select-none overflow-hidden cursor-pointer will-change-[transform,opacity]"
     >
       {/* Dynamic Background Rays & Radial Energy Glow */}
       <div className="absolute inset-0 pointer-events-none flex items-center justify-center">
@@ -31,10 +91,8 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
 
       {/* Top Banner: Venue Credential */}
       <motion.div
-        initial={{ opacity: 0, y: -25 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeOut" }}
-        className="relative z-10 flex items-center gap-4 bg-gradient-to-r from-black/80 via-[#181611]/90 to-black/80 border-2 border-[#D4AF37]/60 px-8 py-3 rounded-full shadow-[0_0_30px_rgba(212,175,55,0.3)] backdrop-blur-md"
+        variants={topBadgeVariants}
+        className="relative z-10 flex items-center gap-4 bg-gradient-to-r from-black/80 via-[#181611]/90 to-black/80 border-2 border-[#D4AF37]/60 px-8 py-3 rounded-full shadow-[0_0_30px_rgba(212,175,55,0.3)] backdrop-blur-md will-change-[transform,opacity]"
       >
         <Crown className="w-6 h-6 text-[#D4AF37] animate-pulse" />
         <span className="text-sm font-black font-outfit tracking-[0.3em] uppercase text-[#F3E5AB] whitespace-nowrap">
@@ -45,20 +103,27 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
 
       {/* Center Cinematic Stage: 3D Floating Hero Card & Giant Title */}
       <div className="relative z-10 flex flex-col items-center justify-center my-auto text-center max-w-[1500px]">
-        {/* Floating 3D Ace of Spades Card */}
+        {/* Floating 3D Ace of Spades Card with Entrance Animation */}
         <motion.div
-          animate={{
-            y: [-12, 12, -12],
-            rotateY: [-10, 10, -10],
-            rotateX: [6, -6, 6],
-          }}
-          transition={{
-            duration: 6,
-            repeat: Infinity,
-            ease: "easeInOut",
-          }}
-          className="relative [perspective:1200px] mb-6"
+          variants={heroCardEntranceVariants}
+          className="relative [perspective:1200px] mb-6 will-change-[transform,opacity]"
         >
+          <motion.div
+            animate={
+              shouldReduceMotion
+                ? {}
+                : {
+                    y: [-12, 12, -12],
+                    rotateY: [-10, 10, -10],
+                    rotateX: [6, -6, 6],
+                  }
+            }
+            transition={{
+              duration: 6,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+          >
           <div className="relative w-44 h-64 rounded-2xl p-1 bg-gradient-to-b from-[#FFE082] via-[#D4AF37] to-[#78540B] shadow-[0_20px_50px_rgba(0,0,0,0.9),0_0_40px_rgba(212,175,55,0.5)] transform-gpu">
             {/* Inner Card Face */}
             <div className="w-full h-full rounded-xl bg-gradient-to-br from-[#1A1813] via-[#0E0E10] to-[#1F1B12] border border-[#D4AF37]/80 flex flex-col items-center justify-between p-3 relative overflow-hidden">
@@ -94,13 +159,12 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
             </div>
           </div>
         </motion.div>
+      </motion.div>
 
         {/* Giant "WOW" Factor Title */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="flex flex-col items-center"
+          variants={titleVariants}
+          className="flex flex-col items-center will-change-[transform,opacity]"
         >
           {/* Subheader Lead */}
           <div className="flex items-center gap-4 mb-2">
@@ -128,10 +192,8 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
 
       {/* Bottom Live Jackpot & Status Showcase */}
       <motion.div
-        initial={{ opacity: 0, y: 25 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 0.3 }}
-        className="relative z-10 w-full max-w-[1500px] grid grid-cols-3 gap-6"
+        variants={bottomTilesVariants}
+        className="relative z-10 w-full max-w-[1500px] grid grid-cols-3 gap-6 will-change-[transform,opacity]"
       >
         {/* Tile 1: Jackpot Pool */}
         <div className="bg-gradient-to-r from-[#171510]/90 to-[#0F0E0B]/90 border-2 border-[#D4AF37]/50 rounded-2xl p-4 flex items-center gap-5 shadow-[0_10px_30px_rgba(0,0,0,0.8)] backdrop-blur-md">
@@ -184,6 +246,6 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
           </div>
         </div>
       </motion.div>
-    </div>
+    </motion.div>
   );
 };

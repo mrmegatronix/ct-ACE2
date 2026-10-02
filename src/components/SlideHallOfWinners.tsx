@@ -1,5 +1,6 @@
 import React from "react";
 import type { WinnerRecord } from "../types";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Award, Crown, Sparkles, Star, ShieldCheck } from "lucide-react";
 
 interface SlideHallOfWinnersProps {
@@ -7,10 +8,69 @@ interface SlideHallOfWinnersProps {
 }
 
 export const SlideHallOfWinners: React.FC<SlideHallOfWinnersProps> = ({ winners }) => {
+  const shouldReduceMotion = useReducedMotion();
+
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.09,
+        delayChildren: shouldReduceMotion ? 0 : 0.04,
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: shouldReduceMotion ? 1 : 0.98,
+      transition: { duration: 0.2, ease: [0.7, 0, 0.84, 0] as const },
+    },
+  };
+
+  const headerVariants: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : -16 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
+  const rowVariants: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 18, scale: shouldReduceMotion ? 1 : 0.98 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      scale: 1,
+      transition: {
+        duration: 0.4,
+        delay: shouldReduceMotion ? 0 : i * 0.08,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    }),
+  };
+
+  const footerVariants: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 16 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
   return (
-    <div className="w-full h-full flex flex-col items-center justify-between px-12 py-6 max-w-[1920px] mx-auto select-none relative overflow-hidden">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="w-full h-full flex flex-col items-center justify-between px-12 py-6 max-w-[1920px] mx-auto select-none relative overflow-hidden will-change-[transform,opacity]"
+    >
       {/* Header Container */}
-      <div className="w-full max-w-[1550px] flex items-center justify-between border-b-2 border-[#D4AF37]/35 pb-5">
+      <motion.div
+        variants={headerVariants}
+        className="w-full max-w-[1550px] flex items-center justify-between border-b-2 border-[#D4AF37]/35 pb-5 will-change-[transform,opacity]"
+      >
         <div className="flex items-center gap-6">
           <div className="w-18 h-18 rounded-2xl bg-gradient-to-br from-[#D4AF37]/30 to-[#F59E0B]/10 border-2 border-[#D4AF37] flex items-center justify-center text-[#D4AF37] shadow-[0_0_35px_rgba(212,175,55,0.35)] shrink-0">
             <Crown className="w-10 h-10" />
@@ -31,7 +91,7 @@ export const SlideHallOfWinners: React.FC<SlideHallOfWinnersProps> = ({ winners 
             OFFICIAL RECORD ARCHIVE
           </span>
         </div>
-      </div>
+      </motion.div>
 
       {/* Main Winners Cards Showcase */}
       <div className="w-full max-w-[1550px] flex-1 flex flex-col justify-center gap-5 my-auto py-2">
@@ -41,9 +101,11 @@ export const SlideHallOfWinners: React.FC<SlideHallOfWinnersProps> = ({ winners 
             const isPlaceholder = winner.isPlaceholder;
 
             return (
-              <div
+              <motion.div
                 key={`${winner.drawDate}-${idx}`}
-                className={`w-full flex items-center justify-between px-10 py-6 rounded-3xl border-2 transition-all shadow-[0_12px_40px_rgba(0,0,0,0.8)] ${
+                custom={idx}
+                variants={rowVariants}
+                className={`w-full flex items-center justify-between px-10 py-6 rounded-3xl border-2 transition-all shadow-[0_12px_40px_rgba(0,0,0,0.8)] will-change-[transform,opacity] ${
                   isChampion
                     ? "bg-gradient-to-r from-[#201C12]/95 via-[#151418]/95 to-[#0E0E12]/95 border-[#D4AF37] shadow-[0_0_40px_rgba(212,175,55,0.25)]"
                     : isPlaceholder
@@ -121,14 +183,17 @@ export const SlideHallOfWinners: React.FC<SlideHallOfWinnersProps> = ({ winners 
                     </span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
       </div>
 
       {/* Footer Encouragement Banner */}
-      <div className="w-full max-w-[1550px] bg-[#141310] border border-[#D4AF37]/35 rounded-2xl px-8 py-4 flex items-center justify-between text-base font-bold text-neutral-200 uppercase tracking-wider font-outfit">
+      <motion.div
+        variants={footerVariants}
+        className="w-full max-w-[1550px] bg-[#141310] border border-[#D4AF37]/35 rounded-2xl px-8 py-4 flex items-center justify-between text-base font-bold text-neutral-200 uppercase tracking-wider font-outfit will-change-[transform,opacity]"
+      >
         <div className="flex items-center gap-3">
           <Sparkles className="w-5 h-5 text-[#D4AF37]" />
           <span>Game play resumes when the building pot reaches $500 on Tuesday 13 October 2026!</span>
@@ -137,7 +202,7 @@ export const SlideHallOfWinners: React.FC<SlideHallOfWinnersProps> = ({ winners 
           <ShieldCheck className="w-5 h-5 text-amber-400" />
           <span>BUILDING BY +$100 EACH DRAW DATE</span>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };

@@ -9,7 +9,7 @@ import { SlideGameDeck } from "./components/SlideGameDeck";
 import { SlideCountdown } from "./components/SlideCountdown";
 import { SlideHallOfWinners } from "./components/SlideHallOfWinners";
 import { ControlsOverlay } from "./components/ControlsOverlay";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion, type Variants } from "framer-motion";
 
 export function App() {
   const urlParams = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : null;
@@ -20,7 +20,9 @@ export function App() {
 
   const [data, setData] = useState<SignageData | null>(null);
   const [currentSlide, setCurrentSlide] = useState(isFixedParam ? parsedSlide : 0);
+  const [direction, setDirection] = useState(1);
   const totalSlides = 4;
+  const shouldReduceMotion = useReducedMotion();
 
   const [slideDurationSec, setSlideDurationSec] = useState(20);
   const [isPaused, setIsPaused] = useState(isFixedParam);
@@ -53,14 +55,17 @@ export function App() {
   }, []);
 
   const nextSlide = useCallback(() => {
+    setDirection(1);
     setCurrentSlide((prev) => (prev + 1) % totalSlides);
   }, [totalSlides]);
 
   const prevSlide = useCallback(() => {
+    setDirection(-1);
     setCurrentSlide((prev) => (prev - 1 + totalSlides) % totalSlides);
   }, [totalSlides]);
 
   const restartModule = useCallback(() => {
+    setDirection(-1);
     setCurrentSlide(0);
   }, []);
 
@@ -219,7 +224,11 @@ export function App() {
             prevSlide();
             break;
           case "slide":
-            if (typeof value === "number") setCurrentSlide(value % totalSlides);
+            if (typeof value === "number") {
+              const target = value % totalSlides;
+              setDirection(target >= currentSlide ? 1 : -1);
+              setCurrentSlide(target);
+            }
             break;
           case "togglePause":
             togglePause();
@@ -242,12 +251,38 @@ export function App() {
     return () => {
       if (bc) bc.close();
     };
-  }, [nextSlide, prevSlide, togglePause, toggleLock, totalSlides]);
+  }, [nextSlide, prevSlide, togglePause, toggleLock, totalSlides, currentSlide]);
 
   const isGameplayPaused = data?.isGameplayPaused ?? true;
   const targetJackpot = data?.targetJackpot ?? 500;
   const resumeDateStr = data?.resumeDateStr ?? "13/10/2026";
   const drawTarget = getNextDrawTarget(new Date(), isGameplayPaused);
+
+  const slideVariants: Variants = {
+    initial: (dir: number) => ({
+      opacity: 0,
+      x: shouldReduceMotion ? 0 : dir > 0 ? 30 : -30,
+      scale: shouldReduceMotion ? 1 : 0.98,
+    }),
+    animate: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: {
+        duration: shouldReduceMotion ? 0.01 : 0.35,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    },
+    exit: (dir: number) => ({
+      opacity: 0,
+      x: shouldReduceMotion ? 0 : dir > 0 ? -25 : 25,
+      scale: shouldReduceMotion ? 1 : 0.98,
+      transition: {
+        duration: shouldReduceMotion ? 0.01 : 0.22,
+        ease: [0.7, 0, 0.84, 0] as const,
+      },
+    }),
+  };
 
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-[#0A0A0A] text-white flex flex-col font-sans select-none">
@@ -265,20 +300,24 @@ export function App() {
           isPaused={isPaused}
           isLocked={isLocked}
           currentDurationSec={slideDurationSec}
-          onLogoClick={() => setCurrentSlide(0)}
+          onLogoClick={() => {
+            setDirection(-1);
+            setCurrentSlide(0);
+          }}
         />
       )}
 
       <main className={`relative z-10 w-full flex-1 ${currentSlide === 0 ? "pt-0 pb-0" : "pt-[104px] pb-3"} flex items-center justify-center overflow-hidden`}>
-        <AnimatePresence mode="wait">
+        <AnimatePresence mode="wait" custom={direction}>
           {currentSlide === 0 && (
             <motion.div
               key="slide-intro"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.05 }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
-              className="w-full h-full flex items-center justify-center"
+              custom={direction}
+              variants={slideVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="w-full h-full flex items-center justify-center will-change-[transform,opacity]"
             >
               <SlideIntro
                 jackpot={data?.jackpot || 100}
@@ -293,11 +332,12 @@ export function App() {
           {currentSlide === 1 && (
             <motion.div
               key="slide-deck"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.02 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="w-full h-full flex items-center justify-center"
+              custom={direction}
+              variants={slideVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="w-full h-full flex items-center justify-center will-change-[transform,opacity]"
             >
               <SlideGameDeck
                 data={
@@ -326,11 +366,12 @@ export function App() {
           {currentSlide === 2 && (
             <motion.div
               key="slide-countdown"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.02 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="w-full h-full flex items-center justify-center"
+              custom={direction}
+              variants={slideVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="w-full h-full flex items-center justify-center will-change-[transform,opacity]"
             >
               <SlideCountdown
                 jackpot={data?.jackpot || 100}
@@ -344,11 +385,12 @@ export function App() {
           {currentSlide === 3 && (
             <motion.div
               key="slide-winners"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.02 }}
-              transition={{ duration: 0.5, ease: "easeInOut" }}
-              className="w-full h-full flex items-center justify-center"
+              custom={direction}
+              variants={slideVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="w-full h-full flex items-center justify-center will-change-[transform,opacity]"
             >
               <SlideHallOfWinners winners={data?.winners || []} />
             </motion.div>

@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "web-animation-design": {
+      "source": "vercel-labs/open-agents",
+      "sourceType": "github",
+      "skillPath": ".agents/skills/web-animation-design/SKILL.md",
+      "computedHash": "dcd3f6da245643cd00ef93ad73ea62edc3ae925c6d7763c0675892441d6ba6c3"
+    }
+  }
+}

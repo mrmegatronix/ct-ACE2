@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import type { SignageData, GameCard, DrawTarget } from "../types";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Sparkles, Trophy, Layers } from "lucide-react";
 
 interface SlideGameDeckProps {
@@ -10,6 +10,7 @@ interface SlideGameDeckProps {
 
 export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }) => {
   const [cardsState, setCardsState] = useState<GameCard[]>(data.cards);
+  const shouldReduceMotion = useReducedMotion();
 
   React.useEffect(() => {
     setCardsState(data.cards);
@@ -36,10 +37,65 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
 
   const progressPercent = Math.min(100, Math.round((data.jackpot / data.targetJackpot) * 100));
 
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.08,
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: shouldReduceMotion ? 1 : 0.98,
+      transition: { duration: 0.2, ease: [0.7, 0, 0.84, 0] as const },
+    },
+  };
+
+  const leftPanelVariants: Variants = {
+    hidden: { opacity: 0, x: shouldReduceMotion ? 0 : -20 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
+  const cardItemVariants: Variants = {
+    hidden: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.88 },
+    visible: (i: number) => ({
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delay: shouldReduceMotion ? 0 : Math.min(0.2, (i % 13) * 0.01 + Math.floor(i / 13) * 0.02),
+        duration: 0.28,
+        ease: [0.16, 1, 0.3, 1] as const,
+      },
+    }),
+  };
+
+  const rightPanelVariants: Variants = {
+    hidden: { opacity: 0, x: shouldReduceMotion ? 0 : 25 },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
   return (
-    <div className="w-full h-full flex items-center justify-between gap-8 px-10 py-6 max-w-[1920px] mx-auto select-none">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="w-full h-full flex items-center justify-between gap-8 px-10 py-6 max-w-[1920px] mx-auto select-none will-change-[transform,opacity]"
+    >
       {/* Left Area: 52-Card Sealed Deck (13 cols x 4 rows) */}
-      <div className="flex-1 h-full flex flex-col justify-between bg-[#111114]/85 border border-[#D4AF37]/35 rounded-3xl p-6 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative overflow-hidden">
+      <motion.div
+        variants={leftPanelVariants}
+        className="flex-1 h-full flex flex-col justify-between bg-[#111114]/85 border border-[#D4AF37]/35 rounded-3xl p-6 backdrop-blur-md shadow-[0_20px_50px_rgba(0,0,0,0.8)] relative overflow-hidden will-change-[transform,opacity]"
+      >
         {/* Top Deck Subheader */}
         <div className="flex items-center justify-between border-b border-[#D4AF37]/20 pb-4 mb-3">
           <div className="flex items-center gap-3.5">
@@ -65,16 +121,20 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
 
         {/* 52 Cards Grid (13 cols x 4 rows) */}
         <div className="grid grid-cols-[repeat(13,minmax(0,1fr))] gap-2.5 flex-1 content-center items-center justify-center py-2">
-          {cardsState.map((card) => {
+          {cardsState.map((card, idx) => {
             const suit = getSuitSymbol(card.drawnCardName);
             const isRed = isRedSuit(card.drawnCardName);
             const isAceOfSpades = card.drawnCardName?.includes("Ace of Spades") || card.drawnCardName?.includes("Ace");
 
             return (
-              <div
+              <motion.div
                 key={card.id}
+                custom={idx}
+                variants={cardItemVariants}
+                initial="hidden"
+                animate="visible"
                 onClick={() => toggleFlip(card.id)}
-                className="group relative cursor-pointer [perspective:1000px] h-[142px] w-full"
+                className="group relative cursor-pointer [perspective:1000px] h-[142px] w-full will-change-[transform,opacity]"
                 title={`Card #${card.cardNumber}: Click to flip`}
               >
                 <motion.div
@@ -136,7 +196,7 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
                     </div>
                   </div>
                 </motion.div>
-              </div>
+              </motion.div>
             );
           })}
         </div>
@@ -151,10 +211,13 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
             RESUMES AT $500: {drawTarget.weekday.toUpperCase()} {data.resumeDateStr} ({drawTarget.timeStr})
           </span>
         </div>
-      </div>
+      </motion.div>
 
       {/* Right Area: Jackpot Ticker & Real Rules */}
-      <div className="w-[520px] h-full flex flex-col justify-between gap-5">
+      <motion.div
+        variants={rightPanelVariants}
+        className="w-[520px] h-full flex flex-col justify-between gap-5 will-change-[transform,opacity]"
+      >
         {/* Grand Building Pot Card */}
         <div className="bg-gradient-to-b from-[#1C1A14] via-[#121215] to-[#0A0A0A] border-2 border-[#D4AF37] rounded-3xl p-7 shadow-[0_0_50px_rgba(212,175,55,0.25)] flex flex-col items-center justify-center text-center relative overflow-hidden">
           <div className="absolute -top-24 -left-24 w-60 h-60 bg-[#D4AF37]/15 rounded-full blur-3xl pointer-events-none" />
@@ -245,7 +308,7 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 };

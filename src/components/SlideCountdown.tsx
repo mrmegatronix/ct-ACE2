@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getCountdown } from "../services/nzTime";
 import type { CountdownState } from "../types";
+import { motion, useReducedMotion, type Variants } from "framer-motion";
 import { Calendar, AlertTriangle, ShieldCheck } from "lucide-react";
 
 interface SlideCountdownProps {
@@ -18,6 +19,7 @@ export const SlideCountdown: React.FC<SlideCountdownProps> = ({
   const [countdown, setCountdown] = useState<CountdownState>(
     getCountdown(new Date(), isGameplayPaused)
   );
+  const shouldReduceMotion = useReducedMotion();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -28,8 +30,68 @@ export const SlideCountdown: React.FC<SlideCountdownProps> = ({
 
   const format2 = (num: number) => String(num).padStart(2, "0");
 
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: shouldReduceMotion ? 0 : 0.08,
+        delayChildren: shouldReduceMotion ? 0 : 0.05,
+      },
+    },
+    exit: {
+      opacity: 0,
+      scale: shouldReduceMotion ? 1 : 0.98,
+      transition: { duration: 0.2, ease: [0.7, 0, 0.84, 0] as const },
+    },
+  };
+
+  const badgeVariants: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : -16 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
+  const titleVariants: Variants = {
+    hidden: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.96, y: shouldReduceMotion ? 0 : 12 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
+  const digitVariants: Variants = {
+    hidden: { opacity: 0, scale: shouldReduceMotion ? 1 : 0.92, y: shouldReduceMotion ? 0 : 18 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      y: 0,
+      transition: { duration: 0.45, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
+  const footerVariants: Variants = {
+    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 16 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.4, ease: [0.16, 1, 0.3, 1] as const },
+    },
+  };
+
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center px-12 py-6 max-w-[1920px] mx-auto select-none relative overflow-hidden">
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+      className="w-full h-full flex flex-col items-center justify-center px-12 py-6 max-w-[1920px] mx-auto select-none relative overflow-hidden will-change-[transform,opacity]"
+    >
       {/* Background Decorative Rings */}
       <div className="absolute w-[800px] h-[800px] rounded-full border border-[#D4AF37]/10 pointer-events-none animate-[spin_120s_linear_infinite]" />
       <div className="absolute w-[600px] h-[600px] rounded-full border border-[#D4AF37]/20 pointer-events-none" />
@@ -41,33 +103,41 @@ export const SlideCountdown: React.FC<SlideCountdownProps> = ({
 
         {/* Target Badge */}
         {isGameplayPaused ? (
-          <div className="flex items-center gap-3 bg-amber-950/80 border border-amber-500/70 px-8 py-2.5 rounded-full mb-5 shadow-[0_0_25px_rgba(245,158,11,0.25)]">
+          <motion.div
+            variants={badgeVariants}
+            className="flex items-center gap-3 bg-amber-950/80 border border-amber-500/70 px-8 py-2.5 rounded-full mb-5 shadow-[0_0_25px_rgba(245,158,11,0.25)] will-change-[transform,opacity]"
+          >
             <AlertTriangle className="w-6 h-6 text-amber-400" />
             <span className="text-xl font-black tracking-widest text-amber-200 uppercase font-outfit whitespace-nowrap">
               RESUMPTION TARGET: TUESDAY 13 OCTOBER 2026 • 5:30 PM NZDT
             </span>
-          </div>
+          </motion.div>
         ) : (
-          <div className="flex items-center gap-3 bg-[#1C1A14] border border-[#D4AF37]/60 px-8 py-2.5 rounded-full mb-5 shadow-[0_0_20px_rgba(212,175,55,0.25)]">
+          <motion.div
+            variants={badgeVariants}
+            className="flex items-center gap-3 bg-[#1C1A14] border border-[#D4AF37]/60 px-8 py-2.5 rounded-full mb-5 shadow-[0_0_20px_rgba(212,175,55,0.25)] will-change-[transform,opacity]"
+          >
             <Calendar className="w-6 h-6 text-[#D4AF37]" />
             <span className="text-xl font-black tracking-widest text-[#F3E5AB] uppercase whitespace-nowrap font-outfit">
               OFFICIAL NEXT DRAW: {countdown.target.weekday.toUpperCase()} AT {countdown.target.timeStr} NZDT
             </span>
-          </div>
+          </motion.div>
         )}
 
-        <h2 className="text-6xl lg:text-7xl font-black tracking-wider uppercase text-white drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)] whitespace-nowrap font-playfair">
-          {isGameplayPaused ? "GAME PLAY RESUMES IN" : "DRAW STARTS IN"}
-        </h2>
+        <motion.div variants={titleVariants} className="flex flex-col items-center will-change-[transform,opacity]">
+          <h2 className="text-6xl lg:text-7xl font-black tracking-wider uppercase text-white drop-shadow-[0_4px_25px_rgba(0,0,0,0.9)] whitespace-nowrap font-playfair">
+            {isGameplayPaused ? "GAME PLAY RESUMES IN" : "DRAW STARTS IN"}
+          </h2>
 
-        <p className="text-xl font-bold text-[#F3E5AB] uppercase tracking-widest mt-2 whitespace-nowrap font-outfit">
-          CARD DRAWS RESUME AT $500 STARTING JACKPOT • DRAWN MANUALLY FROM LOCKED CABINET
-        </p>
+          <p className="text-xl font-bold text-[#F3E5AB] uppercase tracking-widest mt-2 whitespace-nowrap font-outfit">
+            CARD DRAWS RESUME AT $500 STARTING JACKPOT • DRAWN MANUALLY FROM LOCKED CABINET
+          </p>
+        </motion.div>
 
         {/* Countdown Display with BLINKING COLONS */}
         <div className="flex items-center justify-center gap-5 my-8">
           {/* Days */}
-          <div className="flex flex-col items-center">
+          <motion.div variants={digitVariants} className="flex flex-col items-center will-change-[transform,opacity]">
             <div className="w-56 h-48 bg-gradient-to-b from-[#221F18] to-[#12110D] border-2 border-[#D4AF37]/70 rounded-3xl flex items-center justify-center shadow-[0_10px_35px_rgba(0,0,0,0.85),inset_0_0_25px_rgba(212,175,55,0.2)]">
               <span className="text-[130px] font-normal font-bebas text-transparent bg-clip-text bg-gradient-to-b from-white to-[#E2E8F0] drop-shadow-[0_0_25px_rgba(255,255,255,0.3)] leading-none pt-3">
                 {format2(countdown.days)}
@@ -76,7 +146,7 @@ export const SlideCountdown: React.FC<SlideCountdownProps> = ({
             <span className="text-base font-black tracking-widest uppercase text-[#D4AF37] mt-3 font-outfit">
               DAYS
             </span>
-          </div>
+          </motion.div>
 
           {/* Blinking Colon 1 */}
           <div className="text-8xl font-bold text-[#D4AF37] animate-[pulse_1s_infinite] pb-10 select-none font-bebas">
@@ -84,7 +154,7 @@ export const SlideCountdown: React.FC<SlideCountdownProps> = ({
           </div>
 
           {/* Hours */}
-          <div className="flex flex-col items-center">
+          <motion.div variants={digitVariants} className="flex flex-col items-center will-change-[transform,opacity]">
             <div className="w-56 h-48 bg-gradient-to-b from-[#221F18] to-[#12110D] border-2 border-[#D4AF37]/70 rounded-3xl flex items-center justify-center shadow-[0_10px_35px_rgba(0,0,0,0.85),inset_0_0_25px_rgba(212,175,55,0.2)]">
               <span className="text-[130px] font-normal font-bebas text-transparent bg-clip-text bg-gradient-to-b from-white to-[#E2E8F0] drop-shadow-[0_0_25px_rgba(255,255,255,0.3)] leading-none pt-3">
                 {format2(countdown.hours)}
@@ -93,7 +163,7 @@ export const SlideCountdown: React.FC<SlideCountdownProps> = ({
             <span className="text-base font-black tracking-widest uppercase text-[#D4AF37] mt-3 font-outfit">
               HOURS
             </span>
-          </div>
+          </motion.div>
 
           {/* Blinking Colon 2 */}
           <div className="text-8xl font-bold text-[#D4AF37] animate-[pulse_1s_infinite] pb-10 select-none font-bebas">
@@ -101,7 +171,7 @@ export const SlideCountdown: React.FC<SlideCountdownProps> = ({
           </div>
 
           {/* Minutes */}
-          <div className="flex flex-col items-center">
+          <motion.div variants={digitVariants} className="flex flex-col items-center will-change-[transform,opacity]">
             <div className="w-56 h-48 bg-gradient-to-b from-[#221F18] to-[#12110D] border-2 border-[#D4AF37]/70 rounded-3xl flex items-center justify-center shadow-[0_10px_35px_rgba(0,0,0,0.85),inset_0_0_25px_rgba(212,175,55,0.2)]">
               <span className="text-[130px] font-normal font-bebas text-transparent bg-clip-text bg-gradient-to-b from-white to-[#E2E8F0] drop-shadow-[0_0_25px_rgba(255,255,255,0.3)] leading-none pt-3">
                 {format2(countdown.minutes)}
@@ -110,7 +180,7 @@ export const SlideCountdown: React.FC<SlideCountdownProps> = ({
             <span className="text-base font-black tracking-widest uppercase text-[#D4AF37] mt-3 font-outfit">
               MINUTES
             </span>
-          </div>
+          </motion.div>
 
           {/* Blinking Colon 3 */}
           <div className="text-8xl font-bold text-[#D4AF37] animate-[pulse_1s_infinite] pb-10 select-none font-bebas">
@@ -118,7 +188,7 @@ export const SlideCountdown: React.FC<SlideCountdownProps> = ({
           </div>
 
           {/* Seconds */}
-          <div className="flex flex-col items-center">
+          <motion.div variants={digitVariants} className="flex flex-col items-center will-change-[transform,opacity]">
             <div className="w-56 h-48 bg-gradient-to-b from-[#262013] to-[#151208] border-2 border-[#D4AF37] rounded-3xl flex items-center justify-center shadow-[0_0_40px_rgba(212,175,55,0.4),inset_0_0_30px_rgba(212,175,55,0.25)]">
               <span className="text-[130px] font-normal font-bebas text-transparent bg-clip-text bg-gradient-to-b from-white to-[#FCE49E] drop-shadow-[0_0_35px_rgba(212,175,55,0.7)] leading-none pt-3">
                 {format2(countdown.seconds)}
@@ -127,11 +197,14 @@ export const SlideCountdown: React.FC<SlideCountdownProps> = ({
             <span className="text-base font-black tracking-widest uppercase text-[#F3E5AB] mt-3 font-outfit">
               SECONDS
             </span>
-          </div>
+          </motion.div>
         </div>
 
         {/* Clean High-Impact Footer */}
-        <div className="w-full flex items-center justify-between border-t border-[#D4AF37]/30 pt-6 mt-4 px-2">
+        <motion.div
+          variants={footerVariants}
+          className="w-full flex items-center justify-between border-t border-[#D4AF37]/30 pt-6 mt-4 px-2 will-change-[transform,opacity]"
+        >
           <div className="flex items-center gap-4 text-left">
             <div className="w-14 h-14 rounded-2xl bg-[#D4AF37]/15 border border-[#D4AF37]/50 flex items-center justify-center text-[#D4AF37]">
               <ShieldCheck className="w-7 h-7" />
@@ -154,8 +227,8 @@ export const SlideCountdown: React.FC<SlideCountdownProps> = ({
               LOCKED VENUE CABINET
             </span>
           </div>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };

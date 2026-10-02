@@ -1,6 +1,7 @@
 import { fileURLToPath, URL } from "node:url"
 import tailwindcss from "@tailwindcss/vite"
 import react from "@vitejs/plugin-react"
+import { viteSingleFile } from "vite-plugin-singlefile"
 import { defineConfig, type Plugin } from "vite"
 
 function devRedirectPlugin(): Plugin {
@@ -23,7 +24,7 @@ function devRedirectPlugin(): Plugin {
 // https://vite.dev/config/
 export default defineConfig({
   base: "./",
-  plugins: [devRedirectPlugin(), react(), tailwindcss()],
+  plugins: [devRedirectPlugin(), react(), tailwindcss(), viteSingleFile()],
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./src", import.meta.url)),
@@ -33,11 +34,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         index: fileURLToPath(new URL("./dev.html", import.meta.url)),
-      },
-      output: {
-        entryFileNames: "assets/index.js",
-        chunkFileNames: "assets/[name].js",
-        assetFileNames: "assets/[name].[ext]",
       },
     },
   },

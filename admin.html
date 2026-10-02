@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chase the Ace - Master Admin Panel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0A0A0C;
+      --card-bg: #141418;
+      --gold: #D4AF37;
+      --gold-light: #F3E5AB;
+      --border: rgba(212, 175, 55, 0.35);
+      --text: #F1F5F9;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 20px;
+    }
+    .container {
+      width: 100%;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .header-box {
+      background: var(--card-bg);
+      border: 2px solid var(--gold);
+      border-radius: 24px;
+      padding: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 0 25px rgba(212, 175, 55, 0.2);
+    }
+    h1 {
+      font-family: 'Cinzel', serif;
+      color: var(--gold);
+      font-size: 26px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .subtitle {
+      color: #94A3B8;
+      font-size: 13px;
+      font-weight: 600;
+      margin-top: 4px;
+    }
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+    }
+    .card h2 {
+      font-size: 16px;
+      color: var(--gold-light);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 16px;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding-bottom: 10px;
+    }
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 12px;
+    }
+    button {
+      background: #1C1C22;
+      border: 1px solid var(--border);
+      color: white;
+      padding: 14px 18px;
+      font-weight: 700;
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    button:hover {
+      background: var(--gold);
+      color: black;
+      border-color: var(--gold);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+    }
+    button.primary {
+      background: linear-gradient(135deg, #D4AF37, #AA820A);
+      color: black;
+      font-weight: 900;
+    }
+    button.danger {
+      border-color: #EF4444;
+      color: #FCA5A5;
+    }
+    button.danger:hover {
+      background: #EF4444;
+      color: white;
+    }
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+      font-size: 14px;
+    }
+    .info-label { color: #94A3B8; font-weight: 600; }
+    .info-val { color: white; font-weight: 700; font-family: 'JetBrains Mono', monospace; }
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: rgba(34, 197, 94, 0.15);
+      color: #4ADE80;
+      border: 1px solid #22C55E;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header-box">
+      <div>
+        <h1>♠ Master Admin Panel</h1>
+        <div class="subtitle">Chase the Ace Digital Signage Control Engine</div>
+      </div>
+      <div class="status-badge" id="status-tag">Connected</div>
+    </div>
+
+    <!-- Navigation & Slideshow Control -->
+    <div class="card">
+      <h2>Slideshow Navigation</h2>
+      <div class="btn-grid">
+        <button onclick="sendAction('prev')">◀ Prev Slide</button>
+        <button onclick="sendAction('togglePause')" id="pause-btn">⏸ Pause / Play</button>
+        <button onclick="sendAction('next')">Next Slide ▶</button>
+        <button onclick="sendAction('toggleLock')" class="danger">❄ Freeze (0)</button>
+      </div>
+      <div class="btn-grid" style="margin-top: 12px;">
+        <button onclick="sendAction('slide', 0)" class="primary">Slide 1: Deck</button>
+        <button onclick="sendAction('slide', 1)" class="primary">Slide 2: Countdown</button>
+        <button onclick="sendAction('slide', 2)" class="primary">Slide 3: Winners</button>
+        <button onclick="window.open('/preview.html', '_blank')" style="border-color: var(--gold); color: var(--gold-light);">🖥 Preview Grid</button>
+      </div>
+    </div>
+
+    <!-- Slide Duration Selection -->
+    <div class="card">
+      <h2>Slide Display Duration (Timer Override)</h2>
+      <div class="btn-grid">
+        <button onclick="sendAction('setDuration', 10)">10s (Key 1)</button>
+        <button onclick="sendAction('setDuration', 20)">20s (Key 2)</button>
+        <button onclick="sendAction('setDuration', 30)">30s (Key 3)</button>
+        <button onclick="sendAction('setDuration', 45)">45s</button>
+        <button onclick="sendAction('setDuration', 60)">60s (Key 6)</button>
+        <button onclick="sendAction('setDuration', 90)">90s (Key 9)</button>
+      </div>
+    </div>
+
+    <!-- Signage Health & Refresh -->
+    <div class="card">
+      <h2>System & Maintenance</h2>
+      <div class="info-row">
+        <span class="info-label">Broadcast Channel:</span>
+        <span class="info-val">ct_ace_signage_channel</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Daily Anti-Leak Valve:</span>
+        <span class="info-val">3:00 AM NZ Local Time</span>
+      </div>
+      <div class="info-row">
+        <span class="info-label">Target Draw Deadlines:</span>
+        <span class="info-val">Tuesday 5:30 PM & Saturday 6:30 PM</span>
+      </div>
+      <div style="margin-top: 16px;">
+        <button onclick="sendAction('reload')" class="danger" style="width: 100%;">
+          ⚡ Trigger Hard Page Wipe (window.location.reload)
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const bc = new BroadcastChannel('ct_ace_signage_channel');
+
+    function sendAction(action, value = null) {
+      bc.postMessage({ action, value });
+      const tag = document.getElementById('status-tag');
+      tag.innerText = 'Sent: ' + action;
+      setTimeout(() => { tag.innerText = 'Connected'; }, 1500);
+    }
+  </script>
+</body>
+</html>

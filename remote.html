@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Chase the Ace - Handheld Remote</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@500;700;900&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+    body {
+      background: #08080A;
+      color: #F8FAFC;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 16px;
+      touch-action: manipulation;
+    }
+    .remote-shell {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .header {
+      background: #141418;
+      border: 2px solid #D4AF37;
+      border-radius: 20px;
+      padding: 18px 20px;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.8);
+    }
+    h1 {
+      font-family: 'Cinzel', serif;
+      color: #D4AF37;
+      font-size: 20px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+    .status {
+      font-size: 11px;
+      color: #94A3B8;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-top: 4px;
+    }
+    .dpad {
+      background: #121216;
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      border-radius: 24px;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+    }
+    .btn-row {
+      display: flex;
+      gap: 10px;
+    }
+    button {
+      flex: 1;
+      min-height: 64px;
+      background: #1C1C22;
+      border: 1px solid rgba(212, 175, 55, 0.3);
+      color: white;
+      font-size: 16px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-radius: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.15s ease;
+      user-select: none;
+    }
+    button:active {
+      transform: scale(0.96);
+      background: #D4AF37;
+      color: black;
+      border-color: #D4AF37;
+    }
+    button.gold {
+      background: linear-gradient(135deg, #D4AF37, #A88107);
+      color: #0A0A0A;
+      font-weight: 900;
+      border-color: #D4AF37;
+    }
+    button.freeze {
+      border-color: #EF4444;
+      color: #F87171;
+    }
+    button.freeze:active {
+      background: #EF4444;
+      color: white;
+    }
+    .jump-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+    .jump-btn {
+      min-height: 52px;
+      font-size: 13px;
+    }
+    .feedback {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 700;
+      color: #4ADE80;
+      min-height: 18px;
+    }
+  </style>
+</head>
+<body>
+  <div class="remote-shell">
+    <div class="header">
+      <h1>♠ Signage Remote</h1>
+      <div class="status">Chase the Ace Live Controller</div>
+    </div>
+
+    <div class="feedback" id="feedback-text">Ready</div>
+
+    <!-- Main Navigation Controls -->
+    <div class="dpad">
+      <div class="btn-row">
+        <button onclick="sendAction('prev')">◀ PREV</button>
+        <button onclick="sendAction('next')" class="gold">NEXT ▶</button>
+      </div>
+      <div class="btn-row">
+        <button onclick="sendAction('togglePause')">⏸ PAUSE / PLAY</button>
+        <button onclick="sendAction('toggleLock')" class="freeze">❄ FREEZE</button>
+      </div>
+    </div>
+
+    <!-- Quick Jump to Slide -->
+    <div class="dpad">
+      <div style="font-size: 12px; font-weight: 700; color: #D4AF37; text-transform: uppercase; letter-spacing: 1px; text-align: center;">
+        Direct Slide Selection
+      </div>
+      <div class="jump-grid" style="grid-template-columns: repeat(4, 1fr);">
+        <button class="jump-btn" onclick="sendAction('slide', 0)">0. Intro</button>
+        <button class="jump-btn" onclick="sendAction('slide', 1)">1. Deck</button>
+        <button class="jump-btn" onclick="sendAction('slide', 2)">2. Timer</button>
+        <button class="jump-btn" onclick="sendAction('slide', 3)">3. Winners</button>
+      </div>
+    </div>
+
+    <!-- Speed Selection -->
+    <div class="dpad">
+      <div style="font-size: 12px; font-weight: 700; color: #D4AF37; text-transform: uppercase; letter-spacing: 1px; text-align: center;">
+        Slide Progression Speed
+      </div>
+      <div class="jump-grid">
+        <button class="jump-btn" onclick="sendAction('setDuration', 10)">10s</button>
+        <button class="jump-btn" onclick="sendAction('setDuration', 20)">20s</button>
+        <button class="jump-btn" onclick="sendAction('setDuration', 30)">30s</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const bc = new BroadcastChannel('ct_ace_signage_channel');
+
+    function sendAction(action, value = null) {
+      bc.postMessage({ action, value });
+      const fb = document.getElementById('feedback-text');
+      fb.innerText = 'Command: ' + action + (value !== null ? ' (' + value + ')' : '');
+      if (navigator.vibrate) navigator.vibrate(40);
+      setTimeout(() => { fb.innerText = 'Ready'; }, 1800);
+    }
+  </script>
+</body>
+</html>

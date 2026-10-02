@@ -166,25 +166,17 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
           variants={titleVariants}
           className="flex flex-col items-center will-change-[transform,opacity]"
         >
-          {/* Subheader Lead */}
-          <div className="flex items-center gap-4 mb-2">
-            <div className="h-0.5 w-16 bg-gradient-to-r from-transparent to-[#D4AF37]" />
-            <h2 className="text-3xl lg:text-4xl font-black font-outfit tracking-[0.35em] uppercase text-transparent bg-clip-text bg-gradient-to-r from-[#FCE49E] via-[#FFFFFF] to-[#FCE49E] drop-shadow-[0_2px_15px_rgba(212,175,55,0.6)] whitespace-nowrap">
-              CHASE THE
-            </h2>
-            <div className="h-0.5 w-16 bg-gradient-to-l from-transparent to-[#D4AF37]" />
-          </div>
-
-          {/* Colossal Main Word: ACE */}
-          <h1 className="text-8xl lg:text-[140px] xl:text-[160px] font-black font-outfit tracking-[0.1em] uppercase leading-none text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF] via-[#FCE49E] to-[#C99726] drop-shadow-[0_10px_40px_rgba(212,175,55,0.7)] whitespace-nowrap flex items-center gap-4 my-1 animate-metallic-text">
-            <span>ACE</span>
+          {/* Colossal Main Title: CHASE THE ACE */}
+          <h1 className="text-6xl md:text-7xl lg:text-8xl xl:text-[130px] font-black font-outfit tracking-wider uppercase leading-none text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF] via-[#FCE49E] to-[#D4AF37] drop-shadow-[0_10px_40px_rgba(212,175,55,0.7)] whitespace-nowrap flex items-center gap-6 my-3 animate-metallic-text">
+            <span>CHASE THE</span>
             <span className="text-[#D4AF37] drop-shadow-[0_0_35px_rgba(212,175,55,0.9)] animate-pulse">
               ♠
             </span>
+            <span>ACE</span>
           </h1>
 
           {/* High Impact Subtitle */}
-          <p className="text-xl lg:text-2xl font-bold font-outfit uppercase tracking-[0.25em] text-[#F3E5AB] mt-3 whitespace-nowrap drop-shadow-md">
+          <p className="text-xl lg:text-2xl font-bold font-outfit uppercase tracking-[0.25em] text-[#F3E5AB] mt-2 whitespace-nowrap drop-shadow-md">
             FIND THE ACE OF SPADES • WIN THE CASH JACKPOT
           </p>
         </motion.div>

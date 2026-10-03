@@ -224,7 +224,7 @@ export const SlideCountdown: React.FC<SlideCountdownProps> = ({
               DRAW PROCEDURE
             </span>
             <span className="text-4xl font-black text-[#F3E5AB] uppercase font-bebas tracking-wider whitespace-nowrap">
-              7 SHELVES IN LOCKED VENUE CABINET
+              SEALED IN LOCKED VENUE CABINET
             </span>
           </div>
         </motion.div>

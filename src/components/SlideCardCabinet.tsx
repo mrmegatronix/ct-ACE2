@@ -89,10 +89,10 @@ export const SlideCardCabinet: React.FC<SlideCardCabinetProps> = ({ data, drawTa
           </div>
           <div>
             <h2 className="text-4xl lg:text-5xl font-black font-outfit tracking-wider text-white uppercase whitespace-nowrap">
-              LOCKED VENUE CABINET <span className="text-[#D4AF37]">♠ 7 SHELVES (52 CARDS)</span>
+              LOCKED VENUE CABINET <span className="text-[#D4AF37]">♠ 52 SEALED CARDS</span>
             </h2>
             <p className="text-xl text-[#F3E5AB] font-black tracking-widest uppercase whitespace-nowrap font-outfit mt-0.5">
-              52 SEALED PLAYING CARDS MOUNTED ACROSS 7 PHYSICAL CABINET SHELVES
+              52 AUTHENTIC PLAYING CARDS MOUNTED IN LOCKED VENUE CABINET
             </p>
           </div>
         </div>
@@ -105,7 +105,7 @@ export const SlideCardCabinet: React.FC<SlideCardCabinetProps> = ({ data, drawTa
         </div>
       </div>
 
-      {/* 7 Cabinet Shelves Container */}
+      {/* 52 Cards Cabinet Container */}
       <div className="flex-1 flex flex-col justify-between gap-2 py-3 min-h-0">
         {SHELVES_CONFIG.map((shelf, shelfIdx) => {
           const shelfCards = cardsState.slice(shelf.startCard - 1, shelf.endCard);
@@ -117,10 +117,10 @@ export const SlideCardCabinet: React.FC<SlideCardCabinetProps> = ({ data, drawTa
               variants={shelfRowVariants}
               className="flex items-center gap-4 bg-gradient-to-r from-[#171510]/95 via-[#121216]/95 to-[#171510]/95 border border-[#D4AF37]/40 rounded-xl px-5 py-1.5 shadow-[0_4px_16px_rgba(0,0,0,0.6)] relative overflow-hidden flex-1 metallic-sheen-sweep"
             >
-              {/* Shelf Index Indicator Badge */}
+              {/* Row Index Indicator Badge */}
               <div className="flex flex-col items-center justify-center w-24 shrink-0 bg-black/80 border border-[#D4AF37]/60 rounded-lg py-1 px-2 shadow-inner">
                 <span className="text-xs font-black text-amber-300 font-outfit tracking-widest uppercase">
-                  SHELF
+                  ROW
                 </span>
                 <span className="text-3xl font-black text-[#F3E5AB] font-bebas leading-none">
                   #{shelf.shelfNumber}
@@ -141,7 +141,7 @@ export const SlideCardCabinet: React.FC<SlideCardCabinetProps> = ({ data, drawTa
                       key={card.id}
                       onClick={() => toggleFlip(card.id)}
                       className="flex-1 max-w-[170px] h-full min-h-[78px] [perspective:1000px] cursor-pointer group"
-                      title={`Card #${card.cardNumber} (Shelf ${shelf.shelfNumber})`}
+                      title={`Card #${card.cardNumber}`}
                     >
                       <motion.div
                         className="w-full h-full relative [transform-style:preserve-3d] transition-transform duration-500 rounded-xl"

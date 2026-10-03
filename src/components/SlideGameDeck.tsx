@@ -114,10 +114,10 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
             </div>
             <div>
               <h2 className="text-3xl font-black font-playfair tracking-wider text-white uppercase whitespace-nowrap">
-                LOCKED CABINET DECK <span className="text-[#D4AF37]">♠ 7 SHELVES (52 CARDS)</span>
+                LOCKED CABINET DECK <span className="text-[#D4AF37]">♠ 52 SEALED CARDS</span>
               </h2>
               <p className="text-sm text-[#F3E5AB] font-bold tracking-widest uppercase whitespace-nowrap font-outfit">
-                AUTHENTIC PLAYING CARDS MOUNTED ON 7 VENUE CABINET SHELVES
+                AUTHENTIC PLAYING CARDS MOUNTED IN LOCKED VENUE CABINET
               </p>
             </div>
           </div>
@@ -130,7 +130,7 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
           </div>
         </div>
 
-        {/* 7 Cabinet Shelves */}
+        {/* 52 Cards Cabinet */}
         <div className="flex-1 flex flex-col justify-between gap-1.5 py-1 min-h-0">
           {SHELVES_CONFIG.map((shelf, shelfIdx) => {
             const shelfCards = cardsState.slice(shelf.startCard - 1, shelf.endCard);
@@ -144,10 +144,10 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
                 animate="visible"
                 className="w-full flex items-center gap-3 bg-gradient-to-r from-black/80 via-[#181611]/60 to-black/80 rounded-xl px-3 py-1 border-b-2 border-[#D4AF37]/40 shadow-[0_4px_12px_rgba(0,0,0,0.85)] relative"
               >
-                {/* Shelf Indicator Badge */}
+                {/* Row Indicator Badge */}
                 <div className="w-20 shrink-0 flex flex-col items-center justify-center bg-gradient-to-b from-[#1C1A14] to-[#0A0A0C] border border-[#D4AF37]/60 rounded-lg py-1 px-1.5 shadow-md">
                   <span className="text-[10px] font-black text-neutral-400 uppercase font-outfit tracking-wider leading-none">
-                    SHELF
+                    ROW
                   </span>
                   <span className="text-lg font-black text-[#F3E5AB] font-bebas leading-tight">
                     #{shelf.shelfNumber}
@@ -332,7 +332,7 @@ export const SlideGameDeck: React.FC<SlideGameDeckProps> = ({ data, drawTarget }
                 {data.remainingCards} <small className="text-lg text-neutral-400 font-sans">/ 52</small>
               </span>
               <span className="text-xs text-neutral-300 uppercase font-bold tracking-wider">
-                7 CABINET SHELVES
+                LOCKED CARD VAULT
               </span>
             </div>
           </div>

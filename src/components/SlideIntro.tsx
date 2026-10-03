@@ -292,7 +292,7 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
           </div>
         </div>
 
-        {/* Tile 3: Draw Mechanism & 7 Cabinet Shelves */}
+        {/* Tile 3: Draw Mechanism & Locked Vault */}
         <div className="bg-gradient-to-r from-[#1A1711]/95 to-[#0F0E0B]/95 border-2 border-[#D4AF37] rounded-2xl p-6 flex items-center gap-6 shadow-[0_12px_35px_rgba(0,0,0,0.85)] backdrop-blur-md metallic-sheen-sweep">
           <div className="w-20 h-20 rounded-2xl bg-[#D4AF37]/25 border-2 border-[#D4AF37] flex items-center justify-center text-[#D4AF37] shrink-0 shadow-[0_0_20px_rgba(212,175,55,0.4)]">
             <Layers className="w-11 h-11 text-[#D4AF37]" />
@@ -302,10 +302,10 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
               DRAW PROCEDURE
             </span>
             <span className="text-5xl font-black font-bebas text-white tracking-wider whitespace-nowrap leading-none mt-1">
-              7 CABINET SHELVES
+              LOCKED CARD VAULT
             </span>
             <span className="text-lg text-[#D4AF37] font-bold uppercase tracking-wider font-outfit mt-1">
-              52 CARDS SEALED IN CABINET
+              52 SEALED CARDS IN PLAY
             </span>
           </div>
         </div>

@@ -59,7 +59,7 @@ export const SlideCardsRemaining: React.FC<SlideCardsRemainingProps> = ({ data }
               THE CARD VAULT <span className="text-[#D4AF37]">♠ CARDS REMAINING</span>
             </h2>
             <p className="text-xl font-black font-outfit uppercase tracking-widest text-[#F3E5AB] mt-0.5">
-              LIVE REAL-TIME VENUE CABINET INVENTORY • 7 SHELVES
+              LIVE REAL-TIME VENUE CARD INVENTORY
             </p>
           </div>
         </div>
@@ -181,7 +181,7 @@ export const SlideCardsRemaining: React.FC<SlideCardsRemainingProps> = ({ data }
                 CARDS REMAINING
               </span>
               <span className="text-2xl lg:text-3xl font-black font-outfit uppercase tracking-widest text-[#F3E5AB] mt-2 whitespace-nowrap">
-                SEALED IN THE 7-SHELF CABINET
+                SEALED IN LOCKED VENUE CABINET
               </span>
             </div>
           </div>
@@ -213,7 +213,7 @@ export const SlideCardsRemaining: React.FC<SlideCardsRemainingProps> = ({ data }
                   52 CARDS
                 </span>
                 <span className="text-xl font-black text-neutral-300 uppercase tracking-wider font-outfit mt-1 whitespace-nowrap">
-                  STARTING DECK SIZE (7 SHELVES)
+                  FULL STARTING DECK
                 </span>
               </div>
             </div>

@@ -53,8 +53,8 @@ export const SlideRules: React.FC<SlideRulesProps> = ({ data }) => {
       step: "3",
       icon: <Search className="w-10 h-10 text-[#D4AF37]" />,
       title: "SELECT A CARD",
-      detail: "The winner selects one sealed envelope from the locked 7-shelf cabinet behind the bar.",
-      highlight: "7 shelves • 52 cards",
+      detail: "The winner selects one sealed envelope from the locked venue cabinet behind the bar.",
+      highlight: "52 sealed envelopes",
     },
     {
       step: "4",

@@ -9,13 +9,10 @@ interface SlideCardCabinetProps {
 }
 
 const SHELVES_CONFIG = [
-  { shelfNumber: 1, startCard: 1, endCard: 8 },
-  { shelfNumber: 2, startCard: 9, endCard: 16 },
-  { shelfNumber: 3, startCard: 17, endCard: 24 },
-  { shelfNumber: 4, startCard: 25, endCard: 31 },
-  { shelfNumber: 5, startCard: 32, endCard: 38 },
-  { shelfNumber: 6, startCard: 39, endCard: 45 },
-  { shelfNumber: 7, startCard: 46, endCard: 52 },
+  { shelfNumber: 1, startCard: 1, endCard: 13 },
+  { shelfNumber: 2, startCard: 14, endCard: 26 },
+  { shelfNumber: 3, startCard: 27, endCard: 39 },
+  { shelfNumber: 4, startCard: 40, endCard: 52 },
 ];
 
 export const SlideCardCabinet: React.FC<SlideCardCabinetProps> = ({ data, drawTarget }) => {
@@ -118,7 +115,7 @@ export const SlideCardCabinet: React.FC<SlideCardCabinetProps> = ({ data, drawTa
               className="flex items-center justify-center bg-gradient-to-r from-[#171510]/95 via-[#121216]/95 to-[#171510]/95 border border-[#D4AF37]/40 rounded-xl px-2 sm:px-6 py-1 sm:py-1.5 shadow-[0_4px_16px_rgba(0,0,0,0.6)] relative overflow-hidden flex-1 metallic-sheen-sweep"
             >
               {/* Cards Row on this Shelf */}
-              <div className="w-full flex items-center justify-center gap-2 sm:gap-4 h-full">
+              <div className="w-full flex items-center justify-center gap-1.5 sm:gap-2.5 md:gap-3.5 h-full">
                 {shelfCards.map((card) => {
                   const suit = getSuitSymbol(card.drawnCardName);
                   const isRed = isRedSuit(card.drawnCardName);
@@ -130,7 +127,7 @@ export const SlideCardCabinet: React.FC<SlideCardCabinetProps> = ({ data, drawTa
                     <div
                       key={card.id}
                       onClick={() => toggleFlip(card.id)}
-                      className="flex-1 max-w-[170px] h-full min-h-[46px] sm:min-h-[60px] md:min-h-[75px] [perspective:1000px] cursor-pointer group"
+                      className="h-full aspect-[2.5/3.5] max-h-[148px] max-w-[108px] [perspective:1000px] cursor-pointer group shrink-0"
                       title={`Card #${card.cardNumber}`}
                     >
                       <motion.div
@@ -141,8 +138,8 @@ export const SlideCardCabinet: React.FC<SlideCardCabinetProps> = ({ data, drawTa
                         <div className="absolute inset-0 w-full h-full rounded-xl bg-gradient-to-b from-[#FFE082] via-[#D4AF37] to-[#78540B] p-[2px] shadow-[0_4px_12px_rgba(0,0,0,0.8)] [backface-visibility:hidden] flex flex-col justify-between overflow-hidden group-hover:scale-[1.03] transition-transform metallic-sheen-sweep">
                           <div className="w-full h-full rounded-[10px] bg-gradient-to-br from-[#1C1A14] via-[#0E0E10] to-[#221F18] border border-[#D4AF37]/60 flex flex-col items-center justify-between p-1.5 relative overflow-hidden">
                             {/* Top Corner Badge */}
-                            <div className="w-full flex justify-between items-center leading-none">
-                              <span className="text-base font-black text-[#F3E5AB] font-bebas tracking-wide">
+                            <div className="w-full flex justify-between items-center leading-none px-0.5">
+                              <span className="text-base sm:text-lg font-black text-[#F3E5AB] font-bebas tracking-wide">
                                 #{card.cardNumber}
                               </span>
                               <span className="text-xs text-[#D4AF37] font-bold">♠</span>
@@ -150,7 +147,7 @@ export const SlideCardCabinet: React.FC<SlideCardCabinetProps> = ({ data, drawTa
 
                             {/* Centered Coasters Tavern Logo */}
                             <div className="flex items-center justify-center my-auto">
-                              <div className="w-11 h-11 rounded-full bg-black/90 border border-[#D4AF37] p-0.5 shadow-[0_0_12px_rgba(212,175,55,0.7)] flex items-center justify-center overflow-hidden">
+                              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/90 border border-[#D4AF37] p-0.5 shadow-[0_0_12px_rgba(212,175,55,0.7)] flex items-center justify-center overflow-hidden">
                                 <img
                                   src="./logo.png"
                                   alt="Coasters"
@@ -160,8 +157,8 @@ export const SlideCardCabinet: React.FC<SlideCardCabinetProps> = ({ data, drawTa
                             </div>
 
                             {/* Bottom Corner Badge */}
-                            <div className="w-full flex justify-between items-center leading-none rotate-180">
-                              <span className="text-base font-black text-[#F3E5AB] font-bebas tracking-wide">
+                            <div className="w-full flex justify-between items-center leading-none rotate-180 px-0.5">
+                              <span className="text-base sm:text-lg font-black text-[#F3E5AB] font-bebas tracking-wide">
                                 #{card.cardNumber}
                               </span>
                               <span className="text-xs text-[#D4AF37] font-bold">♠</span>
@@ -171,23 +168,23 @@ export const SlideCardCabinet: React.FC<SlideCardCabinetProps> = ({ data, drawTa
 
                         {/* CARD FRONT FACE: Revealed Card Face */}
                         <div className="absolute inset-0 w-full h-full rounded-xl bg-gradient-to-b from-[#FDFDFD] to-[#EDEDED] border-2 border-neutral-300 p-1.5 shadow-[0_4px_15px_rgba(0,0,0,0.7)] [backface-visibility:hidden] [transform:rotateY(180deg)] flex flex-col justify-between">
-                          <div className="w-full flex justify-between items-start leading-none">
+                          <div className="w-full flex justify-between items-start leading-none px-0.5">
                             <div
                               className={`flex flex-col items-center leading-none ${
                                 isRed ? "text-red-600" : "text-black"
                               }`}
                             >
-                              <span className="text-lg font-black font-bebas">
+                              <span className="text-base sm:text-lg font-black font-bebas">
                                 {isAceOfSpades ? "A" : card.cardNumber}
                               </span>
-                              <span className="text-sm">{suit}</span>
+                              <span className="text-xs sm:text-sm">{suit}</span>
                             </div>
                             <span className="text-[10px] font-bold text-neutral-400">#CT</span>
                           </div>
 
                           <div className="flex flex-col items-center justify-center my-auto">
                             <span
-                              className={`text-3xl ${
+                              className={`text-2xl sm:text-3xl ${
                                 isRed ? "text-red-600" : "text-black"
                               } ${isAceOfSpades ? "drop-shadow-[0_0_12px_rgba(212,175,55,1)] animate-bounce text-4xl" : ""}`}
                             >
@@ -195,16 +192,16 @@ export const SlideCardCabinet: React.FC<SlideCardCabinetProps> = ({ data, drawTa
                             </span>
                           </div>
 
-                          <div className="w-full flex justify-between items-end leading-none rotate-180">
+                          <div className="w-full flex justify-between items-end leading-none rotate-180 px-0.5">
                             <div
                               className={`flex flex-col items-center leading-none ${
                                 isRed ? "text-red-600" : "text-black"
                               }`}
                             >
-                              <span className="text-lg font-black font-bebas">
+                              <span className="text-base sm:text-lg font-black font-bebas">
                                 {isAceOfSpades ? "A" : card.cardNumber}
                               </span>
-                              <span className="text-sm">{suit}</span>
+                              <span className="text-xs sm:text-sm">{suit}</span>
                             </div>
                             <span className="text-[10px] font-bold text-neutral-400">#CT</span>
                           </div>

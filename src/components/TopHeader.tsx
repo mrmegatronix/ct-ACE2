@@ -17,13 +17,19 @@ interface TopHeaderProps {
 
 export const TopHeader: React.FC<TopHeaderProps> = ({ onLogoClick }) => {
   return (
-    <header className="fixed top-0 left-0 right-0 z-40 h-16 sm:h-20 lg:h-24 bg-[#0A0A0A]/95 backdrop-blur-md border-b border-[#D4AF37]/35 px-4 sm:px-8 flex items-center justify-center select-none shadow-[0_4px_30px_rgba(0,0,0,0.8)]">
+    <header className="fixed top-0 left-0 right-0 z-40 h-20 sm:h-24 lg:h-28 bg-[#0A0A0A]/95 backdrop-blur-md border-b-2 border-[#D4AF37]/40 px-4 sm:px-8 flex items-center justify-center select-none shadow-[0_6px_35px_rgba(0,0,0,0.85)]">
       <h1
         onClick={onLogoClick}
-        className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black font-outfit tracking-wider md:tracking-widest uppercase bg-gradient-to-r from-[#D4AF37] via-[#FFF] via-[#F3E5AB] to-[#D4AF37] bg-clip-text text-transparent whitespace-nowrap drop-shadow-[0_4px_25px_rgba(212,175,55,0.4)] leading-none text-center cursor-pointer hover:brightness-110 transition-all animate-metallic-text"
+        className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black font-outfit tracking-wider md:tracking-widest uppercase bg-gradient-to-r from-[#D4AF37] via-[#FFF] via-[#F3E5AB] to-[#D4AF37] bg-clip-text text-transparent whitespace-nowrap drop-shadow-[0_4px_30px_rgba(212,175,55,0.6)] leading-none text-center cursor-pointer hover:brightness-110 transition-all animate-metallic-text flex items-center justify-center"
         title="Chase The Ace"
       >
-        CHASE THE <span className="text-[#D4AF37] drop-shadow-[0_0_20px_rgba(212,175,55,0.8)]">♠</span> ACE <span className="text-[#D4AF37] drop-shadow-[0_0_20px_rgba(212,175,55,0.8)]">♠</span>
+        <span className="animate-spade-loop text-3xl sm:text-4xl lg:text-6xl mx-2 sm:mx-4">♠</span>
+        <span>CHASE</span>
+        <span className="animate-spade-loop text-3xl sm:text-4xl lg:text-6xl mx-2 sm:mx-4" style={{ animationDelay: "1.5s" }}>♠</span>
+        <span>THE</span>
+        <span className="animate-spade-loop text-3xl sm:text-4xl lg:text-6xl mx-2 sm:mx-4" style={{ animationDelay: "3s" }}>♠</span>
+        <span>ACE</span>
+        <span className="animate-spade-loop text-3xl sm:text-4xl lg:text-6xl mx-2 sm:mx-4" style={{ animationDelay: "4.5s" }}>♠</span>
       </h1>
     </header>
   );

@@ -81,16 +81,16 @@ export const SlideCardsRemaining: React.FC<SlideCardsRemainingProps> = ({ data }
         {/* Left: 3D Fanned Cards Hero in ct-ace2 Style */}
         <motion.div
           variants={itemVariants}
-          className="relative w-[500px] h-[520px] flex items-center justify-center shrink-0"
+          className="relative w-[600px] h-[520px] flex items-center justify-center shrink-0"
         >
           {/* Ambient Glow behind cards */}
-          <div className="absolute w-96 h-96 rounded-full bg-[#D4AF37]/20 blur-3xl pointer-events-none animate-pulse" />
+          <div className="absolute w-[500px] h-[500px] rounded-full bg-[#D4AF37]/20 blur-3xl pointer-events-none animate-pulse" />
 
           {/* Left Fanned Card (52 Total) */}
           <motion.div
-            animate={shouldReduceMotion ? {} : { rotate: [-16, -13, -16], x: [-60, -50, -60] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute w-64 h-96 rounded-2xl bg-gradient-to-b from-[#201C12] via-[#121215] to-[#0A0A0C] border-2 border-[#D4AF37]/50 shadow-[0_15px_40px_rgba(0,0,0,0.85)] flex flex-col justify-between p-6 opacity-75 metallic-sheen-sweep"
+            animate={shouldReduceMotion ? {} : { rotate: [-16, -13, -16], x: [-90, -80, -90] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute w-[300px] h-[410px] rounded-3xl bg-gradient-to-b from-[#201C12] via-[#121215] to-[#0A0A0C] border-2 border-[#D4AF37]/50 shadow-[0_15px_40px_rgba(0,0,0,0.85)] flex flex-col justify-between p-6 opacity-75 metallic-sheen-sweep"
           >
             <div className="flex justify-between items-start leading-none font-bebas text-5xl text-[#D4AF37]/80">
               <span>52</span>
@@ -107,9 +107,9 @@ export const SlideCardsRemaining: React.FC<SlideCardsRemainingProps> = ({ data }
 
           {/* Right Fanned Card (Flipped / Missed) */}
           <motion.div
-            animate={shouldReduceMotion ? {} : { rotate: [16, 13, 16], x: [60, 50, 60] }}
-            transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute w-64 h-96 rounded-2xl bg-gradient-to-b from-[#251A0A] via-[#151208] to-[#0A0A0C] border-2 border-amber-500/60 shadow-[0_15px_40px_rgba(0,0,0,0.85)] flex flex-col justify-between p-6 opacity-80 metallic-sheen-sweep"
+            animate={shouldReduceMotion ? {} : { rotate: [16, 13, 16], x: [90, 80, 90] }}
+            transition={{ duration: 9, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute w-[300px] h-[410px] rounded-3xl bg-gradient-to-b from-[#251A0A] via-[#151208] to-[#0A0A0C] border-2 border-amber-500/60 shadow-[0_15px_40px_rgba(0,0,0,0.85)] flex flex-col justify-between p-6 opacity-80 metallic-sheen-sweep"
           >
             <div className="flex justify-between items-start leading-none font-bebas text-5xl text-amber-400">
               <span>#{flipped}</span>
@@ -124,11 +124,11 @@ export const SlideCardsRemaining: React.FC<SlideCardsRemainingProps> = ({ data }
             </div>
           </motion.div>
 
-          {/* Center Master Card: Colossal Ace of Spades + Coasters Logo */}
+          {/* Center Master Card: Colossal Wide Ace of Spades + Coasters Logo */}
           <motion.div
-            animate={shouldReduceMotion ? {} : { y: [-8, 8, -8] }}
-            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="relative z-20 w-72 h-[430px] rounded-3xl p-1.5 bg-gradient-to-b from-[#FFE082] via-[#D4AF37] to-[#78540B] shadow-[0_30px_70px_rgba(0,0,0,0.95),0_0_50px_rgba(212,175,55,0.5)] flex flex-col justify-between overflow-hidden metallic-sheen-sweep"
+            animate={shouldReduceMotion ? {} : { y: [-10, 10, -10] }}
+            transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
+            className="relative z-20 shrink-0 w-[340px] min-w-[340px] h-[460px] rounded-3xl p-1.5 bg-gradient-to-b from-[#FFE082] via-[#D4AF37] to-[#78540B] shadow-[0_30px_70px_rgba(0,0,0,0.95),0_0_50px_rgba(212,175,55,0.5)] flex flex-col justify-between overflow-hidden metallic-sheen-sweep"
           >
             <div className="w-full h-full rounded-[22px] bg-gradient-to-br from-[#1C1A14] via-[#0E0E10] to-[#252012] border-2 border-[#D4AF37] flex flex-col justify-between p-6 relative overflow-hidden">
               {/* Top Index */}
@@ -143,14 +143,14 @@ export const SlideCardsRemaining: React.FC<SlideCardsRemainingProps> = ({ data }
 
               {/* Centered Coasters Tavern Logo Emblem */}
               <div className="flex flex-col items-center justify-center my-auto">
-                <div className="w-28 h-28 rounded-full bg-black/90 border-2 border-[#D4AF37] p-1.5 shadow-[0_0_35px_rgba(212,175,55,0.7)] flex items-center justify-center overflow-hidden">
+                <div className="w-32 h-32 rounded-full bg-black/90 border-2 border-[#D4AF37] p-2 shadow-[0_0_35px_rgba(212,175,55,0.7)] flex items-center justify-center overflow-hidden">
                   <img
                     src="./logo.png"
                     alt="Coasters Tavern"
                     className="w-full h-full object-contain"
                   />
                 </div>
-                <span className="text-xl font-black text-[#F3E5AB] tracking-[0.25em] uppercase font-outfit mt-3">
+                <span className="text-2xl font-black text-[#F3E5AB] tracking-[0.25em] uppercase font-outfit mt-3">
                   COASTERS
                 </span>
               </div>

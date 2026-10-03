@@ -38,9 +38,9 @@ export const SlideRules: React.FC<SlideRulesProps> = ({ data }) => {
     {
       step: "1",
       icon: <Ticket className="w-10 h-10 text-[#D4AF37]" />,
-      title: "BUY YOUR TICKETS",
-      detail: "Purchase tickets over the bar on draw nights. Every ticket gives you a chance to be drawn.",
-      highlight: "Tickets available at the bar",
+      title: "BEVERAGE PURCHASE",
+      detail: "Purchase a beverage within the beverage window and receive a ticket.",
+      highlight: "Beverage window ticket promotion",
     },
     {
       step: "2",
@@ -53,8 +53,8 @@ export const SlideRules: React.FC<SlideRulesProps> = ({ data }) => {
       step: "3",
       icon: <Search className="w-10 h-10 text-[#D4AF37]" />,
       title: "SELECT A CARD",
-      detail: "The winner selects one sealed envelope from the locked venue cabinet behind the bar.",
-      highlight: "52 sealed envelopes",
+      detail: "The winner selects one card from the locked venue cabinet behind the bar.",
+      highlight: "Winner selects 1 card",
     },
     {
       step: "4",
@@ -145,7 +145,7 @@ export const SlideRules: React.FC<SlideRulesProps> = ({ data }) => {
       >
         <span className="flex items-center gap-4">
           <Sparkles className="w-8 h-8 text-amber-400 animate-pulse shrink-0" />
-          IF NOT THE ACE, CARD IS REMOVED & DISCARDED • JACKPOT BUILDS BY +$100 EACH DRAW DATE!
+          IF NOT THE ACE OF SPADES, JACKPOT BUILDS BY +$100 EACH DRAW DATE!
         </span>
         <span className="text-amber-300 font-black text-2xl whitespace-nowrap">
           TARGET POOL: ${data.targetJackpot}.00

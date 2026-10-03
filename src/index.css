@@ -195,6 +195,29 @@
   }
 }
 
+@keyframes spadeColorLoop {
+  0%, 100% {
+    color: #000000;
+    text-shadow: 0 0 6px rgba(212, 175, 55, 0.7);
+    filter: drop-shadow(0 0 4px rgba(212, 175, 55, 0.9));
+  }
+  33.3% {
+    color: #D4AF37;
+    text-shadow: 0 0 16px rgba(212, 175, 55, 0.95), 0 0 35px rgba(212, 175, 55, 0.75);
+    filter: drop-shadow(0 0 10px rgba(212, 175, 55, 1));
+  }
+  66.6% {
+    color: #FFFFFF;
+    text-shadow: 0 0 16px rgba(255, 255, 255, 0.95), 0 0 35px rgba(255, 255, 255, 0.75);
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 1));
+  }
+}
+
+.animate-spade-loop {
+  display: inline-block;
+  animation: spadeColorLoop 6s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .metallic-sheen-sweep::after,
   .animate-metallic-text {

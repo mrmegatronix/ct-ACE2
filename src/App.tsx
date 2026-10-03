@@ -331,7 +331,7 @@ export function App() {
         />
       )}
 
-      <main className={`relative z-10 w-full flex-1 ${currentSlide === 0 ? "pt-0 pb-0" : "pt-16 sm:pt-20 lg:pt-24 pb-2 sm:pb-3"} px-2 sm:px-4 md:px-8 lg:px-12 flex items-center justify-center overflow-hidden min-h-0`}>
+      <main className={`relative z-10 w-full flex-1 ${currentSlide === 0 ? "pt-0 pb-0" : "pt-20 sm:pt-24 lg:pt-28 pb-2 sm:pb-3"} px-2 sm:px-4 md:px-8 lg:px-12 flex items-center justify-center overflow-hidden min-h-0`}>
         <AnimatePresence mode="wait" custom={direction}>
           {currentSlide === 0 && (
             <motion.div

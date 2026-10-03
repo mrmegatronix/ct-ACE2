@@ -31,6 +31,8 @@ export default defineConfig({
     },
   },
   build: {
+    target: "es2018",
+    cssTarget: "chrome80",
     rollupOptions: {
       input: {
         index: fileURLToPath(new URL("./dev.html", import.meta.url)),

@@ -213,17 +213,17 @@ export const SlideCountdown: React.FC<SlideCountdownProps> = ({
               <h4 className="text-2xl font-black text-white uppercase tracking-wider font-outfit whitespace-nowrap">
                 POT BUILDS +$100 EACH DRAW DAY UNTIL $500 POOL IS REACHED
               </h4>
-              <p className="text-base text-neutral-300 font-bold uppercase tracking-wider font-outfit whitespace-nowrap mt-0.5">
+              <p className="text-xl text-neutral-300 font-black uppercase tracking-wider font-outfit whitespace-nowrap mt-1">
                 CURRENT ACCUMULATED: ${jackpot.toLocaleString("en-NZ", { minimumFractionDigits: 2 })} • TARGET: ${targetJackpot}.00
               </p>
             </div>
           </div>
 
           <div className="text-right">
-            <span className="text-sm font-extrabold text-neutral-300 uppercase tracking-widest block font-outfit">
+            <span className="text-lg font-black text-amber-300 uppercase tracking-widest block font-outfit">
               DRAW PROCEDURE
             </span>
-            <span className="text-3xl font-black text-[#F3E5AB] uppercase font-bebas tracking-wider whitespace-nowrap">
+            <span className="text-4xl font-black text-[#F3E5AB] uppercase font-bebas tracking-wider whitespace-nowrap">
               7 SHELVES IN LOCKED VENUE CABINET
             </span>
           </div>

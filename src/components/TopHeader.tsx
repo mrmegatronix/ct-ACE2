@@ -23,7 +23,7 @@ export const TopHeader: React.FC<TopHeaderProps> = ({ onLogoClick }) => {
         className="text-6xl lg:text-7xl xl:text-[76px] font-black font-outfit tracking-widest uppercase bg-gradient-to-r from-[#D4AF37] via-[#FFF] via-[#F3E5AB] to-[#D4AF37] bg-clip-text text-transparent whitespace-nowrap drop-shadow-[0_4px_25px_rgba(212,175,55,0.4)] leading-none text-center cursor-pointer hover:brightness-110 transition-all animate-metallic-text"
         title="Chase The Ace"
       >
-        CHASE THE <span className="text-[#D4AF37] drop-shadow-[0_0_20px_rgba(212,175,55,0.8)]">♠</span> ACE
+        CHASE THE <span className="text-[#D4AF37] drop-shadow-[0_0_20px_rgba(212,175,55,0.8)]">♠</span> ACE <span className="text-[#D4AF37] drop-shadow-[0_0_20px_rgba(212,175,55,0.8)]">♠</span>
       </h1>
     </header>
   );

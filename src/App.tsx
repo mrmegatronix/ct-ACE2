@@ -5,7 +5,9 @@ import { getNextDrawTarget, setupDailyRefreshValve } from "./services/nzTime";
 import { AceParticlesCanvas } from "./components/AceParticlesCanvas";
 import { TopHeader } from "./components/TopHeader";
 import { SlideIntro } from "./components/SlideIntro";
-import { SlideGameDeck } from "./components/SlideGameDeck";
+import { SlideCardCabinet } from "./components/SlideCardCabinet";
+import { SlideJackpot } from "./components/SlideJackpot";
+import { SlideRules } from "./components/SlideRules";
 import { SlideCountdown } from "./components/SlideCountdown";
 import { SlideHallOfWinners } from "./components/SlideHallOfWinners";
 import { ControlsOverlay } from "./components/ControlsOverlay";
@@ -21,7 +23,7 @@ export function App() {
   const [data, setData] = useState<SignageData | null>(null);
   const [currentSlide, setCurrentSlide] = useState(isFixedParam ? parsedSlide : 0);
   const [direction, setDirection] = useState(1);
-  const totalSlides = 4;
+  const totalSlides = 6;
   const shouldReduceMotion = useReducedMotion();
 
   const [slideDurationSec, setSlideDurationSec] = useState(20);
@@ -258,6 +260,23 @@ export function App() {
   const resumeDateStr = data?.resumeDateStr ?? "13/10/2026";
   const drawTarget = getNextDrawTarget(new Date(), isGameplayPaused);
 
+  const activeData: SignageData = data || {
+    jackpot: 100,
+    targetJackpot: 500,
+    isGameplayPaused: true,
+    resumeDateStr: "13/10/2026",
+    remainingCards: 52,
+    flippedCards: 0,
+    winningChance: "0.00%",
+    cards: Array.from({ length: 52 }, (_, i) => ({
+      id: i + 1,
+      cardNumber: i + 1,
+      isFlipped: false,
+    })),
+    winners: [],
+    lastUpdated: new Date(),
+  };
+
   const slideVariants: Variants = {
     initial: (dir: number) => ({
       opacity: 0,
@@ -334,7 +353,7 @@ export function App() {
 
           {currentSlide === 1 && (
             <motion.div
-              key="slide-deck"
+              key="slide-cabinet"
               custom={direction}
               variants={slideVariants}
               initial="initial"
@@ -342,31 +361,47 @@ export function App() {
               exit="exit"
               className="w-full h-full flex items-center justify-center will-change-[transform,opacity]"
             >
-              <SlideGameDeck
-                data={
-                  data || {
-                    jackpot: 100,
-                    targetJackpot: 500,
-                    isGameplayPaused: true,
-                    resumeDateStr: "13/10/2026",
-                    remainingCards: 52,
-                    flippedCards: 0,
-                    winningChance: "0.00%",
-                    cards: Array.from({ length: 52 }, (_, i) => ({
-                      id: i + 1,
-                      cardNumber: i + 1,
-                      isFlipped: false,
-                    })),
-                    winners: [],
-                    lastUpdated: new Date(),
-                  }
-                }
+              <SlideCardCabinet
+                data={activeData}
                 drawTarget={drawTarget}
               />
             </motion.div>
           )}
 
           {currentSlide === 2 && (
+            <motion.div
+              key="slide-jackpot"
+              custom={direction}
+              variants={slideVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="w-full h-full flex items-center justify-center will-change-[transform,opacity]"
+            >
+              <SlideJackpot
+                data={activeData}
+                drawTarget={drawTarget}
+              />
+            </motion.div>
+          )}
+
+          {currentSlide === 3 && (
+            <motion.div
+              key="slide-rules"
+              custom={direction}
+              variants={slideVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="w-full h-full flex items-center justify-center will-change-[transform,opacity]"
+            >
+              <SlideRules
+                data={activeData}
+              />
+            </motion.div>
+          )}
+
+          {currentSlide === 4 && (
             <motion.div
               key="slide-countdown"
               custom={direction}
@@ -377,7 +412,7 @@ export function App() {
               className="w-full h-full flex items-center justify-center will-change-[transform,opacity]"
             >
               <SlideCountdown
-                jackpot={data?.jackpot || 100}
+                jackpot={activeData.jackpot}
                 targetJackpot={targetJackpot}
                 isGameplayPaused={isGameplayPaused}
                 resumeDateStr={resumeDateStr}
@@ -385,7 +420,7 @@ export function App() {
             </motion.div>
           )}
 
-          {currentSlide === 3 && (
+          {currentSlide === 5 && (
             <motion.div
               key="slide-winners"
               custom={direction}
@@ -395,7 +430,7 @@ export function App() {
               exit="exit"
               className="w-full h-full flex items-center justify-center will-change-[transform,opacity]"
             >
-              <SlideHallOfWinners winners={data?.winners || []} />
+              <SlideHallOfWinners winners={activeData.winners || []} />
             </motion.div>
           )}
         </AnimatePresence>

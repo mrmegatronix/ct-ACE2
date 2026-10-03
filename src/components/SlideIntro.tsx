@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, useReducedMotion, type Variants } from "framer-motion";
-import { Crown, Sparkles, Shield, Flame, Layers } from "lucide-react";
+import { Shield, Flame, Layers, AlertTriangle } from "lucide-react";
 
 interface SlideIntroProps {
   jackpot: number;
@@ -55,12 +55,22 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
   };
 
   const titleVariants: Variants = {
-    hidden: { opacity: 0, y: shouldReduceMotion ? 0 : 25, scale: shouldReduceMotion ? 1 : 0.95 },
+    hidden: {
+      opacity: 0,
+      scale: shouldReduceMotion ? 1 : 0.75,
+      y: shouldReduceMotion ? 0 : 35,
+      filter: shouldReduceMotion ? "none" : "blur(12px) brightness(2.2)",
+    },
     visible: {
       opacity: 1,
+      scale: [0.75, 1.08, 1],
       y: 0,
-      scale: 1,
-      transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] as const },
+      filter: "blur(0px) brightness(1)",
+      transition: {
+        duration: 0.85,
+        ease: [0.16, 1, 0.3, 1] as const,
+        times: [0, 0.65, 1],
+      },
     },
   };
 
@@ -99,16 +109,16 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
         <div className="absolute bottom-32 right-40 text-4xl text-[#D4AF37]/30 animate-bounce select-none">♣</div>
       </div>
 
-      {/* Top Banner: Venue Credential */}
+      {/* Top Banner: Gameplay Paused Pill Box */}
       <motion.div
         variants={topBadgeVariants}
-        className="relative z-10 flex items-center gap-4 bg-gradient-to-r from-black/90 via-[#1C1A14]/95 to-black/90 border-2 border-[#D4AF37] px-9 py-3 rounded-full shadow-[0_0_35px_rgba(212,175,55,0.35)] backdrop-blur-md will-change-[transform,opacity] metallic-sheen-sweep"
+        className="relative z-10 flex items-center gap-4 bg-gradient-to-r from-black/95 via-[#1E190E]/95 to-black/95 border-2 border-amber-500/80 px-10 py-3 rounded-full shadow-[0_0_35px_rgba(245,158,11,0.4)] backdrop-blur-md will-change-[transform,opacity] metallic-sheen-sweep"
       >
-        <Crown className="w-7 h-7 text-[#D4AF37] animate-pulse" />
-        <span className="text-base font-black font-outfit tracking-[0.35em] uppercase text-[#F3E5AB] whitespace-nowrap">
-          COASTERS TAVERN • OFFICIAL DIGITAL SIGNAGE
+        <AlertTriangle className="w-8 h-8 text-amber-400 animate-pulse shrink-0" />
+        <span className="text-xl lg:text-2xl font-black font-outfit tracking-widest uppercase text-amber-300 whitespace-nowrap drop-shadow-[0_2px_12px_rgba(245,158,11,0.7)]">
+          ⚠️ CURRENT GAMEPLAY IS TEMPORARILY PAUSED • RESUMES AT $500 POOL ⚠️
         </span>
-        <Sparkles className="w-6 h-6 text-amber-400 animate-pulse" />
+        <AlertTriangle className="w-8 h-8 text-amber-400 animate-pulse shrink-0" />
       </motion.div>
 
       {/* Center Cinematic Stage: 3D Flipping Hero Card & Colossal Title */}
@@ -211,21 +221,31 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
           </motion.div>
         </motion.div>
 
-        {/* Colossal Main Title: CHASE THE ACE */}
+        {/* Colossal Main Title: ♠ CHASE THE ACE ♠ */}
         <motion.div
           variants={titleVariants}
           className="flex flex-col items-center will-change-[transform,opacity]"
         >
-          <h1 className="text-7xl lg:text-[115px] xl:text-[135px] font-black font-outfit tracking-wider uppercase leading-none text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF] via-[#FCE49E] to-[#D4AF37] drop-shadow-[0_10px_45px_rgba(212,175,55,0.8)] whitespace-nowrap flex items-center gap-6 my-2 animate-metallic-text">
-            <span>CHASE THE</span>
-            <span className="text-[#D4AF37] drop-shadow-[0_0_40px_rgba(212,175,55,1)] animate-pulse">
+          <h1 className="text-8xl lg:text-[135px] xl:text-[150px] font-black font-outfit tracking-wider uppercase leading-none text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF] via-[#FCE49E] to-[#D4AF37] drop-shadow-[0_10px_50px_rgba(212,175,55,0.9)] whitespace-nowrap flex items-center justify-center gap-6 my-3 animate-metallic-text">
+            <motion.span
+              animate={shouldReduceMotion ? {} : { scale: [1, 1.15, 1], rotate: [-4, 4, -4] }}
+              transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+              className="text-[#D4AF37] drop-shadow-[0_0_35px_rgba(212,175,55,1)] inline-block"
+            >
               ♠
-            </span>
-            <span>ACE</span>
+            </motion.span>
+            <span>CHASE THE ACE</span>
+            <motion.span
+              animate={shouldReduceMotion ? {} : { scale: [1, 1.15, 1], rotate: [4, -4, 4] }}
+              transition={{ repeat: Infinity, duration: 3, ease: "easeInOut" }}
+              className="text-[#D4AF37] drop-shadow-[0_0_35px_rgba(212,175,55,1)] inline-block"
+            >
+              ♠
+            </motion.span>
           </h1>
 
           {/* High Impact Subtitle */}
-          <p className="text-2xl lg:text-3xl font-black font-outfit uppercase tracking-[0.3em] text-[#F3E5AB] mt-2 whitespace-nowrap drop-shadow-[0_2px_15px_rgba(0,0,0,0.9)]">
+          <p className="text-3xl lg:text-4xl font-black font-outfit uppercase tracking-[0.3em] text-[#F3E5AB] mt-2 whitespace-nowrap drop-shadow-[0_2px_15px_rgba(0,0,0,0.9)]">
             FIND THE ACE OF SPADES • WIN THE CASH JACKPOT
           </p>
         </motion.div>
@@ -234,55 +254,58 @@ export const SlideIntro: React.FC<SlideIntroProps> = ({
       {/* Bottom Live Jackpot & Status Showcase */}
       <motion.div
         variants={bottomTilesVariants}
-        className="relative z-10 w-full max-w-[1550px] grid grid-cols-3 gap-6 will-change-[transform,opacity]"
+        className="relative z-10 w-full max-w-[1650px] grid grid-cols-3 gap-7 will-change-[transform,opacity]"
       >
         {/* Tile 1: Jackpot Pool */}
-        <div className="bg-gradient-to-r from-[#1A1711]/95 to-[#0F0E0B]/95 border-2 border-[#D4AF37] rounded-2xl p-5 flex items-center gap-5 shadow-[0_12px_35px_rgba(0,0,0,0.85)] backdrop-blur-md metallic-sheen-sweep">
-          <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/25 border-2 border-[#D4AF37] flex items-center justify-center text-[#D4AF37] shrink-0 shadow-[0_0_20px_rgba(212,175,55,0.4)]">
-            <Flame className="w-9 h-9 text-amber-400 animate-pulse" />
+        <div className="bg-gradient-to-r from-[#1A1711]/95 to-[#0F0E0B]/95 border-2 border-[#D4AF37] rounded-2xl p-6 flex items-center gap-6 shadow-[0_12px_35px_rgba(0,0,0,0.85)] backdrop-blur-md metallic-sheen-sweep">
+          <div className="w-20 h-20 rounded-2xl bg-[#D4AF37]/25 border-2 border-[#D4AF37] flex items-center justify-center text-[#D4AF37] shrink-0 shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+            <Flame className="w-11 h-11 text-amber-400 animate-pulse" />
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="text-sm font-black text-amber-300 uppercase tracking-widest font-outfit">
+            <span className="text-xl font-black text-amber-300 uppercase tracking-widest font-outfit">
               {isGameplayPaused ? "CURRENT BUILDING POT" : "ACTIVE JACKPOT"}
             </span>
-            <span className="text-5xl font-black font-bebas text-transparent bg-clip-text bg-gradient-to-r from-white via-[#FFF] to-[#FCE49E] tracking-wider drop-shadow-[0_0_20px_rgba(212,175,55,0.6)] whitespace-nowrap leading-none mt-1 animate-metallic-text">
+            <span className="text-6xl font-black font-bebas text-transparent bg-clip-text bg-gradient-to-r from-white via-[#FFF] to-[#FCE49E] tracking-wider drop-shadow-[0_0_20px_rgba(212,175,55,0.6)] whitespace-nowrap leading-none mt-1 animate-metallic-text">
               ${jackpot.toLocaleString("en-NZ", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
             </span>
-          </div>
-        </div>
-
-        {/* Tile 2: Target / Resumption */}
-        <div className="bg-gradient-to-r from-[#1A1711]/95 to-[#0F0E0B]/95 border-2 border-[#D4AF37] rounded-2xl p-5 flex items-center gap-5 shadow-[0_12px_35px_rgba(0,0,0,0.85)] backdrop-blur-md metallic-sheen-sweep">
-          <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/25 border-2 border-[#D4AF37] flex items-center justify-center text-[#D4AF37] shrink-0 shadow-[0_0_20px_rgba(212,175,55,0.4)]">
-            <Shield className="w-9 h-9 text-[#D4AF37]" />
-          </div>
-          <div className="flex flex-col min-w-0">
-            <span className="text-sm font-black text-[#D4AF37] uppercase tracking-widest font-outfit">
-              GAMEPLAY RESUMPTION
-            </span>
-            <span className="text-3xl font-black font-outfit text-white tracking-wide whitespace-nowrap leading-tight mt-0.5">
-              ${targetJackpot}.00 MINIMUM POOL
-            </span>
-            <span className="text-sm text-neutral-300 font-bold uppercase tracking-wider font-outfit">
+            <span className="text-lg text-neutral-300 font-bold uppercase tracking-wider font-outfit mt-1">
               BUILDS +$100 EACH DRAW DATE
             </span>
           </div>
         </div>
 
-        {/* Tile 3: Draw Mechanism & 7 Cabinet Shelves */}
-        <div className="bg-gradient-to-r from-[#1A1711]/95 to-[#0F0E0B]/95 border-2 border-[#D4AF37] rounded-2xl p-5 flex items-center gap-5 shadow-[0_12px_35px_rgba(0,0,0,0.85)] backdrop-blur-md metallic-sheen-sweep">
-          <div className="w-16 h-16 rounded-2xl bg-[#D4AF37]/25 border-2 border-[#D4AF37] flex items-center justify-center text-[#D4AF37] shrink-0 shadow-[0_0_20px_rgba(212,175,55,0.4)]">
-            <Layers className="w-9 h-9 text-[#D4AF37]" />
+        {/* Tile 2: Target / Resumption */}
+        <div className="bg-gradient-to-r from-[#1A1711]/95 to-[#0F0E0B]/95 border-2 border-[#D4AF37] rounded-2xl p-6 flex items-center gap-6 shadow-[0_12px_35px_rgba(0,0,0,0.85)] backdrop-blur-md metallic-sheen-sweep">
+          <div className="w-20 h-20 rounded-2xl bg-[#D4AF37]/25 border-2 border-[#D4AF37] flex items-center justify-center text-[#D4AF37] shrink-0 shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+            <Shield className="w-11 h-11 text-[#D4AF37]" />
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="text-sm font-black text-neutral-300 uppercase tracking-widest font-outfit">
+            <span className="text-xl font-black text-[#D4AF37] uppercase tracking-widest font-outfit">
+              GAMEPLAY RESUMPTION
+            </span>
+            <span className="text-5xl font-black font-bebas text-white tracking-wider whitespace-nowrap leading-none mt-1">
+              ${targetJackpot}.00 POOL
+            </span>
+            <span className="text-lg text-neutral-300 font-bold uppercase tracking-wider font-outfit mt-1">
+              RESUMES TUESDAY 13 OCT 2026
+            </span>
+          </div>
+        </div>
+
+        {/* Tile 3: Draw Mechanism & 7 Cabinet Shelves */}
+        <div className="bg-gradient-to-r from-[#1A1711]/95 to-[#0F0E0B]/95 border-2 border-[#D4AF37] rounded-2xl p-6 flex items-center gap-6 shadow-[0_12px_35px_rgba(0,0,0,0.85)] backdrop-blur-md metallic-sheen-sweep">
+          <div className="w-20 h-20 rounded-2xl bg-[#D4AF37]/25 border-2 border-[#D4AF37] flex items-center justify-center text-[#D4AF37] shrink-0 shadow-[0_0_20px_rgba(212,175,55,0.4)]">
+            <Layers className="w-11 h-11 text-[#D4AF37]" />
+          </div>
+          <div className="flex flex-col min-w-0">
+            <span className="text-xl font-black text-neutral-200 uppercase tracking-widest font-outfit">
               DRAW PROCEDURE
             </span>
-            <span className="text-3xl font-black font-outfit text-white tracking-wide whitespace-nowrap leading-tight mt-0.5">
+            <span className="text-5xl font-black font-bebas text-white tracking-wider whitespace-nowrap leading-none mt-1">
               7 CABINET SHELVES
             </span>
-            <span className="text-sm text-[#D4AF37] font-bold uppercase tracking-wider font-outfit">
-              52 CARDS SEALED IN LOCKED VENUE CABINET
+            <span className="text-lg text-[#D4AF37] font-bold uppercase tracking-wider font-outfit mt-1">
+              52 CARDS SEALED IN CABINET
             </span>
           </div>
         </div>

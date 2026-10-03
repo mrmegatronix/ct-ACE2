@@ -12,6 +12,7 @@ import { SlideRules } from "./components/SlideRules";
 import { SlideCountdown } from "./components/SlideCountdown";
 import { SlideHallOfWinners } from "./components/SlideHallOfWinners";
 import { ControlsOverlay } from "./components/ControlsOverlay";
+import { SlideProgressBar } from "./components/SlideProgressBar";
 import { motion, AnimatePresence, useReducedMotion, type Variants } from "framer-motion";
 
 export function App() {
@@ -452,6 +453,15 @@ export function App() {
           )}
         </AnimatePresence>
       </main>
+
+      <SlideProgressBar
+        currentSlide={currentSlide}
+        slideDurationSec={slideDurationSec}
+        isPaused={isPaused}
+        isLocked={isLocked}
+        isFixedParam={isFixedParam}
+        isUserInteracting={isUserInteracting}
+      />
 
       {!hideControls && (
         <ControlsOverlay

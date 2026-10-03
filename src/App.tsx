@@ -278,6 +278,21 @@ export function App() {
     lastUpdated: new Date(),
   };
 
+  const [stageScale, setStageScale] = useState(() =>
+    typeof window !== "undefined"
+      ? Math.min(window.innerWidth / 1920, window.innerHeight / 1080)
+      : 1
+  );
+
+  useEffect(() => {
+    const updateStageScale = () => {
+      setStageScale(Math.min(window.innerWidth / 1920, window.innerHeight / 1080));
+    };
+    updateStageScale();
+    window.addEventListener("resize", updateStageScale);
+    return () => window.removeEventListener("resize", updateStageScale);
+  }, []);
+
   const slideVariants: Variants = {
     initial: (dir: number) => ({
       opacity: 0,
@@ -308,10 +323,20 @@ export function App() {
   };
 
   return (
-    <div className="relative w-screen h-screen overflow-hidden bg-[#0A0A0A] text-white flex flex-col font-sans select-none">
-      <AceParticlesCanvas />
+    <div className="relative w-screen h-screen overflow-hidden bg-black flex items-center justify-center select-none">
+      <div
+        id="app-1080p-stage"
+        style={{
+          width: "1920px",
+          height: "1080px",
+          transform: `scale(${stageScale})`,
+          transformOrigin: "center center",
+        }}
+        className="relative overflow-hidden bg-[#0A0A0A] text-white flex flex-col font-sans shrink-0 shadow-2xl"
+      >
+        <AceParticlesCanvas />
 
-      {currentSlide !== 0 && (
+        {currentSlide !== 0 && (
         <TopHeader
           jackpot={data?.jackpot || 100}
           targetJackpot={targetJackpot}
@@ -466,6 +491,7 @@ export function App() {
           onToggleLock={toggleLock}
         />
       )}
+      </div>
     </div>
   );
 }

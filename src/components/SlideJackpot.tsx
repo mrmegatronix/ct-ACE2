@@ -47,11 +47,11 @@ export const SlideJackpot: React.FC<SlideJackpotProps> = ({ data, drawTarget }) 
       {/* Top Venue Identifier Pill */}
       <motion.div
         variants={itemVariants}
-        className="flex items-center justify-center"
+        className="flex items-center justify-center shrink-0"
       >
-        <div className="flex items-center gap-4 bg-gradient-to-r from-black/90 via-[#1C1A14]/95 to-black/90 border-2 border-[#D4AF37] px-10 py-3 rounded-full shadow-[0_0_35px_rgba(212,175,55,0.35)] backdrop-blur-md metallic-sheen-sweep">
+        <div className="flex items-center gap-4 bg-gradient-to-r from-black/90 via-[#1C1A14]/95 to-black/90 border-2 border-[#D4AF37] px-10 py-2.5 rounded-full shadow-[0_0_35px_rgba(212,175,55,0.35)] backdrop-blur-md metallic-sheen-sweep">
           <Trophy className="w-8 h-8 text-[#D4AF37] animate-pulse" />
-          <span className="text-2xl font-black font-outfit tracking-[0.3em] uppercase text-[#F3E5AB] whitespace-nowrap">
+          <span className="text-2xl font-black font-outfit tracking-[0.25em] uppercase text-[#F3E5AB] whitespace-nowrap">
             COASTERS TAVERN • PROGRESSIVE CASH PRIZE POOL
           </span>
           <Trophy className="w-8 h-8 text-[#D4AF37] animate-pulse" />
@@ -61,7 +61,7 @@ export const SlideJackpot: React.FC<SlideJackpotProps> = ({ data, drawTarget }) 
       {/* Main Colossal Jackpot Showcase Card */}
       <motion.div
         variants={itemVariants}
-        className="flex-1 my-4 bg-gradient-to-b from-[#1C1A14] via-[#121215] to-[#0A0A0A] border-4 border-[#D4AF37] rounded-3xl p-8 shadow-[0_0_70px_rgba(212,175,55,0.35)] flex flex-col items-center justify-center text-center relative overflow-hidden metallic-sheen-sweep"
+        className="flex-1 my-3 bg-gradient-to-b from-[#1C1A14] via-[#121215] to-[#0A0A0A] border-4 border-[#D4AF37] rounded-3xl p-6 shadow-[0_0_70px_rgba(212,175,55,0.35)] flex flex-col items-center justify-center text-center relative overflow-hidden metallic-sheen-sweep"
       >
         {/* Ambient Pulsing Glow Blobs */}
         <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#D4AF37]/20 rounded-full blur-3xl pointer-events-none animate-pulse" />
@@ -70,14 +70,14 @@ export const SlideJackpot: React.FC<SlideJackpotProps> = ({ data, drawTarget }) 
         {/* Jackpot Header Label */}
         <div className="flex items-center gap-3">
           <Flame className="w-10 h-10 text-amber-400 animate-pulse" />
-          <span className="text-4xl lg:text-5xl uppercase font-black tracking-widest text-amber-300 font-outfit">
+          <span className="text-4xl lg:text-5xl uppercase font-black tracking-widest text-amber-300 font-outfit whitespace-nowrap">
             CURRENT ACCUMULATED JACKPOT
           </span>
           <Flame className="w-10 h-10 text-amber-400 animate-pulse" />
         </div>
 
         {/* Colossal 200px Jackpot Number */}
-        <div className="text-[170px] lg:text-[210px] font-black tracking-normal text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF] via-[#FCE49E] to-[#D4AF37] drop-shadow-[0_0_50px_rgba(212,175,55,0.9)] my-1 font-bebas whitespace-nowrap animate-metallic-text leading-none">
+        <div className="text-[170px] lg:text-[200px] font-black tracking-normal text-transparent bg-clip-text bg-gradient-to-r from-[#D4AF37] via-[#FFF] via-[#FCE49E] to-[#D4AF37] drop-shadow-[0_0_50px_rgba(212,175,55,0.9)] my-1 font-bebas whitespace-nowrap animate-metallic-text leading-none">
           ${data.jackpot.toLocaleString("en-NZ", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
         </div>
 
@@ -90,8 +90,8 @@ export const SlideJackpot: React.FC<SlideJackpotProps> = ({ data, drawTarget }) 
         </p>
 
         {/* Wide Progress Bar towards $500 Target */}
-        <div className="w-full max-w-[1400px] mt-6 mb-2">
-          <div className="flex justify-between text-2xl font-black text-[#F3E5AB] uppercase mb-2 font-outfit">
+        <div className="w-full max-w-[1400px] mt-5 mb-1">
+          <div className="flex justify-between text-2xl font-black text-[#F3E5AB] uppercase mb-2 font-outfit whitespace-nowrap">
             <span>{progressPercent}% ACCUMULATED (${data.jackpot.toFixed(2)} / ${data.targetJackpot.toFixed(2)})</span>
             <span className="text-amber-300">
               TARGET DATE: {drawTarget.weekday.toUpperCase()} {data.resumeDateStr} ({drawTarget.timeStr})
@@ -117,13 +117,13 @@ export const SlideJackpot: React.FC<SlideJackpotProps> = ({ data, drawTarget }) 
             <TrendingUp className="w-12 h-12 text-amber-400" />
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="text-xl font-black text-amber-300 uppercase tracking-widest font-outfit">
+            <span className="text-xl font-black text-amber-300 uppercase tracking-widest font-outfit whitespace-nowrap">
               WEEKLY POT ACCUMULATION
             </span>
             <span className="text-6xl font-black font-bebas text-white tracking-wider drop-shadow-md whitespace-nowrap leading-none mt-1 animate-metallic-text">
               +$100.00
             </span>
-            <span className="text-lg font-bold text-neutral-300 uppercase tracking-wider font-outfit mt-1">
+            <span className="text-lg font-bold text-neutral-300 uppercase tracking-wider font-outfit mt-1 whitespace-nowrap">
               ADDED EVERY DRAW NIGHT
             </span>
           </div>
@@ -135,14 +135,14 @@ export const SlideJackpot: React.FC<SlideJackpotProps> = ({ data, drawTarget }) 
             <ShieldCheck className="w-12 h-12 text-[#D4AF37]" />
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="text-xl font-black text-[#D4AF37] uppercase tracking-widest font-outfit">
+            <span className="text-xl font-black text-[#D4AF37] uppercase tracking-widest font-outfit whitespace-nowrap">
               STARTING ODDS OF WINNING
             </span>
             <span className="text-6xl font-black font-bebas text-white tracking-wider drop-shadow-md whitespace-nowrap leading-none mt-1 animate-metallic-text">
               1 IN 52
             </span>
-            <span className="text-lg font-bold text-neutral-300 uppercase tracking-wider font-outfit mt-1">
-              52 CARDS SEALED IN CABINET
+            <span className="text-lg font-bold text-neutral-300 uppercase tracking-wider font-outfit mt-1 whitespace-nowrap">
+              52 SEALED CARDS IN PLAY
             </span>
           </div>
         </div>
@@ -153,13 +153,13 @@ export const SlideJackpot: React.FC<SlideJackpotProps> = ({ data, drawTarget }) 
             <AlertTriangle className="w-12 h-12 text-amber-400 animate-pulse" />
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="text-xl font-black text-amber-300 uppercase tracking-widest font-outfit">
+            <span className="text-xl font-black text-amber-300 uppercase tracking-widest font-outfit whitespace-nowrap">
               CURRENT DRAW STATUS
             </span>
             <span className="text-6xl font-black font-bebas text-amber-300 tracking-wider drop-shadow-md whitespace-nowrap leading-none mt-1">
               PAUSED
             </span>
-            <span className="text-lg font-bold text-neutral-300 uppercase tracking-wider font-outfit mt-1">
+            <span className="text-lg font-bold text-neutral-300 uppercase tracking-wider font-outfit mt-1 whitespace-nowrap">
               RESUMES AT $500 POOL
             </span>
           </div>

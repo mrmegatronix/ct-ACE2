@@ -25,13 +25,13 @@ export const AceParticlesCanvas: React.FC = () => {
     if (!ctx) return;
 
     let animationFrameId: number;
-    let width = (canvas.width = window.innerWidth);
-    let height = (canvas.height = window.innerHeight);
+    let width = (canvas.width = canvas.parentElement?.clientWidth || 1920);
+    let height = (canvas.height = canvas.parentElement?.clientHeight || 1080);
 
     const handleResize = () => {
       if (!canvas) return;
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      width = canvas.width = canvas.parentElement?.clientWidth || 1920;
+      height = canvas.height = canvas.parentElement?.clientHeight || 1080;
     };
     window.addEventListener("resize", handleResize);
 

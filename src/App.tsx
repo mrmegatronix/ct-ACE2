@@ -261,24 +261,27 @@ export function App() {
   const slideVariants: Variants = {
     initial: (dir: number) => ({
       opacity: 0,
-      x: shouldReduceMotion ? 0 : dir > 0 ? 30 : -30,
-      scale: shouldReduceMotion ? 1 : 0.98,
+      x: shouldReduceMotion ? 0 : dir > 0 ? 80 : -80,
+      scale: shouldReduceMotion ? 1 : 0.94,
+      filter: shouldReduceMotion ? "none" : "blur(6px)",
     }),
     animate: {
       opacity: 1,
       x: 0,
       scale: 1,
+      filter: "blur(0px)",
       transition: {
-        duration: shouldReduceMotion ? 0.01 : 0.35,
+        duration: shouldReduceMotion ? 0.01 : 0.55,
         ease: [0.16, 1, 0.3, 1] as const,
       },
     },
     exit: (dir: number) => ({
       opacity: 0,
-      x: shouldReduceMotion ? 0 : dir > 0 ? -25 : 25,
-      scale: shouldReduceMotion ? 1 : 0.98,
+      x: shouldReduceMotion ? 0 : dir > 0 ? -60 : 60,
+      scale: shouldReduceMotion ? 1 : 0.95,
+      filter: shouldReduceMotion ? "none" : "blur(4px)",
       transition: {
-        duration: shouldReduceMotion ? 0.01 : 0.22,
+        duration: shouldReduceMotion ? 0.01 : 0.35,
         ease: [0.7, 0, 0.84, 0] as const,
       },
     }),

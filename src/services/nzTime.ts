@@ -12,41 +12,46 @@ export function getUtcForNzLocal(
   hour: number,
   minute: number
 ): Date {
-  let guess = Date.UTC(year, month - 1, day, hour - 12, minute, 0);
-  for (let i = 0; i < 4; i++) {
-    const d = new Date(guess);
-    const parts = new Intl.DateTimeFormat("en-US", {
-      timeZone: NZ_TIMEZONE,
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-      hour12: false,
-    }).formatToParts(d);
+  try {
+    let guess = Date.UTC(year, month - 1, day, hour - 12, minute, 0);
+    for (let i = 0; i < 4; i++) {
+      const d = new Date(guess);
+      const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: NZ_TIMEZONE,
+        year: "numeric",
+        month: "numeric",
+        day: "numeric",
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: false,
+      }).formatToParts(d);
 
-    const m: Record<string, number> = {};
-    for (const p of parts) {
-      if (p.type !== "literal") {
-        m[p.type] = parseInt(p.value, 10);
+      const m: Record<string, number> = {};
+      for (const p of parts) {
+        if (p.type !== "literal") {
+          m[p.type] = parseInt(p.value, 10);
+        }
       }
-    }
 
-    const currentTargetInGuess = Date.UTC(
-      m.year,
-      m.month - 1,
-      m.day,
-      m.hour,
-      m.minute,
-      m.second || 0
-    );
-    const desiredTarget = Date.UTC(year, month - 1, day, hour, minute, 0);
-    const diff = desiredTarget - currentTargetInGuess;
-    if (diff === 0) break;
-    guess += diff;
+      const currentTargetInGuess = Date.UTC(
+        m.year,
+        m.month - 1,
+        m.day,
+        m.hour,
+        m.minute,
+        m.second || 0
+      );
+      const desiredTarget = Date.UTC(year, month - 1, day, hour, minute, 0);
+      const diff = desiredTarget - currentTargetInGuess;
+      if (diff === 0) break;
+      guess += diff;
+    }
+    return new Date(guess);
+  } catch (err) {
+    console.warn("Intl timezone error in getUtcForNzLocal, using UTC+13 fallback:", err);
+    return new Date(Date.UTC(year, month - 1, day, hour - 13, minute, 0));
   }
-  return new Date(guess);
 }
 
 /**
@@ -163,54 +168,71 @@ export function getCountdown(
 }
 
 export function getNzClockParts(now: Date = new Date()) {
-  const parts = new Intl.DateTimeFormat("en-US", {
-    timeZone: NZ_TIMEZONE,
-    hour: "2-digit",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true,
-  }).formatToParts(now);
-
-  const m: Record<string, string> = {};
-  for (const p of parts) {
-    m[p.type] = p.value;
-  }
-
-  return {
-    hours: m.hour || "00",
-    minutes: m.minute || "00",
-    seconds: m.second || "00",
-    dayPeriod: m.dayPeriod || "PM",
-    fullDate: new Intl.DateTimeFormat("en-NZ", {
+  try {
+    const parts = new Intl.DateTimeFormat("en-US", {
       timeZone: NZ_TIMEZONE,
-      weekday: "short",
-      day: "numeric",
-      month: "short",
-    }).format(now),
-  };
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: true,
+    }).formatToParts(now);
+
+    const m: Record<string, string> = {};
+    for (const p of parts) {
+      m[p.type] = p.value;
+    }
+
+    return {
+      hours: m.hour || "00",
+      minutes: m.minute || "00",
+      seconds: m.second || "00",
+      dayPeriod: m.dayPeriod || "PM",
+      fullDate: new Intl.DateTimeFormat("en-NZ", {
+        timeZone: NZ_TIMEZONE,
+        weekday: "short",
+        day: "numeric",
+        month: "short",
+      }).format(now),
+    };
+  } catch (err) {
+    console.warn("Intl timezone error in getNzClockParts, using local clock fallback:", err);
+    const rawHours = now.getHours();
+    const displayHours = rawHours % 12 || 12;
+    return {
+      hours: String(displayHours).padStart(2, "0"),
+      minutes: String(now.getMinutes()).padStart(2, "0"),
+      seconds: String(now.getSeconds()).padStart(2, "0"),
+      dayPeriod: rawHours >= 12 ? "PM" : "AM",
+      fullDate: now.toLocaleDateString(),
+    };
+  }
 }
 
 export function setupDailyRefreshValve() {
   const checkInterval = setInterval(() => {
-    const now = new Date();
-    const parts = new Intl.DateTimeFormat("en-US", {
-      timeZone: NZ_TIMEZONE,
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric",
-      hour12: false,
-    }).formatToParts(now);
+    try {
+      const now = new Date();
+      const parts = new Intl.DateTimeFormat("en-US", {
+        timeZone: NZ_TIMEZONE,
+        hour: "numeric",
+        minute: "numeric",
+        second: "numeric",
+        hour12: false,
+      }).formatToParts(now);
 
-    const m: Record<string, number> = {};
-    for (const p of parts) {
-      if (p.type !== "literal") {
-        m[p.type] = parseInt(p.value, 10);
+      const m: Record<string, number> = {};
+      for (const p of parts) {
+        if (p.type !== "literal") {
+          m[p.type] = parseInt(p.value, 10);
+        }
       }
-    }
 
-    if (m.hour === 3 && m.minute === 0 && (m.second >= 0 && m.second <= 5)) {
-      console.log("Anti-Leak Refresh Valve: Hard page wipe triggered at 3:00 AM NZ");
-      window.location.reload();
+      if (m.hour === 3 && m.minute === 0 && m.second >= 0 && m.second <= 5) {
+        console.log("Anti-Leak Refresh Valve: Hard page wipe triggered at 3:00 AM NZ");
+        window.location.reload();
+      }
+    } catch {
+      // Ignore timezone inspection error
     }
   }, 5000);
 

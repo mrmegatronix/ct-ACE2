@@ -94,7 +94,11 @@ export const AceParticlesCanvas: React.FC = () => {
           ctx.lineWidth = 1.2;
 
           ctx.beginPath();
-          ctx.roundRect(-w / 2, -h / 2, w, h, 4);
+          if (typeof (ctx as unknown as { roundRect?: Function }).roundRect === "function") {
+            ctx.roundRect(-w / 2, -h / 2, w, h, 4);
+          } else {
+            ctx.rect(-w / 2, -h / 2, w, h);
+          }
           ctx.fill();
           ctx.stroke();
 
@@ -102,7 +106,11 @@ export const AceParticlesCanvas: React.FC = () => {
           ctx.strokeStyle = "rgba(212, 175, 55, 0.25)";
           ctx.lineWidth = 0.8;
           ctx.beginPath();
-          ctx.roundRect(-w / 2 + 2, -h / 2 + 2, w - 4, h - 4, 2);
+          if (typeof (ctx as unknown as { roundRect?: Function }).roundRect === "function") {
+            ctx.roundRect(-w / 2 + 2, -h / 2 + 2, w - 4, h - 4, 2);
+          } else {
+            ctx.rect(-w / 2 + 2, -h / 2 + 2, w - 4, h - 4);
+          }
           ctx.stroke();
 
           // Center ♠ Spade

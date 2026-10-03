@@ -6,6 +6,7 @@ import { AceParticlesCanvas } from "./components/AceParticlesCanvas";
 import { TopHeader } from "./components/TopHeader";
 import { SlideIntro } from "./components/SlideIntro";
 import { SlideCardCabinet } from "./components/SlideCardCabinet";
+import { SlideCardsRemaining } from "./components/SlideCardsRemaining";
 import { SlideJackpot } from "./components/SlideJackpot";
 import { SlideRules } from "./components/SlideRules";
 import { SlideCountdown } from "./components/SlideCountdown";
@@ -23,7 +24,7 @@ export function App() {
   const [data, setData] = useState<SignageData | null>(null);
   const [currentSlide, setCurrentSlide] = useState(isFixedParam ? parsedSlide : 0);
   const [direction, setDirection] = useState(1);
-  const totalSlides = 6;
+  const totalSlides = 7;
   const shouldReduceMotion = useReducedMotion();
 
   const [slideDurationSec, setSlideDurationSec] = useState(20);
@@ -370,6 +371,22 @@ export function App() {
 
           {currentSlide === 2 && (
             <motion.div
+              key="slide-cards-remaining"
+              custom={direction}
+              variants={slideVariants}
+              initial="initial"
+              animate="animate"
+              exit="exit"
+              className="w-full h-full flex items-center justify-center will-change-[transform,opacity]"
+            >
+              <SlideCardsRemaining
+                data={activeData}
+              />
+            </motion.div>
+          )}
+
+          {currentSlide === 3 && (
+            <motion.div
               key="slide-jackpot"
               custom={direction}
               variants={slideVariants}
@@ -385,7 +402,7 @@ export function App() {
             </motion.div>
           )}
 
-          {currentSlide === 3 && (
+          {currentSlide === 4 && (
             <motion.div
               key="slide-rules"
               custom={direction}
@@ -401,7 +418,7 @@ export function App() {
             </motion.div>
           )}
 
-          {currentSlide === 4 && (
+          {currentSlide === 5 && (
             <motion.div
               key="slide-countdown"
               custom={direction}
@@ -420,7 +437,7 @@ export function App() {
             </motion.div>
           )}
 
-          {currentSlide === 5 && (
+          {currentSlide === 6 && (
             <motion.div
               key="slide-winners"
               custom={direction}

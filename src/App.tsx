@@ -263,7 +263,7 @@ export function App() {
   const drawTarget = getNextDrawTarget(new Date(), isGameplayPaused);
 
   const activeData: SignageData = data || {
-    jackpot: 100,
+    jackpot: 200,
     targetJackpot: 500,
     isGameplayPaused: true,
     resumeDateStr: "13/10/2026",

@@ -63,9 +63,8 @@ export function parseCsvData(csvText: string): SignageData {
     return result;
   });
 
-  // Tomorrow (29/09/2026) is Event #1: Jackpot builds by $100 to $100.00
-  // Game does not resume until it hits $500 on Event #5 (13/10/2026)
-  let currentJackpot = 100; // Will be $100 tomorrow
+  let parsedJackpotTotal: number | null = null;
+  let sumEventAmounts = 0;
   let targetJackpot = 500;
   let isGameplayPaused = true;
   let resumeDateStr = "13/10/2026";
@@ -74,7 +73,28 @@ export function parseCsvData(csvText: string): SignageData {
   let winningChance = "0.00%";
   let comment = "GAME PLAY CURRENTLY PAUSED • BUILDING TO $500";
 
-  // Check if any actual card was flipped in the CSV rows
+  // Scan from bottom up to find JACKPOT TOTAL on the bottom row
+  for (let i = lines.length - 1; i >= 0; i--) {
+    const row = lines[i];
+    for (let c = 0; c < row.length; c++) {
+      if ((row[c] || "").toUpperCase().includes("JACKPOT TOTAL")) {
+        for (let nextCol = c + 1; nextCol < row.length; nextCol++) {
+          const clean = (row[nextCol] || "").replace(/[^0-9.]/g, "");
+          if (clean) {
+            const val = parseFloat(clean);
+            if (!isNaN(val) && val > 0) {
+              parsedJackpotTotal = val;
+              break;
+            }
+          }
+        }
+        break;
+      }
+    }
+    if (parsedJackpotTotal !== null) break;
+  }
+
+  // Check event rows for cards flipped and event jackpot increments
   for (let i = 2; i < lines.length; i++) {
     const row = lines[i];
     if (row.length < 4) continue;
@@ -83,6 +103,16 @@ export function parseCsvData(csvText: string): SignageData {
     if (rowComment.includes("GAME START $500")) {
       const rowDate = (row[1] || "").trim();
       if (rowDate) resumeDateStr = rowDate;
+    }
+
+    if (row.length > 6 && !row.some(c => (c || "").toUpperCase().includes("JACKPOT TOTAL"))) {
+      const clean = (row[6] || "").replace(/[^0-9.]/g, "");
+      if (clean) {
+        const val = parseFloat(clean);
+        if (!isNaN(val) && val > 0) {
+          sumEventAmounts += val;
+        }
+      }
     }
 
     const rawFlipped = (row[3] || "").trim().replace(/[^0-9]/g, "");
@@ -97,9 +127,12 @@ export function parseCsvData(csvText: string): SignageData {
     }
   }
 
-  // If paused, pot is $100 tomorrow, building to $500
+  const currentJackpot =
+    parsedJackpotTotal !== null && parsedJackpotTotal > 0
+      ? parsedJackpotTotal
+      : (sumEventAmounts > 0 ? sumEventAmounts : 200);
+
   if (isGameplayPaused) {
-    currentJackpot = 100;
     targetJackpot = 500;
     flippedCount = 0;
     remainingCards = 52;
@@ -141,9 +174,7 @@ export async function fetchSignageData(): Promise<SignageData> {
   let csvText: string | null = null;
 
   try {
-    const res = await fetch(`${GOOGLE_SHEETS_CSV_URL}&t=${Date.now()}`, {
-      headers: { "Cache-Control": "no-cache" }
-    });
+    const res = await fetch(`${GOOGLE_SHEETS_CSV_URL}&t=${Date.now()}`);
     if (res.ok) {
       const text = await res.text();
       if (text && !text.includes("<!DOCTYPE") && !text.includes("<html") && text.length > 50) {

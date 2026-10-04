@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build && cp dist/dev.html dist/index.html && cp dist/dev.html index.html && cp -r public/* .",
+    "build": "tsc -b && vite build && cp -r public/* . && node scripts/postbuild.cjs",
     "lint": "eslint .",
     "format": "prettier --write \"**/*.{ts,tsx}\"",
     "typecheck": "tsc --noEmit",

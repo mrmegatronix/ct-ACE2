@@ -83,6 +83,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
 function mount() {
   const container = document.getElementById("root");
   if (!container) return;
+  (window as any).__REACT_MOUNTED__ = true;
   const root = createRoot(container);
   root.render(
     <StrictMode>

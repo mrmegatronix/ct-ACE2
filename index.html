@@ -192,15 +192,15 @@
     .header-jackpot-badge {
       display: flex;
       align-items: center;
-      gap: 14px;
+      gap: 16px;
       background: linear-gradient(90deg, rgba(26,23,17,0.95), rgba(15,14,11,0.95));
       border: 2px solid #D4AF37;
-      padding: 8px 24px;
+      padding: 6px 24px;
       border-radius: 14px;
       box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
     }
     .header-jackpot-label {
-      font-size: 14px;
+      font-size: 30px;
       font-weight: 900;
       color: #FCD34D;
       letter-spacing: 0.06em;
@@ -208,7 +208,7 @@
     }
     .header-jackpot-val {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 40px;
+      font-size: 42px;
       font-weight: 900;
       color: #FFFFFF;
       line-height: 1;
@@ -220,20 +220,20 @@
       gap: 20px;
     }
     .status-pill {
-      font-size: 14px;
+      font-size: 30px;
       font-weight: 900;
-      padding: 6px 16px;
+      padding: 6px 20px;
       border-radius: 20px;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       text-transform: uppercase;
       background: rgba(245, 158, 11, 0.2);
-      border: 1.5px solid #F59E0B;
+      border: 2px solid #F59E0B;
       color: #FCD34D;
       white-space: nowrap;
     }
     .header-clock {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 38px;
+      font-size: 40px;
       color: #FFFFFF;
       letter-spacing: 0.05em;
       white-space: nowrap;
@@ -358,7 +358,7 @@
     }
     .vault-card-num {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 16px;
+      font-size: 30px;
       color: #F3E5AB;
       line-height: 1;
     }
@@ -438,10 +438,10 @@
       right: 20px;
       background: rgba(0,0,0,0.85);
       border: 2px solid #D4AF37;
-      padding: 10px 20px;
-      border-radius: 12px;
+      padding: 10px 24px;
+      border-radius: 14px;
       font-weight: 900;
-      font-size: 16px;
+      font-size: 30px;
       color: #FCD34D;
       display: none;
       z-index: 100;
@@ -469,13 +469,13 @@
       <div class="header-brand">
         <img src="./logo.png" alt="Coasters Tavern" class="header-logo-img">
         <h1 class="header-title" style="display: flex; align-items: center; gap: 8px;">
-          <span class="animate-spade-loop" style="font-size: 26px;">♠</span>
+          <span class="animate-spade-loop" style="font-size: 30px;">♠</span>
           <span>CHASE</span>
-          <span class="animate-spade-loop" style="font-size: 26px; animation-delay: 1.5s;">♠</span>
+          <span class="animate-spade-loop" style="font-size: 30px; animation-delay: 1.5s;">♠</span>
           <span>THE</span>
-          <span class="animate-spade-loop" style="font-size: 26px; animation-delay: 3s;">♠</span>
+          <span class="animate-spade-loop" style="font-size: 30px; animation-delay: 3s;">♠</span>
           <span>ACE</span>
-          <span class="animate-spade-loop" style="font-size: 26px; animation-delay: 4.5s;">♠</span>
+          <span class="animate-spade-loop" style="font-size: 30px; animation-delay: 4.5s;">♠</span>
         </h1>
       </div>
       <div class="header-jackpot-badge">
@@ -484,7 +484,7 @@
       </div>
       <div class="header-status">
         <span class="status-pill">PAUSED • RESUMES AT $500</span>
-        <span id="slide-num-indicator" style="font-size: 16px; font-weight: 800; color: #D4AF37;">SLIDE 1 OF 7</span>
+        <span id="slide-num-indicator" style="font-size: 30px; font-weight: 800; color: #D4AF37;">SLIDE 1 OF 7</span>
         <div class="header-clock" id="live-nz-clock">--<span class="blink-colon">:</span>--<span class="blink-colon">:</span>--</div>
       </div>
     </header>
@@ -501,11 +501,11 @@
       <section class="slide-pane active" id="slide-0">
         <!-- Top Banner: Gameplay Paused Pill Box -->
         <div style="z-index: 10; display: flex; align-items: center; gap: 16px; background: linear-gradient(90deg, rgba(0,0,0,0.95), rgba(30,25,14,0.95), rgba(0,0,0,0.95)); border: 2px solid rgba(245,158,11,0.85); padding: 12px 36px; border-radius: 9999px; box-shadow: 0 0 35px rgba(245,158,11,0.4); margin-top: 4px;">
-          <span style="font-size: 26px; color: #F59E0B; animation: pulse-glow 1.5s infinite;">⚠️</span>
-          <span style="font-size: 22px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: #FCD34D; font-family: 'Outfit', sans-serif; white-space: nowrap; text-shadow: 0 2px 12px rgba(245,158,11,0.7);">
+          <span style="font-size: 32px; color: #F59E0B; animation: pulse-glow 1.5s infinite;">⚠️</span>
+          <span style="font-size: 30px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: #FCD34D; font-family: 'Outfit', sans-serif; white-space: nowrap; text-shadow: 0 2px 12px rgba(245,158,11,0.7);">
             CURRENT GAMEPLAY IS TEMPORARILY PAUSED • RESUMES AT $500 POOL
           </span>
-          <span style="font-size: 26px; color: #F59E0B; animation: pulse-glow 1.5s infinite;">⚠️</span>
+          <span style="font-size: 32px; color: #F59E0B; animation: pulse-glow 1.5s infinite;">⚠️</span>
         </div>
 
         <!-- Center Cinematic Stage: 3D Floating Hero Card & Colossal Title -->
@@ -516,9 +516,9 @@
               <div style="display: flex; justify-content: space-between; align-items: flex-start; line-height: 1;">
                 <div style="display: flex; flex-direction: column; align-items: center; color: #F3E5AB;">
                   <span style="font-size: 44px; font-weight: 900;">A</span>
-                  <span style="font-size: 26px; color: #D4AF37;">♠</span>
+                  <span style="font-size: 30px; color: #D4AF37;">♠</span>
                 </div>
-                <span style="font-size: 13px; font-weight: 900; color: #D4AF37; border: 2px solid rgba(212,175,55,0.6); padding: 3px 10px; border-radius: 8px; background: rgba(0,0,0,0.6); text-transform: uppercase; letter-spacing: 0.08em;">
+                <span style="font-size: 30px; font-weight: 900; color: #D4AF37; border: 2px solid rgba(212,175,55,0.6); padding: 3px 12px; border-radius: 8px; background: rgba(0,0,0,0.6); text-transform: uppercase; letter-spacing: 0.08em;">
                   ACE
                 </span>
               </div>
@@ -528,10 +528,10 @@
               <div style="display: flex; justify-content: space-between; align-items: flex-end; line-height: 1; transform: rotate(180deg);">
                 <div style="display: flex; flex-direction: column; align-items: center; color: #F3E5AB;">
                   <span style="font-size: 44px; font-weight: 900;">A</span>
-                  <span style="font-size: 26px; color: #D4AF37;">♠</span>
+                  <span style="font-size: 30px; color: #D4AF37;">♠</span>
                 </div>
-                <span style="font-size: 12px; font-weight: 900; color: rgba(212,175,55,0.8); text-transform: uppercase; letter-spacing: 0.08em;">
-                  CHASE THE ACE
+                <span style="font-size: 30px; font-weight: 900; color: #D4AF37; border: 2px solid rgba(212,175,55,0.6); padding: 3px 12px; border-radius: 8px; background: rgba(0,0,0,0.6); text-transform: uppercase; letter-spacing: 0.08em;">
+                  ACE
                 </span>
               </div>
             </div>
@@ -562,13 +562,13 @@
               🔥
             </div>
             <div style="display: flex; flex-direction: column; min-width: 0;">
-              <span style="font-size: 22px; font-weight: 900; color: #FCD34D; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
+              <span style="font-size: 30px; font-weight: 900; color: #FCD34D; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
                 CURRENT BUILDING POT
               </span>
               <span class="live-jackpot-val" style="font-size: 72px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; text-shadow: 0 0 25px rgba(212,175,55,0.7); white-space: nowrap; margin-top: 2px;">
                 $400.00
               </span>
-              <span style="font-size: 16px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
+              <span style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
                 BUILDS +$100 EACH DRAW DATE
               </span>
             </div>
@@ -580,13 +580,13 @@
               🛡️
             </div>
             <div style="display: flex; flex-direction: column; min-width: 0;">
-              <span style="font-size: 22px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
+              <span style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
                 GAMEPLAY RESUMPTION
               </span>
               <span style="font-size: 72px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
                 $500.00 POOL
               </span>
-              <span style="font-size: 16px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
+              <span style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
                 RESUMES SATURDAY 10 OCT 2026
               </span>
             </div>
@@ -598,13 +598,13 @@
               🗄️
             </div>
             <div style="display: flex; flex-direction: column; min-width: 0;">
-              <span style="font-size: 22px; font-weight: 900; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
+              <span style="font-size: 30px; font-weight: 900; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
                 DRAW PROCEDURE
               </span>
               <span style="font-size: 72px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
                 LOCKED CARD VAULT
               </span>
-              <span style="font-size: 16px; font-weight: 800; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
+              <span style="font-size: 30px; font-weight: 800; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
                 52 SEALED CARDS IN PLAY
               </span>
             </div>
@@ -621,7 +621,7 @@
             <h2 style="font-size: 50px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.04em;">
               LOCKED VENUE CABINET <span class="animate-spade-loop" style="font-size: 40px;">♠</span> <span style="color: #D4AF37;">52 CARDS</span>
             </h2>
-            <p style="font-size: 22px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px;">
+            <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px;">
               AUTHENTIC PLAYING CARDS MOUNTED IN SECURE CABINET BEHIND BAR
             </p>
           </div>
@@ -644,34 +644,34 @@
           <h2 style="font-size: 52px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.06em;">
             CARD VAULT STATUS <span class="animate-spade-loop" style="font-size: 42px;">♠</span>
           </h2>
-          <p style="font-size: 24px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
+          <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
             FULL 52-CARD DECK SECURED IN BAR CABINET
           </p>
         </div>
 
         <div style="width: 100%; max-width: 1800px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; margin-bottom: 28px;">
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
-            <div style="font-size: 24px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">CARDS REMAINING</div>
+            <div style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">CARDS REMAINING</div>
             <div style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 12px 0;">52</div>
-            <div style="font-size: 18px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">100% OF DECK IN PLAY</div>
+            <div style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">100% OF DECK IN PLAY</div>
           </div>
 
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
-            <div style="font-size: 24px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">CARDS DRAWN</div>
+            <div style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">CARDS DRAWN</div>
             <div style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #F59E0B; line-height: 1; margin: 12px 0;">0</div>
-            <div style="font-size: 18px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">ROUND RESETS AT $500</div>
+            <div style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">ROUND RESETS AT $500</div>
           </div>
 
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
-            <div style="font-size: 24px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">WINNING CHANCE</div>
+            <div style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">WINNING CHANCE</div>
             <div style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 12px 0;">1.92%</div>
-            <div style="font-size: 18px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">1 IN 52 ODDS ON START</div>
+            <div style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">1 IN 52 ODDS ON START</div>
           </div>
 
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
-            <div style="font-size: 24px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">TARGET CARD</div>
+            <div style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">TARGET CARD</div>
             <div style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #F3E5AB; line-height: 1; margin: 12px 0;">♠ ACE</div>
-            <div style="font-size: 18px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">ACE OF SPADES WINS ALL</div>
+            <div style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">ACE OF SPADES WINS ALL</div>
           </div>
         </div>
 
@@ -720,7 +720,7 @@
           <h2 style="font-size: 52px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.06em;">
             HOW TO PLAY & OFFICIAL RULES <span class="animate-spade-loop" style="font-size: 42px;">♠</span>
           </h2>
-          <p style="font-size: 24px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
+          <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
             SIMPLE STEPS TO WIN BIG AT COASTERS TAVERN
           </p>
         </div>
@@ -729,48 +729,48 @@
           <div class="gold-panel" style="padding: 34px 28px; display: flex; flex-direction: column; justify-content: space-between;">
             <div>
               <div style="font-size: 36px; font-weight: 900; color: #D4AF37; margin-bottom: 14px;">01. GET TICKETS</div>
-              <p style="font-size: 22px; line-height: 1.45; color: #E5E5E5; font-weight: 600;">
+              <p style="font-size: 30px; line-height: 1.35; color: #E5E5E5; font-weight: 600;">
                 Receive entry tickets with qualifying food or beverage purchases between 4:00 PM and draw time on draw days.
               </p>
             </div>
-            <div style="font-size: 18px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 24px; letter-spacing: 0.05em;">
-              TICKETS VALID FOR DRAW DAY ONLY
+            <div style="font-size: 30px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 24px; letter-spacing: 0.05em;">
+              VALID ON DRAW DAY ONLY
             </div>
           </div>
 
           <div class="gold-panel" style="padding: 34px 28px; display: flex; flex-direction: column; justify-content: space-between;">
             <div>
               <div style="font-size: 36px; font-weight: 900; color: #D4AF37; margin-bottom: 14px;">02. ATTEND DRAW</div>
-              <p style="font-size: 22px; line-height: 1.45; color: #E5E5E5; font-weight: 600;">
+              <p style="font-size: 30px; line-height: 1.35; color: #E5E5E5; font-weight: 600;">
                 Draws occur Tuesdays at 5:30 PM & Saturdays at 6:30 PM. Ticket holders MUST be present in venue to claim!
               </p>
             </div>
-            <div style="font-size: 18px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 24px; letter-spacing: 0.05em;">
-              TUESDAY 5:30PM • SATURDAY 6:30PM
+            <div style="font-size: 30px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 24px; letter-spacing: 0.05em;">
+              TUE 5:30PM • SAT 6:30PM
             </div>
           </div>
 
           <div class="gold-panel" style="padding: 34px 28px; display: flex; flex-direction: column; justify-content: space-between;">
             <div>
               <div style="font-size: 36px; font-weight: 900; color: #D4AF37; margin-bottom: 14px;">03. PICK A CARD</div>
-              <p style="font-size: 22px; line-height: 1.45; color: #E5E5E5; font-weight: 600;">
+              <p style="font-size: 30px; line-height: 1.35; color: #E5E5E5; font-weight: 600;">
                 If your ticket is drawn, choose 1 numbered envelope from the locked cabinet behind the bar to reveal the card.
               </p>
             </div>
-            <div style="font-size: 18px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 24px; letter-spacing: 0.05em;">
-              52 SEALED ENVELOPES IN PLAY
+            <div style="font-size: 30px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 24px; letter-spacing: 0.05em;">
+              52 SEALED ENVELOPES
             </div>
           </div>
 
           <div class="gold-panel" style="padding: 34px 28px; display: flex; flex-direction: column; justify-content: space-between;">
             <div>
               <div style="font-size: 36px; font-weight: 900; color: #D4AF37; margin-bottom: 14px;">04. CHASE THE ACE</div>
-              <p style="font-size: 22px; line-height: 1.45; color: #E5E5E5; font-weight: 600;">
-                Reveal the ACE OF SPADES to take home the entire CASH JACKPOT! If any other card is drawn, +$100 rolls into the next draw.
+              <p style="font-size: 30px; line-height: 1.35; color: #E5E5E5; font-weight: 600;">
+                Reveal the ACE OF SPADES to take home the entire CASH JACKPOT! If any other card is drawn, +$100 rolls into next draw.
               </p>
             </div>
-            <div style="font-size: 18px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 24px; letter-spacing: 0.05em;">
-              JACKPOT BUILDS +$100 EACH DRAW
+            <div style="font-size: 30px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 24px; letter-spacing: 0.05em;">
+              +$100 ACCUMULATES PER DRAW
             </div>
           </div>
         </div>
@@ -784,7 +784,7 @@
           <h2 style="font-size: 52px; font-weight: 900; color: #D4AF37; letter-spacing: 0.1em; text-transform: uppercase;">
             GAMEPLAY RESUMPTION COUNTDOWN <span class="animate-spade-loop" style="font-size: 42px;">♠</span>
           </h2>
-          <p style="font-size: 26px; font-weight: 700; color: #E5E5E5; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 8px;">
+          <p style="font-size: 30px; font-weight: 700; color: #E5E5E5; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 8px;">
             RESUMES SATURDAY 10 OCTOBER 2026 • 6:30 PM NZST
           </p>
 
@@ -795,7 +795,7 @@
               <div class="gold-panel" style="width: 240px; height: 210px; display: flex; align-items: center; justify-content: center; border-radius: 28px; box-shadow: 0 16px 45px rgba(0,0,0,0.95), 0 0 35px rgba(212,175,55,0.4);">
                 <span id="cd-days" style="font-family: 'Oswald', sans-serif; font-size: 155px; font-weight: 800; color: #FFFFFF; line-height: 1; text-shadow: 0 0 30px rgba(212,175,55,0.7); letter-spacing: 0.02em;">00</span>
               </div>
-              <span style="font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 900; color: #D4AF37; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 14px;">DAYS</span>
+              <span style="font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 900; color: #D4AF37; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 14px;">DAYS</span>
             </div>
 
             <span class="blink-colon" style="font-family: 'Oswald', sans-serif; font-size: 130px; font-weight: 700; color: #D4AF37; margin-bottom: 45px; text-shadow: 0 0 25px rgba(212,175,55,0.8);">:</span>
@@ -805,7 +805,7 @@
               <div class="gold-panel" style="width: 240px; height: 210px; display: flex; align-items: center; justify-content: center; border-radius: 28px; box-shadow: 0 16px 45px rgba(0,0,0,0.95), 0 0 35px rgba(212,175,55,0.4);">
                 <span id="cd-hours" style="font-family: 'Oswald', sans-serif; font-size: 155px; font-weight: 800; color: #FFFFFF; line-height: 1; text-shadow: 0 0 30px rgba(212,175,55,0.7); letter-spacing: 0.02em;">00</span>
               </div>
-              <span style="font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 900; color: #D4AF37; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 14px;">HOURS</span>
+              <span style="font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 900; color: #D4AF37; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 14px;">HOURS</span>
             </div>
 
             <span class="blink-colon" style="font-family: 'Oswald', sans-serif; font-size: 130px; font-weight: 700; color: #D4AF37; margin-bottom: 45px; text-shadow: 0 0 25px rgba(212,175,55,0.8);">:</span>
@@ -815,7 +815,7 @@
               <div class="gold-panel" style="width: 240px; height: 210px; display: flex; align-items: center; justify-content: center; border-radius: 28px; box-shadow: 0 16px 45px rgba(0,0,0,0.95), 0 0 35px rgba(212,175,55,0.4);">
                 <span id="cd-mins" style="font-family: 'Oswald', sans-serif; font-size: 155px; font-weight: 800; color: #FFFFFF; line-height: 1; text-shadow: 0 0 30px rgba(212,175,55,0.7); letter-spacing: 0.02em;">00</span>
               </div>
-              <span style="font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 900; color: #D4AF37; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 14px;">MINUTES</span>
+              <span style="font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 900; color: #D4AF37; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 14px;">MINUTES</span>
             </div>
 
             <span class="blink-colon" style="font-family: 'Oswald', sans-serif; font-size: 130px; font-weight: 700; color: #D4AF37; margin-bottom: 45px; text-shadow: 0 0 25px rgba(212,175,55,0.8);">:</span>
@@ -825,11 +825,11 @@
               <div class="gold-panel" style="width: 240px; height: 210px; display: flex; align-items: center; justify-content: center; border-radius: 28px; box-shadow: 0 16px 45px rgba(0,0,0,0.95), 0 0 45px rgba(212,175,55,0.6);">
                 <span id="cd-secs" style="font-family: 'Oswald', sans-serif; font-size: 155px; font-weight: 800; color: #FCD34D; line-height: 1; text-shadow: 0 0 35px rgba(245,158,11,0.9); letter-spacing: 0.02em;">00</span>
               </div>
-              <span style="font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 900; color: #FCD34D; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 14px;">SECONDS</span>
+              <span style="font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 900; color: #FCD34D; letter-spacing: 0.18em; text-transform: uppercase; margin-top: 14px;">SECONDS</span>
             </div>
           </div>
 
-          <div style="background: rgba(245,158,11,0.18); border: 2px solid #F59E0B; color: #FCD34D; font-size: 26px; font-weight: 900; padding: 14px 40px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.08em;">
+          <div style="background: rgba(245,158,11,0.18); border: 2px solid #F59E0B; color: #FCD34D; font-size: 30px; font-weight: 900; padding: 14px 40px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.08em;">
             JACKPOT RESETS TO $500.00 CASH PRIZE POOL!
           </div>
         </div>
@@ -843,7 +843,7 @@
           <h2 style="font-size: 52px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.06em;">
             OFFICIAL DRAW TRACKER & RECORD <span class="animate-spade-loop" style="font-size: 42px;">♠</span>
           </h2>
-          <p style="font-size: 24px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
+          <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
             COASTERS TAVERN • VERIFIED DRAW AUDIT RECORD
           </p>
         </div>
@@ -857,7 +857,7 @@
               </div>
               <div>
                 <div style="font-size: 40px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">CURRENT SERIES #2 • IN ACCUMULATION</div>
-                <div style="font-size: 20px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;">OFFICIAL RESUMPTION DRAW: SATURDAY 10 OCTOBER 2026 • 6:30 PM</div>
+                <div style="font-size: 30px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;">OFFICIAL RESUMPTION DRAW: SATURDAY 10 OCTOBER 2026 • 6:30 PM</div>
               </div>
             </div>
             <div style="font-family: 'Bebas Neue', sans-serif; font-size: 85px; font-weight: 900; color: #D4AF37; letter-spacing: 0.05em; line-height: 1;">
@@ -873,7 +873,7 @@
               </div>
               <div>
                 <div style="font-size: 38px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">EVENTS 1, 2 & 3 • ACCUMULATION PERIOD</div>
-                <div style="font-size: 20px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;">29/09/2026, 03/10/2026 & 06/10/2026 • +$100 ACCUMULATED PER DRAW DATE</div>
+                <div style="font-size: 30px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;">29/09/2026, 03/10/2026 & 06/10/2026 • +$100 ACCUMULATED PER DRAW DATE</div>
               </div>
             </div>
             <div style="font-family: 'Bebas Neue', sans-serif; font-size: 85px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1;">
@@ -889,7 +889,7 @@
               </div>
               <div>
                 <div style="font-size: 38px; font-weight: 900; color: #F3E5AB; letter-spacing: 0.04em;">AWAITING OFFICIAL ACE OF SPADES DRAW</div>
-                <div style="font-size: 20px; font-weight: 700; color: #64748B; text-transform: uppercase; margin-top: 4px;">LIVE VENUE TICKETS • MUST BE PRESENT AT DRAW TO CLAIM</div>
+                <div style="font-size: 30px; font-weight: 700; color: #64748B; text-transform: uppercase; margin-top: 4px;">LIVE VENUE TICKETS • MUST BE PRESENT AT DRAW TO CLAIM</div>
               </div>
             </div>
             <div style="font-family: 'Bebas Neue', sans-serif; font-size: 70px; font-weight: 900; color: #FCD34D; line-height: 1;">
@@ -943,14 +943,14 @@
             '<div class="vault-card-body">' +
               '<div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">' +
                 '<span class="vault-card-num">#' + i + '</span>' +
-                '<span style="font-size: 11px; color: #D4AF37;">♠</span>' +
+                '<span style="font-size: 30px; color: #D4AF37; line-height: 1;">♠</span>' +
               '</div>' +
               '<div class="vault-card-logo-wrap">' +
                 '<img src="./logo.png" alt="Coasters" class="vault-card-logo-img" onerror="this.style.display=\'none\'">' +
               '</div>' +
               '<div style="width: 100%; display: flex; justify-content: space-between; align-items: center; transform: rotate(180deg);">' +
                 '<span class="vault-card-num">#' + i + '</span>' +
-                '<span style="font-size: 11px; color: #D4AF37;">♠</span>' +
+                '<span style="font-size: 30px; color: #D4AF37; line-height: 1;">♠</span>' +
               '</div>' +
             '</div>';
           grid.appendChild(card);

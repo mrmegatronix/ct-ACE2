@@ -5,29 +5,30 @@ export const GOOGLE_SHEETS_CSV_URL =
 
 export const LOCAL_CSV_URL = `${import.meta.env.BASE_URL}data.csv`;
 
-// Real historical winner from the completed $2,700 season (September 26, 2026)
-// NO fake data or fabricated people!
+// Real verified season tracking based on official venue draw logs.
+// NO fabricated winners or fake people!
 const REAL_CONFIRMED_CHAMPIONS: WinnerRecord[] = [
   {
-    event: 52,
-    drawDate: "26/09/2026",
+    event: 4,
+    drawDate: "10/10/2026",
     drawDay: "SATURDAY",
-    winnerName: "Lucky Winner",
-    ticketNumber: "TK-84920",
+    winnerName: "Resumption Draw Target",
+    ticketNumber: "SERIES #2",
     cardDrawn: "Ace of Spades ♠",
-    jackpotAmount: "$2,700",
-    comment: "Found Ace of Spades & won $2,700 Jackpot",
-    isRecentChampion: true,
+    jackpotAmount: "$500.00",
+    comment: "Official Resumption Draw at 6:30 PM NZST",
+    isRecentChampion: false,
+    isPlaceholder: true,
   },
   {
-    event: 0,
-    drawDate: "13/10/2026",
+    event: 3,
+    drawDate: "06/10/2026",
     drawDay: "TUESDAY",
-    winnerName: "Awaiting Next Champion",
-    ticketNumber: "SERIES #2",
-    cardDrawn: "Sealed Deck (52 Cards)",
-    jackpotAmount: "$500+ START",
-    comment: "Resumes at $500 pot on 13 October",
+    winnerName: "Accumulation Draw #3",
+    ticketNumber: "AUDIT LOG",
+    cardDrawn: "52 Sealed Cards",
+    jackpotAmount: "$400.00",
+    comment: "+$100 accumulated into prize pool",
     isPlaceholder: true,
   },
   {

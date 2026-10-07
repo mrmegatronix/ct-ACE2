@@ -1,83 +1,487 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en" style="background-color: #0A0A0A; color: #FFFFFF;">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chase the Ace - Digital Signage Display</title>
-    <link rel="icon" type="image/svg+xml" href="./vite.svg" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;900&family=Outfit:wght@400;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
-    <style id="static-critical-styles">
-      html, body {
-        background-color: #0A0A0A !important;
-        color: #FFFFFF !important;
-        margin: 0;
-        padding: 0;
-        width: 100vw;
-        height: 100vh;
-        overflow: hidden;
-        font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-        -webkit-font-smoothing: antialiased;
-        user-select: none;
-      }
-      @keyframes static-spin-slow {
-        from { transform: rotate(0deg); }
-        to { transform: rotate(360deg); }
-      }
-      @keyframes static-spin-rev {
-        from { transform: rotate(360deg); }
-        to { transform: rotate(0deg); }
-      }
-      @keyframes static-pulse-glow {
-        0%, 100% { opacity: 0.7; transform: scale(1); }
-        50% { opacity: 1; transform: scale(1.04); }
-      }
-      @keyframes static-float-card {
-        0%, 100% { transform: translateY(-10px); }
-        50% { transform: translateY(10px); }
-      }
-      @keyframes static-blink-colon {
-        0%, 49% { opacity: 1; }
-        50%, 100% { opacity: 0; }
-      }
-      .blink-colon {
-        display: inline-block;
-        animation: static-blink-colon 1s infinite;
-      }
-    </style>
-  </head>
-  <body style="background-color: #0A0A0A; color: #FFFFFF; margin: 0; padding: 0; overflow: hidden;" class="bg-[#0A0A0A] text-white overflow-hidden select-none m-0 p-0">
-    <div id="root"><div id="static-slide-intro" style="position: relative; width: 100vw; height: 100vh; max-width: 1920px; max-height: 1080px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; justify-content: space-between; padding: 24px 48px; box-sizing: border-box; overflow: hidden; background: #0A0A0A;">
-      <!-- Dynamic Background Rays & Radial Energy Bloom -->
-      <div style="position: absolute; inset: 0; pointer-events: none; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-        <div style="width: 1300px; height: 1300px; border-radius: 50%; background: radial-gradient(circle, rgba(212,175,55,0.22) 0%, rgba(245,158,11,0.06) 45%, transparent 70%); filter: blur(50px); animation: static-pulse-glow 4s ease-in-out infinite;"></div>
-        <div style="position: absolute; width: 1100px; height: 1100px; border-radius: 50%; border: 1px solid rgba(212,175,55,0.22); animation: static-spin-slow 140s linear infinite;"></div>
-        <div style="position: absolute; width: 850px; height: 850px; border-radius: 50%; border: 2px dashed rgba(212,175,55,0.3); animation: static-spin-rev 90s linear infinite;"></div>
-        <div style="position: absolute; width: 650px; height: 650px; border-radius: 50%; border: 1px solid rgba(245,158,11,0.2); animation: static-spin-slow 60s linear infinite;"></div>
-        <div style="position: absolute; top: 60px; left: 120px; font-size: 36px; color: rgba(212,175,55,0.3); animation: static-pulse-glow 3s infinite;">♠</div>
-        <div style="position: absolute; top: 120px; right: 140px; font-size: 32px; color: rgba(239,68,68,0.25); animation: static-pulse-glow 2.5s infinite;">♥</div>
-        <div style="position: absolute; bottom: 140px; left: 160px; font-size: 32px; color: rgba(239,68,68,0.25); animation: static-pulse-glow 3.5s infinite;">♦</div>
-        <div style="position: absolute; bottom: 120px; right: 120px; font-size: 36px; color: rgba(212,175,55,0.3); animation: static-pulse-glow 2.8s infinite;">♣</div>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Chase the Ace - Digital Signage Display</title>
+  <link rel="icon" type="image/svg+xml" href="./vite.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@400;600;700;900&family=Outfit:wght@400;600;700;800;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       RESET & BASE 1080P STYLES
+       ========================================================================== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background-color: #0A0A0A !important;
+      color: #FFFFFF !important;
+      font-family: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      user-select: none;
+      margin: 0;
+      padding: 0;
+    }
 
-      <!-- Top Banner: Gameplay Paused Pill Box -->
-      <div style="position: relative; z-index: 10; display: flex; align-items: center; gap: 16px; background: linear-gradient(90deg, rgba(0,0,0,0.95), rgba(30,25,14,0.95), rgba(0,0,0,0.95)); border: 2px solid rgba(245,158,11,0.85); padding: 12px 36px; border-radius: 9999px; box-shadow: 0 0 35px rgba(245,158,11,0.4); margin-top: 4px;">
-        <span style="font-size: 26px; color: #F59E0B; animation: static-pulse-glow 1.5s infinite;">⚠️</span>
-        <span style="font-size: 22px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: #FCD34D; font-family: 'Outfit', sans-serif; white-space: nowrap; text-shadow: 0 2px 12px rgba(245,158,11,0.7);">
-          CURRENT GAMEPLAY IS TEMPORARILY PAUSED • RESUMES AT $500 POOL
-        </span>
-        <span style="font-size: 26px; color: #F59E0B; animation: static-pulse-glow 1.5s infinite;">⚠️</span>
-      </div>
+    /* ==========================================================================
+       ANIMATIONS
+       ========================================================================== */
+    @keyframes spin-slow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+    @keyframes spin-rev {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+    @keyframes pulse-glow {
+      0%, 100% { opacity: 0.65; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.04); }
+    }
+    @keyframes float-card {
+      0%, 100% { transform: translateY(-10px) rotate(0deg); }
+      50% { transform: translateY(10px) rotate(1deg); }
+    }
+    @keyframes blink-colon-anim {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0; }
+    }
+    @keyframes metallic-sheen {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+    .blink-colon {
+      display: inline-block;
+      animation: blink-colon-anim 1s infinite;
+      margin: 0 0.05em;
+    }
 
-      <!-- Center Cinematic Stage: 3D Floating Hero Card & Colossal Title -->
-      <div style="position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0;">
-        <!-- Hero Playing Card -->
-        <div style="animation: static-float-card 6s ease-in-out infinite; margin-bottom: 18px;">
-          <div style="width: 290px; height: 410px; border-radius: 24px; padding: 5px; background: linear-gradient(to bottom, #FFE082, #D4AF37, #78540B); box-shadow: 0 25px 60px rgba(0,0,0,0.95), 0 0 50px rgba(212,175,55,0.7); box-sizing: border-box;">
-            <div style="width: 100%; height: 100%; border-radius: 19px; background: linear-gradient(135deg, #1A1813, #0E0E10, #221D12); border: 2px solid #D4AF37; display: flex; flex-direction: column; justify-content: space-between; padding: 16px; box-sizing: border-box; overflow: hidden; position: relative;">
-              <!-- Top Corner Indices -->
-              <div style="display: flex; justify-content: space-between; align-items: flex-start; line-height: 1; font-family: 'Outfit', sans-serif;">
+    /* ==========================================================================
+       CONTAINER & HEADER
+       ========================================================================== */
+    #app-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      max-width: 1920px;
+      max-height: 1080px;
+      margin: 0 auto;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      background: #0A0A0A;
+    }
+
+    /* Background Ambient Energy */
+    .ambient-bg {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .ambient-glow {
+      position: absolute;
+      width: 1400px;
+      height: 1400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(212, 175, 55, 0.22) 0%, rgba(245, 158, 11, 0.07) 40%, transparent 70%);
+      filter: blur(55px);
+      animation: pulse-glow 4s ease-in-out infinite;
+    }
+    .ambient-ring-1 {
+      position: absolute;
+      width: 1200px;
+      height: 1200px;
+      border-radius: 50%;
+      border: 1px solid rgba(212, 175, 55, 0.22);
+      animation: spin-slow 140s linear infinite;
+    }
+    .ambient-ring-2 {
+      position: absolute;
+      width: 950px;
+      height: 950px;
+      border-radius: 50%;
+      border: 2px dashed rgba(212, 175, 55, 0.32);
+      animation: spin-rev 90s linear infinite;
+    }
+    .ambient-ring-3 {
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      border: 1px solid rgba(245, 158, 11, 0.2);
+      animation: spin-slow 60s linear infinite;
+    }
+    .suit-particle {
+      position: absolute;
+      user-select: none;
+      pointer-events: none;
+      animation: pulse-glow 3s infinite;
+    }
+
+    /* Header Bar (Visible on Slide 1+) */
+    #top-header {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 90px;
+      z-index: 40;
+      background: rgba(10, 10, 10, 0.95);
+      border-bottom: 2px solid rgba(212, 175, 55, 0.4);
+      padding: 0 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 6px 35px rgba(0,0,0,0.85);
+      transition: opacity 0.3s ease;
+    }
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .header-logo-img {
+      height: 60px;
+      width: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 0 10px rgba(212, 175, 55, 0.5));
+    }
+    .header-title {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #D4AF37;
+      white-space: nowrap;
+    }
+    .header-jackpot-badge {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: linear-gradient(90deg, rgba(26,23,17,0.95), rgba(15,14,11,0.95));
+      border: 2px solid #D4AF37;
+      padding: 8px 24px;
+      border-radius: 14px;
+      box-shadow: 0 0 20px rgba(212, 175, 55, 0.35);
+    }
+    .header-jackpot-label {
+      font-size: 14px;
+      font-weight: 900;
+      color: #FCD34D;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+    .header-jackpot-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 40px;
+      font-weight: 900;
+      color: #FFFFFF;
+      line-height: 1;
+      letter-spacing: 0.05em;
+    }
+    .header-status {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .status-pill {
+      font-size: 14px;
+      font-weight: 900;
+      padding: 6px 16px;
+      border-radius: 20px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      background: rgba(245, 158, 11, 0.2);
+      border: 1.5px solid #F59E0B;
+      color: #FCD34D;
+      white-space: nowrap;
+    }
+    .header-clock {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 38px;
+      color: #FFFFFF;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    /* ==========================================================================
+       SLIDES CONTAINER & SLIDE STYLES
+       ========================================================================== */
+    #slides-viewport {
+      position: relative;
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 10;
+    }
+    .slide-pane {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 60px 50px 60px;
+      opacity: 0;
+      visibility: hidden;
+      transform: scale(0.98);
+      transition: opacity 0.5s ease, transform 0.5s ease, visibility 0.5s;
+    }
+    .slide-pane.active {
+      opacity: 1;
+      visibility: visible;
+      transform: scale(1);
+    }
+    .slide-with-header {
+      padding-top: 110px;
+    }
+
+    /* Card Glows & Gradients */
+    .gold-panel {
+      background: linear-gradient(135deg, rgba(26,23,17,0.96), rgba(15,14,11,0.96));
+      border: 2px solid #D4AF37;
+      border-radius: 20px;
+      box-shadow: 0 14px 40px rgba(0,0,0,0.85), 0 0 30px rgba(212, 175, 55, 0.25);
+    }
+
+    /* 3D Playing Card */
+    .card-3d-wrap {
+      width: 290px;
+      height: 410px;
+      border-radius: 24px;
+      padding: 5px;
+      background: linear-gradient(to bottom, #FFE082, #D4AF37, #78540B);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.95), 0 0 50px rgba(212,175,55,0.7);
+      animation: float-card 6s ease-in-out infinite;
+      cursor: pointer;
+    }
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 19px;
+      background: linear-gradient(135deg, #1A1813, #0E0E10, #221D12);
+      border: 2px solid #D4AF37;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 16px;
+      box-sizing: border-box;
+      overflow: hidden;
+      position: relative;
+    }
+    .card-spade-center {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background: linear-gradient(to bottom, rgba(212,175,55,0.3), transparent);
+      border: 2px solid #D4AF37;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 45px rgba(212,175,55,0.8);
+      margin: auto 0;
+    }
+
+    /* Playing Card Cabinet (4 x 13) */
+    .cabinet-grid {
+      display: grid;
+      grid-template-columns: repeat(13, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 12px;
+      width: 100%;
+      max-width: 1780px;
+      height: 680px;
+      margin: auto 0;
+    }
+    .vault-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      aspect-ratio: 2.5 / 3.5;
+      border-radius: 12px;
+      padding: 2.5px;
+      background: linear-gradient(to bottom, #FFE082, #D4AF37, #78540B);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.8);
+      display: flex;
+      flex-direction: column;
+    }
+    .vault-card-body {
+      width: 100%;
+      height: 100%;
+      border-radius: 9px;
+      background: linear-gradient(135deg, #1C1A14, #0E0E10, #221F18);
+      border: 1px solid rgba(212,175,55,0.7);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 4px;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+    .vault-card-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 16px;
+      color: #F3E5AB;
+      line-height: 1;
+    }
+    .vault-card-logo-wrap {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.9);
+      border: 1px solid #D4AF37;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 2px;
+      box-shadow: 0 0 10px rgba(212,175,55,0.5);
+    }
+    .vault-card-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* Colossal Titles */
+    .title-colossal {
+      font-family: 'Outfit', sans-serif;
+      font-size: 96px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      line-height: 1;
+      margin: 6px 0;
+      background: linear-gradient(90deg, #D4AF37 0%, #FFFFFF 35%, #FCE49E 65%, #D4AF37 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 8px 35px rgba(212,175,55,0.85));
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+    }
+    .subtitle-colossal {
+      font-family: 'Outfit', sans-serif;
+      font-size: 26px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: #F3E5AB;
+      text-shadow: 0 2px 14px rgba(0,0,0,0.9);
+      margin: 6px 0 0 0;
+      white-space: nowrap;
+    }
+
+    /* Bottom Progress Bar */
+    #timer-progress-wrap {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      z-index: 50;
+      overflow: hidden;
+    }
+    #timer-progress-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #D4AF37, #FFF, #F59E0B);
+      box-shadow: 0 0 10px rgba(212, 175, 55, 0.8);
+      transition: width 0.1s linear;
+    }
+
+    /* Controls Overlay Indicator */
+    #pause-indicator {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(0,0,0,0.85);
+      border: 2px solid #D4AF37;
+      padding: 10px 20px;
+      border-radius: 12px;
+      font-weight: 900;
+      font-size: 16px;
+      color: #FCD34D;
+      display: none;
+      z-index: 100;
+      box-shadow: 0 0 20px rgba(0,0,0,0.9);
+    }
+  </style>
+</head>
+<body style="background-color: #0A0A0A; color: #FFFFFF; margin: 0; padding: 0; overflow: hidden;">
+
+  <div id="app-container">
+    <!-- Ambient Energy Background -->
+    <div class="ambient-bg">
+      <div class="ambient-glow"></div>
+      <div class="ambient-ring-1"></div>
+      <div class="ambient-ring-2"></div>
+      <div class="ambient-ring-3"></div>
+      <div class="suit-particle" style="top: 60px; left: 120px; font-size: 36px; color: rgba(212,175,55,0.3);">♠</div>
+      <div class="suit-particle" style="top: 120px; right: 140px; font-size: 32px; color: rgba(239,68,68,0.25);">♥</div>
+      <div class="suit-particle" style="bottom: 140px; left: 160px; font-size: 32px; color: rgba(239,68,68,0.25);">♦</div>
+      <div class="suit-particle" style="bottom: 120px; right: 120px; font-size: 36px; color: rgba(212,175,55,0.3);">♣</div>
+    </div>
+
+    <!-- Top Persistent Header (Hidden on Slide 0 Intro) -->
+    <header id="top-header" style="opacity: 0; pointer-events: none;">
+      <div class="header-brand">
+        <img src="./logo.png" alt="Coasters Tavern" class="header-logo-img">
+        <span class="header-title">CHASE THE ACE <span style="color: #D4AF37;">♠</span></span>
+      </div>
+      <div class="header-jackpot-badge">
+        <span class="header-jackpot-label">BUILDING POT</span>
+        <span class="header-jackpot-val live-jackpot-val">$200.00</span>
+      </div>
+      <div class="header-status">
+        <span class="status-pill">PAUSED • RESUMES AT $500</span>
+        <span id="slide-num-indicator" style="font-size: 16px; font-weight: 800; color: #D4AF37;">SLIDE 1 OF 7</span>
+        <div class="header-clock" id="live-nz-clock">--<span class="blink-colon">:</span>--<span class="blink-colon">:</span>--</div>
+      </div>
+    </header>
+
+    <!-- Pause Indicator Overlay -->
+    <div id="pause-indicator">⏸️ SLIDESHOW PAUSED</div>
+
+    <!-- Slides Viewport -->
+    <main id="slides-viewport">
+
+      <!-- ====================================================================
+           SLIDE 0: HERO INTRO (PROMO STAGE)
+           ==================================================================== -->
+      <section class="slide-pane active" id="slide-0">
+        <!-- Top Banner: Gameplay Paused Pill Box -->
+        <div style="z-index: 10; display: flex; align-items: center; gap: 16px; background: linear-gradient(90deg, rgba(0,0,0,0.95), rgba(30,25,14,0.95), rgba(0,0,0,0.95)); border: 2px solid rgba(245,158,11,0.85); padding: 12px 36px; border-radius: 9999px; box-shadow: 0 0 35px rgba(245,158,11,0.4); margin-top: 4px;">
+          <span style="font-size: 26px; color: #F59E0B; animation: pulse-glow 1.5s infinite;">⚠️</span>
+          <span style="font-size: 22px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: #FCD34D; font-family: 'Outfit', sans-serif; white-space: nowrap; text-shadow: 0 2px 12px rgba(245,158,11,0.7);">
+            CURRENT GAMEPLAY IS TEMPORARILY PAUSED • RESUMES AT $500 POOL
+          </span>
+          <span style="font-size: 26px; color: #F59E0B; animation: pulse-glow 1.5s infinite;">⚠️</span>
+        </div>
+
+        <!-- Center Cinematic Stage: 3D Floating Hero Card & Colossal Title -->
+        <div style="z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0;">
+          <!-- Hero Playing Card -->
+          <div class="card-3d-wrap" onclick="nextSlide()" title="Click to advance">
+            <div class="card-inner">
+              <div style="display: flex; justify-content: space-between; align-items: flex-start; line-height: 1;">
                 <div style="display: flex; flex-direction: column; align-items: center; color: #F3E5AB;">
                   <span style="font-size: 44px; font-weight: 900;">A</span>
                   <span style="font-size: 26px; color: #D4AF37;">♠</span>
@@ -86,14 +490,10 @@
                   ACE
                 </span>
               </div>
-              <!-- Center Giant Spade -->
-              <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; margin: auto 0;">
-                <div style="width: 130px; height: 130px; border-radius: 50%; background: linear-gradient(to bottom, rgba(212,175,55,0.3), transparent); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 45px rgba(212,175,55,0.8);">
-                  <span style="font-size: 90px; color: #F3E5AB; filter: drop-shadow(0 0 25px rgba(212,175,55,1)); line-height: 1; user-select: none;">♠</span>
-                </div>
+              <div class="card-spade-center">
+                <span style="font-size: 90px; color: #F3E5AB; filter: drop-shadow(0 0 25px rgba(212,175,55,1)); line-height: 1;">♠</span>
               </div>
-              <!-- Bottom Inverted Indices -->
-              <div style="display: flex; justify-content: space-between; align-items: flex-end; line-height: 1; font-family: 'Outfit', sans-serif; transform: rotate(180deg);">
+              <div style="display: flex; justify-content: space-between; align-items: flex-end; line-height: 1; transform: rotate(180deg);">
                 <div style="display: flex; flex-direction: column; align-items: center; color: #F3E5AB;">
                   <span style="font-size: 44px; font-weight: 900;">A</span>
                   <span style="font-size: 26px; color: #D4AF37;">♠</span>
@@ -104,112 +504,624 @@
               </div>
             </div>
           </div>
+
+          <!-- Colossal Main Title: ♠ CHASE ♠ THE ♠ ACE ♠ -->
+          <h1 class="title-colossal">
+            <span style="color: #D4AF37; -webkit-text-fill-color: #D4AF37; font-size: 72px;">♠</span>
+            <span>CHASE</span>
+            <span style="color: #D4AF37; -webkit-text-fill-color: #D4AF37; font-size: 72px;">♠</span>
+            <span>THE</span>
+            <span style="color: #D4AF37; -webkit-text-fill-color: #D4AF37; font-size: 72px;">♠</span>
+            <span>ACE</span>
+            <span style="color: #D4AF37; -webkit-text-fill-color: #D4AF37; font-size: 72px;">♠</span>
+          </h1>
+
+          <!-- High Impact Subtitle -->
+          <p class="subtitle-colossal">
+            FIND THE ACE OF SPADES • WIN THE CASH JACKPOT
+          </p>
         </div>
 
-        <!-- Colossal Main Title: ♠ CHASE ♠ THE ♠ ACE ♠ -->
-        <h1 style="font-family: 'Outfit', sans-serif; font-size: 96px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.06em; line-height: 1; margin: 6px 0; background: linear-gradient(90deg, #D4AF37 0%, #FFFFFF 35%, #FCE49E 65%, #D4AF37 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 8px 35px rgba(212,175,55,0.85)); white-space: nowrap; display: flex; align-items: center; justify-content: center; gap: 20px;">
-          <span style="color: #D4AF37; -webkit-text-fill-color: #D4AF37; font-size: 72px;">♠</span>
-          <span>CHASE</span>
-          <span style="color: #D4AF37; -webkit-text-fill-color: #D4AF37; font-size: 72px;">♠</span>
-          <span>THE</span>
-          <span style="color: #D4AF37; -webkit-text-fill-color: #D4AF37; font-size: 72px;">♠</span>
-          <span>ACE</span>
-          <span style="color: #D4AF37; -webkit-text-fill-color: #D4AF37; font-size: 72px;">♠</span>
-        </h1>
-
-        <!-- High Impact Subtitle -->
-        <p style="font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.22em; color: #F3E5AB; text-shadow: 0 2px 14px rgba(0,0,0,0.9); margin: 6px 0 0 0; white-space: nowrap;">
-          FIND THE ACE OF SPADES • WIN THE CASH JACKPOT
-        </p>
-      </div>
-
-      <!-- Bottom Live Jackpot & Status Showcase -->
-      <div style="position: relative; z-index: 10; width: 100%; max-width: 1720px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 8px;">
-        <!-- Tile 1: Current Building Pot -->
-        <div style="background: linear-gradient(90deg, rgba(26,23,17,0.95), rgba(15,14,11,0.95)); border: 2px solid #D4AF37; border-radius: 18px; padding: 18px 22px; display: flex; align-items: center; gap: 18px; box-shadow: 0 12px 35px rgba(0,0,0,0.85); box-sizing: border-box;">
-          <div style="width: 72px; height: 72px; border-radius: 16px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 36px; color: #F59E0B; flex-shrink: 0; box-shadow: 0 0 20px rgba(212,175,55,0.4);">
-            🔥
+        <!-- Bottom Status Showcase -->
+        <div style="z-index: 10; width: 100%; max-width: 1720px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 8px;">
+          <!-- Tile 1: Current Building Pot -->
+          <div class="gold-panel" style="padding: 18px 22px; display: flex; align-items: center; gap: 18px;">
+            <div style="width: 72px; height: 72px; border-radius: 16px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 36px; color: #F59E0B; flex-shrink: 0; box-shadow: 0 0 20px rgba(212,175,55,0.4);">
+              🔥
+            </div>
+            <div style="display: flex; flex-direction: column; min-width: 0;">
+              <span style="font-size: 18px; font-weight: 900; color: #FCD34D; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
+                CURRENT BUILDING POT
+              </span>
+              <span class="live-jackpot-val" style="font-size: 60px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; text-shadow: 0 0 20px rgba(212,175,55,0.6); white-space: nowrap; margin-top: 2px;">
+                $200.00
+              </span>
+              <span style="font-size: 14px; font-weight: 700; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
+                BUILDS +$100 EACH DRAW DATE
+              </span>
+            </div>
           </div>
-          <div style="display: flex; flex-direction: column; min-width: 0;">
-            <span style="font-size: 18px; font-weight: 900; color: #FCD34D; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'Outfit', sans-serif; white-space: nowrap;">
-              CURRENT BUILDING POT
-            </span>
-            <span id="static-jackpot-amount" style="font-size: 60px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; text-shadow: 0 0 20px rgba(212,175,55,0.6); white-space: nowrap; margin-top: 2px;">
-              $200.00
-            </span>
-            <span style="font-size: 14px; font-weight: 700; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'Outfit', sans-serif; white-space: nowrap; margin-top: 4px;">
-              BUILDS +$100 EACH DRAW DATE
-            </span>
+
+          <!-- Tile 2: Resumption Target -->
+          <div class="gold-panel" style="padding: 18px 22px; display: flex; align-items: center; gap: 18px;">
+            <div style="width: 72px; height: 72px; border-radius: 16px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 34px; color: #D4AF37; flex-shrink: 0; box-shadow: 0 0 20px rgba(212,175,55,0.4);">
+              🛡️
+            </div>
+            <div style="display: flex; flex-direction: column; min-width: 0;">
+              <span style="font-size: 18px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
+                GAMEPLAY RESUMPTION
+              </span>
+              <span style="font-size: 60px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
+                $500.00 POOL
+              </span>
+              <span style="font-size: 14px; font-weight: 700; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
+                RESUMES TUESDAY 13 OCT 2026
+              </span>
+            </div>
+          </div>
+
+          <!-- Tile 3: Draw Mechanism -->
+          <div class="gold-panel" style="padding: 18px 22px; display: flex; align-items: center; gap: 18px;">
+            <div style="width: 72px; height: 72px; border-radius: 16px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 34px; color: #D4AF37; flex-shrink: 0; box-shadow: 0 0 20px rgba(212,175,55,0.4);">
+              🗄️
+            </div>
+            <div style="display: flex; flex-direction: column; min-width: 0;">
+              <span style="font-size: 18px; font-weight: 900; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
+                DRAW PROCEDURE
+              </span>
+              <span style="font-size: 60px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
+                LOCKED CARD VAULT
+              </span>
+              <span style="font-size: 14px; font-weight: 700; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
+                52 SEALED CARDS IN PLAY
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 1: LOCKED CARD CABINET (4 x 13 PLAYING CARDS)
+           ==================================================================== -->
+      <section class="slide-pane slide-with-header" id="slide-1">
+        <div style="width: 100%; max-width: 1780px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
+          <div>
+            <h2 style="font-size: 40px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.04em;">
+              LOCKED VENUE CABINET <span style="color: #D4AF37;">♠ 52 CARDS</span>
+            </h2>
+            <p style="font-size: 18px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 2px;">
+              AUTHENTIC PLAYING CARDS MOUNTED IN SECURE CABINET BEHIND BAR
+            </p>
+          </div>
+          <div style="background: rgba(0,0,0,0.85); border: 2px solid #D4AF37; padding: 10px 24px; border-radius: 14px; font-family: 'Bebas Neue', sans-serif; font-size: 26px; color: #D4AF37; letter-spacing: 0.1em;">
+            🔒 52 OF 52 CARDS UNOPENED
           </div>
         </div>
 
-        <!-- Tile 2: Resumption Target -->
-        <div style="background: linear-gradient(90deg, rgba(26,23,17,0.95), rgba(15,14,11,0.95)); border: 2px solid #D4AF37; border-radius: 18px; padding: 18px 22px; display: flex; align-items: center; gap: 18px; box-shadow: 0 12px 35px rgba(0,0,0,0.85); box-sizing: border-box;">
-          <div style="width: 72px; height: 72px; border-radius: 16px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 34px; color: #D4AF37; flex-shrink: 0; box-shadow: 0 0 20px rgba(212,175,55,0.4);">
-            🛡️
+        <!-- 52 Card Cabinet Grid -->
+        <div class="cabinet-grid" id="cabinet-grid-container">
+          <!-- Dynamically generated 52 playing cards -->
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 2: CARDS REMAINING BREAKDOWN
+           ==================================================================== -->
+      <section class="slide-pane slide-with-header" id="slide-2">
+        <div style="text-align: center; margin-bottom: 25px;">
+          <h2 style="font-size: 48px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.06em;">
+            CARD VAULT STATUS <span style="color: #D4AF37;">♠</span>
+          </h2>
+          <p style="font-size: 22px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
+            FULL 52-CARD DECK SECURED IN BAR CABINET
+          </p>
+        </div>
+
+        <div style="width: 100%; max-width: 1600px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 30px;">
+          <div class="gold-panel" style="padding: 30px; text-align: center;">
+            <div style="font-size: 20px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">CARDS REMAINING</div>
+            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 110px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 15px 0;">52</div>
+            <div style="font-size: 16px; font-weight: 700; color: #E5E5E5; text-transform: uppercase;">100% OF DECK IN PLAY</div>
           </div>
-          <div style="display: flex; flex-direction: column; min-width: 0;">
-            <span style="font-size: 18px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'Outfit', sans-serif; white-space: nowrap;">
-              GAMEPLAY RESUMPTION
-            </span>
-            <span style="font-size: 60px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
-              $500.00 POOL
-            </span>
-            <span style="font-size: 14px; font-weight: 700; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'Outfit', sans-serif; white-space: nowrap; margin-top: 4px;">
-              RESUMES TUESDAY 13 OCT 2026
-            </span>
+
+          <div class="gold-panel" style="padding: 30px; text-align: center;">
+            <div style="font-size: 20px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">CARDS DRAWN</div>
+            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 110px; font-weight: 900; color: #F59E0B; line-height: 1; margin: 15px 0;">0</div>
+            <div style="font-size: 16px; font-weight: 700; color: #E5E5E5; text-transform: uppercase;">ROUND RESETS AT $500</div>
+          </div>
+
+          <div class="gold-panel" style="padding: 30px; text-align: center;">
+            <div style="font-size: 20px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">WINNING CHANCE</div>
+            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 110px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 15px 0;">1.92%</div>
+            <div style="font-size: 16px; font-weight: 700; color: #E5E5E5; text-transform: uppercase;">1 IN 52 ODDS ON START</div>
+          </div>
+
+          <div class="gold-panel" style="padding: 30px; text-align: center;">
+            <div style="font-size: 20px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">TARGET CARD</div>
+            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 110px; font-weight: 900; color: #F3E5AB; line-height: 1; margin: 15px 0;">♠ ACE</div>
+            <div style="font-size: 16px; font-weight: 700; color: #E5E5E5; text-transform: uppercase;">ACE OF SPADES WINS ALL</div>
           </div>
         </div>
 
-        <!-- Tile 3: Draw Mechanism -->
-        <div style="background: linear-gradient(90deg, rgba(26,23,17,0.95), rgba(15,14,11,0.95)); border: 2px solid #D4AF37; border-radius: 18px; padding: 18px 22px; display: flex; align-items: center; gap: 18px; box-shadow: 0 12px 35px rgba(0,0,0,0.85); box-sizing: border-box;">
-          <div style="width: 72px; height: 72px; border-radius: 16px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 34px; color: #D4AF37; flex-shrink: 0; box-shadow: 0 0 20px rgba(212,175,55,0.4);">
-            🗄️
+        <!-- 4 Suits Visual Bar -->
+        <div class="gold-panel" style="width: 100%; max-width: 1600px; padding: 20px 40px; display: flex; justify-content: space-around; align-items: center;">
+          <div style="display: flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 900;">
+            <span style="font-size: 40px; color: #D4AF37;">♠</span> <span>13 SPADES</span>
           </div>
-          <div style="display: flex; flex-direction: column; min-width: 0;">
-            <span style="font-size: 18px; font-weight: 900; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'Outfit', sans-serif; white-space: nowrap;">
-              DRAW PROCEDURE
-            </span>
-            <span style="font-size: 60px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
-              LOCKED CARD VAULT
-            </span>
-            <span style="font-size: 14px; font-weight: 700; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; font-family: 'Outfit', sans-serif; white-space: nowrap; margin-top: 4px;">
-              52 SEALED CARDS IN PLAY
-            </span>
+          <div style="display: flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 900;">
+            <span style="font-size: 40px; color: #EF4444;">♥</span> <span>13 HEARTS</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 900;">
+            <span style="font-size: 40px; color: #EF4444;">♦</span> <span>13 DIAMONDS</span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 14px; font-size: 24px; font-weight: 900;">
+            <span style="font-size: 40px; color: #D4AF37;">♣</span> <span>13 CLUBS</span>
           </div>
         </div>
-      </div>
-    </div></div>
-    <script>
-      (function() {
-        window.addEventListener('error', function(e) {
-          console.warn('[Signage Kiosk Shield] Caught unhandled script error:', e.message);
-        });
+      </section>
 
-        function updateStaticJackpot() {
-          if (window.__REACT_MOUNTED__) return;
-          fetch('./data.csv?v=' + Date.now())
-            .then(function(res) { return res.text(); })
-            .then(function(csvText) {
-              if (!csvText) return;
-              var lines = csvText.trim().split(/\r?\n/).filter(function(l) { return l.trim(); });
-              var lastLine = lines[lines.length - 1];
-              if (lastLine && lastLine.indexOf('JACKPOT TOTAL:') !== -1) {
-                var match = lastLine.match(/\$([0-9,.]+)/);
-                if (match && match[1]) {
-                  var el = document.getElementById('static-jackpot-amount');
-                  if (el) el.textContent = '$' + parseFloat(match[1].replace(/,/g, '')).toFixed(2);
-                }
-              }
-            })
-            .catch(function(err) {
-              console.warn('[Signage CSV Poller]', err);
-            });
+      <!-- ====================================================================
+           SLIDE 3: CURRENT JACKPOT
+           ==================================================================== -->
+      <section class="slide-pane slide-with-header" id="slide-3">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0;">
+          <div style="width: 120px; height: 120px; border-radius: 30px; background: rgba(212,175,55,0.2); border: 3px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 60px; color: #D4AF37; box-shadow: 0 0 35px rgba(212,175,55,0.4); margin-bottom: 20px;">
+            💰
+          </div>
+          <h2 style="font-size: 42px; font-weight: 900; color: #D4AF37; letter-spacing: 0.1em; text-transform: uppercase;">
+            CURRENT BUILDING JACKPOT
+          </h2>
+          <div class="live-jackpot-val" style="font-family: 'Playfair Display', serif; font-size: 210px; font-weight: 900; color: #D4AF37; line-height: 1; margin: 15px 0; text-shadow: 0 0 45px rgba(212,175,55,0.85);">
+            $200.00
+          </div>
+          <div style="font-size: 26px; font-weight: 800; color: #E5E5E5; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(0,0,0,0.7); border: 2px solid rgba(212,175,55,0.6); padding: 12px 36px; border-radius: 9999px;">
+            ⚠️ ACCUMULATING +$100 EACH DRAW DATE • RESUMES AT $500.00 POOL ⚠️
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 4: HOW TO PLAY & OFFICIAL RULES
+           ==================================================================== -->
+      <section class="slide-pane slide-with-header" id="slide-4">
+        <div style="text-align: center; margin-bottom: 25px;">
+          <h2 style="font-size: 48px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.06em;">
+            HOW TO PLAY & OFFICIAL RULES <span style="color: #D4AF37;">♠</span>
+          </h2>
+          <p style="font-size: 20px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
+            SIMPLE STEPS TO WIN BIG AT COASTERS TAVERN
+          </p>
+        </div>
+
+        <div style="width: 100%; max-width: 1720px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
+          <div class="gold-panel" style="padding: 30px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="font-size: 32px; font-weight: 900; color: #D4AF37; margin-bottom: 12px;">01. GET TICKETS</div>
+              <p style="font-size: 20px; line-height: 1.4; color: #E5E5E5; font-weight: 600;">
+                Receive entry tickets with qualifying food or beverage purchases between 4:00 PM and draw time on draw days.
+              </p>
+            </div>
+            <div style="font-size: 16px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 20px;">
+              TICKETS VALID FOR DRAW DAY ONLY
+            </div>
+          </div>
+
+          <div class="gold-panel" style="padding: 30px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="font-size: 32px; font-weight: 900; color: #D4AF37; margin-bottom: 12px;">02. ATTEND DRAW</div>
+              <p style="font-size: 20px; line-height: 1.4; color: #E5E5E5; font-weight: 600;">
+                Draws occur Tuesdays at 5:30 PM & Saturdays at 6:30 PM. Ticket holders MUST be present in venue to claim!
+              </p>
+            </div>
+            <div style="font-size: 16px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 20px;">
+              TUESDAY 5:30PM • SATURDAY 6:30PM
+            </div>
+          </div>
+
+          <div class="gold-panel" style="padding: 30px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="font-size: 32px; font-weight: 900; color: #D4AF37; margin-bottom: 12px;">03. PICK A CARD</div>
+              <p style="font-size: 20px; line-height: 1.4; color: #E5E5E5; font-weight: 600;">
+                If your ticket is drawn, choose 1 numbered envelope from the locked cabinet behind the bar to reveal the card.
+              </p>
+            </div>
+            <div style="font-size: 16px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 20px;">
+              52 SEALED ENVELOPES IN PLAY
+            </div>
+          </div>
+
+          <div class="gold-panel" style="padding: 30px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="font-size: 32px; font-weight: 900; color: #D4AF37; margin-bottom: 12px;">04. CHASE THE ACE</div>
+              <p style="font-size: 20px; line-height: 1.4; color: #E5E5E5; font-weight: 600;">
+                Reveal the ACE OF SPADES to take home the entire CASH JACKPOT! If any other card is drawn, +$100 rolls into the next draw.
+              </p>
+            </div>
+            <div style="font-size: 16px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 20px;">
+              JACKPOT BUILDS +$100 EACH DRAW
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 5: COUNTDOWN TO RESUMPTION DRAW
+           ==================================================================== -->
+      <section class="slide-pane slide-with-header" id="slide-5">
+        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0;">
+          <h2 style="font-size: 44px; font-weight: 900; color: #D4AF37; letter-spacing: 0.1em; text-transform: uppercase;">
+            GAMEPLAY RESUMPTION COUNTDOWN
+          </h2>
+          <p style="font-size: 22px; font-weight: 700; color: #E5E5E5; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 6px;">
+            RESUMES TUESDAY 13 OCTOBER 2026 • 5:30 PM NZST
+          </p>
+
+          <!-- Countdown Timer Display with BLINKING COLONS -->
+          <div style="display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-size: 150px; font-weight: 900; color: #F59E0B; margin: 30px 0; text-shadow: 0 0 35px rgba(245,158,11,0.5);">
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              <span id="cd-days">00</span>
+              <span style="font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 800; color: #94A3B8; letter-spacing: 0.1em;">DAYS</span>
+            </div>
+            <span class="blink-colon" style="margin-bottom: 30px;">:</span>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              <span id="cd-hours">00</span>
+              <span style="font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 800; color: #94A3B8; letter-spacing: 0.1em;">HOURS</span>
+            </div>
+            <span class="blink-colon" style="margin-bottom: 30px;">:</span>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              <span id="cd-mins">00</span>
+              <span style="font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 800; color: #94A3B8; letter-spacing: 0.1em;">MINUTES</span>
+            </div>
+            <span class="blink-colon" style="margin-bottom: 30px;">:</span>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+              <span id="cd-secs">00</span>
+              <span style="font-family: 'Outfit', sans-serif; font-size: 24px; font-weight: 800; color: #94A3B8; letter-spacing: 0.1em;">SECONDS</span>
+            </div>
+          </div>
+
+          <div style="background: rgba(245,158,11,0.18); border: 2px solid #F59E0B; color: #FCD34D; font-size: 26px; font-weight: 900; padding: 14px 40px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.08em;">
+            JACKPOT RESETS TO $500.00 CASH PRIZE POOL!
+          </div>
+        </div>
+      </section>
+
+      <!-- ====================================================================
+           SLIDE 6: HALL OF WINNERS
+           ==================================================================== -->
+      <section class="slide-pane slide-with-header" id="slide-6">
+        <div style="text-align: center; margin-bottom: 25px;">
+          <h2 style="font-size: 48px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.06em;">
+            CHASE THE ACE • HALL OF WINNERS <span style="color: #D4AF37;">♠</span>
+          </h2>
+          <p style="font-size: 20px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
+            RECORD JACKPOT WINNERS AT COASTERS TAVERN
+          </p>
+        </div>
+
+        <div style="width: 100%; max-width: 1500px; display: flex; flex-direction: column; gap: 16px;">
+          <!-- Winner 1 -->
+          <div class="gold-panel" style="padding: 22px 40px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 24px;">
+              <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #D4AF37, #F59E0B); display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 900; color: #000;">
+                1
+              </div>
+              <div>
+                <div style="font-size: 36px; font-weight: 900; color: #FFFFFF;">LUCKY WINNER</div>
+                <div style="font-size: 18px; font-weight: 700; color: #94A3B8; text-transform: uppercase;">26 SEPTEMBER 2026 • ACE OF SPADES DRAWN</div>
+              </div>
+            </div>
+            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 70px; font-weight: 900; color: #D4AF37; letter-spacing: 0.05em;">
+              $2,700 CASH
+            </div>
+          </div>
+
+          <!-- Winner 2 -->
+          <div class="gold-panel" style="padding: 22px 40px; display: flex; justify-content: space-between; align-items: center;">
+            <div style="display: flex; align-items: center; gap: 24px;">
+              <div style="width: 64px; height: 64px; border-radius: 50%; background: linear-gradient(135deg, #D4AF37, #F59E0B); display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 900; color: #000;">
+                2
+              </div>
+              <div>
+                <div style="font-size: 36px; font-weight: 900; color: #FFFFFF;">PATRON WINNER</div>
+                <div style="font-size: 18px; font-weight: 700; color: #94A3B8; text-transform: uppercase;">14 JULY 2026 • ACE OF SPADES DRAWN</div>
+              </div>
+            </div>
+            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 70px; font-weight: 900; color: #D4AF37; letter-spacing: 0.05em;">
+              $1,800 CASH
+            </div>
+          </div>
+
+          <!-- Winner 3 -->
+          <div class="gold-panel" style="padding: 22px 40px; display: flex; justify-content: space-between; align-items: center; opacity: 0.6; border-style: dashed;">
+            <div style="display: flex; align-items: center; gap: 24px;">
+              <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.3); display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 900; color: #94A3B8;">
+                3
+              </div>
+              <div>
+                <div style="font-size: 32px; font-weight: 700; color: #94A3B8; font-style: italic;">Awaiting Next Winner...</div>
+                <div style="font-size: 18px; font-weight: 600; color: #64748B; text-transform: uppercase;">COULD YOU BE NEXT?</div>
+              </div>
+            </div>
+            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 55px; font-weight: 900; color: #94A3B8;">
+              $500+ POOL
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Slide Timer Progress Bar -->
+    <div id="timer-progress-wrap">
+      <div id="timer-progress-bar"></div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       VANILLA JAVASCRIPT SLIDESHOW ENGINE & CONTROLS
+       ========================================================================== -->
+  <script>
+    (function() {
+      // 1. STATE & CONFIGURATION
+      var currentSlide = 0;
+      var totalSlides = 7;
+      var slideDuration = 20000; // default 20s
+      var isPaused = false;
+      var isLocked = false;
+      var slideTimer = null;
+      var progressInterval = null;
+      var progressStartTime = Date.now();
+      var activeJackpot = "$200.00";
+
+      // DOM Elements
+      var slides = document.querySelectorAll('.slide-pane');
+      var topHeader = document.getElementById('top-header');
+      var slideNumInd = document.getElementById('slide-num-indicator');
+      var progressBar = document.getElementById('timer-progress-bar');
+      var pauseIndicator = document.getElementById('pause-indicator');
+      var nzClockEl = document.getElementById('live-nz-clock');
+
+      // 2. GENERATE 52 PLAYING CARDS IN CABINET GRID
+      function generateCabinetGrid() {
+        var grid = document.getElementById('cabinet-grid-container');
+        if (!grid) return;
+        grid.innerHTML = '';
+        for (var i = 1; i <= 52; i++) {
+          var card = document.createElement('div');
+          card.className = 'vault-card';
+          card.innerHTML = 
+            '<div class="vault-card-body">' +
+              '<div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">' +
+                '<span class="vault-card-num">#' + i + '</span>' +
+                '<span style="font-size: 11px; color: #D4AF37;">♠</span>' +
+              '</div>' +
+              '<div class="vault-card-logo-wrap">' +
+                '<img src="./logo.png" alt="Coasters" class="vault-card-logo-img" onerror="this.style.display=\'none\'">' +
+              '</div>' +
+              '<div style="width: 100%; display: flex; justify-content: space-between; align-items: center; transform: rotate(180deg);">' +
+                '<span class="vault-card-num">#' + i + '</span>' +
+                '<span style="font-size: 11px; color: #D4AF37;">♠</span>' +
+              '</div>' +
+            '</div>';
+          grid.appendChild(card);
+        }
+      }
+      generateCabinetGrid();
+
+      // 3. SLIDE TRANSITION LOGIC
+      function showSlide(index) {
+        if (index < 0) index = totalSlides - 1;
+        if (index >= totalSlides) index = 0;
+        currentSlide = index;
+
+        for (var i = 0; i < slides.length; i++) {
+          slides[i].classList.remove('active');
+        }
+        if (slides[currentSlide]) {
+          slides[currentSlide].classList.add('active');
         }
 
-        setInterval(updateStaticJackpot, 5 * 60 * 1000);
-      })();
-    </script>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+        // Header visibility (hidden on Slide 0, visible on 1-6)
+        if (currentSlide === 0) {
+          topHeader.style.opacity = '0';
+          topHeader.style.pointerEvents = 'none';
+        } else {
+          topHeader.style.opacity = '1';
+          topHeader.style.pointerEvents = 'auto';
+          slideNumInd.textContent = 'SLIDE ' + (currentSlide + 1) + ' OF ' + totalSlides;
+        }
+
+        resetProgressTimer();
+      }
+
+      window.nextSlide = function() {
+        showSlide((currentSlide + 1) % totalSlides);
+      };
+
+      window.prevSlide = function() {
+        showSlide((currentSlide - 1 + totalSlides) % totalSlides);
+      };
+
+      function restartModule() {
+        showSlide(0);
+      }
+
+      function skipModule() {
+        // Send BroadcastChannel jump so container matrix can advance
+        try {
+          var bc = new BroadcastChannel('ct_matrix_sync');
+          bc.postMessage({ type: 'SYNC_JUMP', id: 'next_module' });
+        } catch(e) {}
+        window.nextSlide();
+      }
+
+      function togglePause() {
+        isPaused = !isPaused;
+        pauseIndicator.style.display = isPaused ? 'block' : 'none';
+        if (isPaused) {
+          clearTimeout(slideTimer);
+          clearInterval(progressInterval);
+        } else {
+          resetProgressTimer();
+        }
+      }
+
+      function toggleLock() {
+        isLocked = !isLocked;
+        pauseIndicator.textContent = isLocked ? '🔒 DISPLAY LOCKED' : '⏸️ SLIDESHOW PAUSED';
+        pauseIndicator.style.display = isLocked ? 'block' : (isPaused ? 'block' : 'none');
+        if (isLocked) {
+          clearTimeout(slideTimer);
+          clearInterval(progressInterval);
+        } else if (!isPaused) {
+          resetProgressTimer();
+        }
+      }
+
+      function resetProgressTimer() {
+        clearTimeout(slideTimer);
+        clearInterval(progressInterval);
+        progressBar.style.width = '0%';
+        progressStartTime = Date.now();
+
+        if (isPaused || isLocked) return;
+
+        progressInterval = setInterval(function() {
+          var elapsed = Date.now() - progressStartTime;
+          var pct = Math.min(100, (elapsed / slideDuration) * 100);
+          progressBar.style.width = pct + '%';
+        }, 100);
+
+        slideTimer = setTimeout(function() {
+          window.nextSlide();
+        }, slideDuration);
+      }
+
+      // 4. LIVE CSV FETCHING & AUTO-UPDATE VALVE (EVERY 5 MINUTES)
+      function updateJackpotFromCsv() {
+        fetch('./data.csv?t=' + Date.now())
+          .then(function(res) { return res.text(); })
+          .then(function(csvText) {
+            if (!csvText) return;
+            var lines = csvText.trim().split(/\r?\n/).filter(function(l) { return l.trim(); });
+            var lastLine = lines[lines.length - 1];
+            if (lastLine && lastLine.indexOf('JACKPOT TOTAL:') !== -1) {
+              var match = lastLine.match(/\$([0-9,.]+)/);
+              if (match && match[1]) {
+                activeJackpot = '$' + parseFloat(match[1].replace(/,/g, '')).toFixed(2);
+                var els = document.querySelectorAll('.live-jackpot-val');
+                for (var j = 0; j < els.length; j++) {
+                  els[j].textContent = activeJackpot;
+                }
+              }
+            }
+          })
+          .catch(function(err) {
+            console.warn('[Signage CSV Valve Error]', err);
+          });
+      }
+      updateJackpotFromCsv();
+      setInterval(updateJackpotFromCsv, 5 * 60 * 1000);
+
+      // 5. BLINKING NZ CLOCK & COUNTDOWN LOGIC
+      function updateClocks() {
+        var now = new Date();
+        var nzTimeStr = now.toLocaleTimeString('en-NZ', { timeZone: 'Pacific/Auckland', hour12: false });
+        var parts = nzTimeStr.split(':');
+        if (parts.length >= 3 && nzClockEl) {
+          nzClockEl.innerHTML = parts[0] + '<span class="blink-colon">:</span>' + parts[1] + '<span class="blink-colon">:</span>' + parts[2];
+        }
+
+        // Resumption Countdown (Tuesday 13 Oct 2026, 17:30 NZST)
+        var targetDate = new Date('2026-10-13T17:30:00+13:00');
+        var diff = targetDate.getTime() - now.getTime();
+        if (diff > 0) {
+          var d = Math.floor(diff / (1000 * 60 * 60 * 24));
+          var h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+          var s = Math.floor((diff % (1000 * 60)) / 1000);
+          var pad = function(n) { return n < 10 ? '0' + n : n; };
+          var dEl = document.getElementById('cd-days');
+          var hEl = document.getElementById('cd-hours');
+          var mEl = document.getElementById('cd-mins');
+          var sEl = document.getElementById('cd-secs');
+          if (dEl) dEl.textContent = pad(d);
+          if (hEl) hEl.textContent = pad(h);
+          if (mEl) mEl.textContent = pad(m);
+          if (sEl) sEl.textContent = pad(s);
+        }
+      }
+      setInterval(updateClocks, 1000);
+      updateClocks();
+
+      // 6. KEYBOARD CONTROLS (PROTOCOL COMPLIANT)
+      window.addEventListener('keydown', function(e) {
+        var activeTag = document.activeElement ? document.activeElement.tagName.toLowerCase() : '';
+        if (activeTag === 'input' || activeTag === 'textarea' || activeTag === 'select') return;
+
+        switch (e.key) {
+          case 'ArrowLeft':
+            e.preventDefault();
+            window.prevSlide();
+            break;
+          case 'ArrowRight':
+            e.preventDefault();
+            window.nextSlide();
+            break;
+          case 'ArrowUp':
+            e.preventDefault();
+            restartModule();
+            break;
+          case 'ArrowDown':
+            e.preventDefault();
+            skipModule();
+            break;
+          case ' ':
+          case 'Spacebar':
+            e.preventDefault();
+            togglePause();
+            break;
+          case '0':
+            e.preventDefault();
+            toggleLock();
+            break;
+          case 'a':
+          case 'A':
+            e.preventDefault();
+            window.open('admin.html', '_blank');
+            break;
+          case 'r':
+          case 'R':
+            e.preventDefault();
+            window.open('remote.html', '_blank');
+            break;
+          default:
+            if (e.key >= '1' && e.key <= '9') {
+              e.preventDefault();
+              var dur = parseInt(e.key, 10) * 10000;
+              slideDuration = dur;
+              resetProgressTimer();
+            }
+            break;
+        }
+      });
+
+      // 7. BROADCASTCHANNEL SYNC
+      try {
+        var aceChannel = new BroadcastChannel('ct_ace_signage_channel');
+        aceChannel.onmessage = function(ev) {
+          var data = ev.data || {};
+          if (data.action === 'next') window.nextSlide();
+          else if (data.action === 'prev') window.prevSlide();
+          else if (data.action === 'togglePause') togglePause();
+          else if (data.action === 'toggleLock') toggleLock();
+          else if (data.action === 'slide' && typeof data.value === 'number') showSlide(data.value);
+        };
+      } catch(e) {}
+
+      // 8. START PLAYBACK
+      resetProgressTimer();
+    })();
+  </script>
+</body>
 </html>

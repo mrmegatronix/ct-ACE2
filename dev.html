@@ -448,7 +448,7 @@
       </div>
       <div class="header-jackpot-badge">
         <span class="header-jackpot-label">BUILDING POT</span>
-        <span class="header-jackpot-val live-jackpot-val">$200.00</span>
+        <span class="header-jackpot-val live-jackpot-val">$400.00</span>
       </div>
       <div class="header-status">
         <span class="status-pill">PAUSED • RESUMES AT $500</span>
@@ -534,7 +534,7 @@
                 CURRENT BUILDING POT
               </span>
               <span class="live-jackpot-val" style="font-size: 60px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; text-shadow: 0 0 20px rgba(212,175,55,0.6); white-space: nowrap; margin-top: 2px;">
-                $200.00
+                $400.00
               </span>
               <span style="font-size: 14px; font-weight: 700; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
                 BUILDS +$100 EACH DRAW DATE
@@ -555,7 +555,7 @@
                 $500.00 POOL
               </span>
               <span style="font-size: 14px; font-weight: 700; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
-                RESUMES TUESDAY 13 OCT 2026
+                RESUMES SATURDAY 10 OCT 2026
               </span>
             </div>
           </div>
@@ -672,7 +672,7 @@
             CURRENT BUILDING JACKPOT
           </h2>
           <div class="live-jackpot-val" style="font-family: 'Playfair Display', serif; font-size: 210px; font-weight: 900; color: #D4AF37; line-height: 1; margin: 15px 0; text-shadow: 0 0 45px rgba(212,175,55,0.85);">
-            $200.00
+            $400.00
           </div>
           <div style="font-size: 26px; font-weight: 800; color: #E5E5E5; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(0,0,0,0.7); border: 2px solid rgba(212,175,55,0.6); padding: 12px 36px; border-radius: 9999px;">
             ⚠️ ACCUMULATING +$100 EACH DRAW DATE • RESUMES AT $500.00 POOL ⚠️
@@ -753,7 +753,7 @@
             GAMEPLAY RESUMPTION COUNTDOWN
           </h2>
           <p style="font-size: 22px; font-weight: 700; color: #E5E5E5; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 6px;">
-            RESUMES TUESDAY 13 OCTOBER 2026 • 5:30 PM NZST
+            RESUMES SATURDAY 10 OCTOBER 2026 • 6:30 PM NZST
           </p>
 
           <!-- Countdown Timer Display with BLINKING COLONS -->
@@ -871,7 +871,7 @@
       var slideTimer = null;
       var progressInterval = null;
       var progressStartTime = Date.now();
-      var activeJackpot = "$200.00";
+      var activeJackpot = "$400.00";
 
       // DOM Elements
       var slides = document.querySelectorAll('.slide-pane');
@@ -998,26 +998,46 @@
       }
 
       // 4. LIVE CSV FETCHING & AUTO-UPDATE VALVE (EVERY 5 MINUTES)
-      function updateJackpotFromCsv() {
-        fetch('./data.csv?t=' + Date.now())
-          .then(function(res) { return res.text(); })
-          .then(function(csvText) {
-            if (!csvText) return;
-            var lines = csvText.trim().split(/\r?\n/).filter(function(l) { return l.trim(); });
-            var lastLine = lines[lines.length - 1];
-            if (lastLine && lastLine.indexOf('JACKPOT TOTAL:') !== -1) {
-              var match = lastLine.match(/\$([0-9,.]+)/);
-              if (match && match[1]) {
-                activeJackpot = '$' + parseFloat(match[1].replace(/,/g, '')).toFixed(2);
-                var els = document.querySelectorAll('.live-jackpot-val');
-                for (var j = 0; j < els.length; j++) {
-                  els[j].textContent = activeJackpot;
-                }
-              }
+      var REMOTE_SHEET_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQDwqNaCeNn7Q6WSgc5gN8aOS08Ltkxu2v9QBSVuaKrJFX61PZ1Nuninkqh_F62wQ5t47usf2e19dxx/pub?output=csv';
+
+      function parseCsvJackpot(csvText) {
+        if (!csvText) return false;
+        var lines = csvText.trim().split(/\r?\n/).filter(function(l) { return l.trim(); });
+        var lastLine = lines[lines.length - 1];
+        if (lastLine && lastLine.indexOf('JACKPOT TOTAL:') !== -1) {
+          var match = lastLine.match(/\$([0-9,.]+)/);
+          if (match && match[1]) {
+            activeJackpot = '$' + parseFloat(match[1].replace(/,/g, '')).toFixed(2);
+            var els = document.querySelectorAll('.live-jackpot-val');
+            for (var j = 0; j < els.length; j++) {
+              els[j].textContent = activeJackpot;
             }
+            return true;
+          }
+        }
+        return false;
+      }
+
+      function updateJackpotFromCsv() {
+        fetch(REMOTE_SHEET_CSV + '&t=' + Date.now())
+          .then(function(res) {
+            if (!res.ok) throw new Error('Remote Sheet response ' + res.status);
+            return res.text();
           })
-          .catch(function(err) {
-            console.warn('[Signage CSV Valve Error]', err);
+          .then(function(csvText) {
+            var ok = parseCsvJackpot(csvText);
+            if (!ok) throw new Error('Could not parse remote CSV jackpot');
+          })
+          .catch(function() {
+            // Fallback to local data.csv
+            fetch('./data.csv?t=' + Date.now())
+              .then(function(res) { return res.text(); })
+              .then(function(csvText) {
+                parseCsvJackpot(csvText);
+              })
+              .catch(function(err) {
+                console.warn('[Signage CSV Valve Error]', err);
+              });
           });
       }
       updateJackpotFromCsv();
@@ -1032,8 +1052,8 @@
           nzClockEl.innerHTML = parts[0] + '<span class="blink-colon">:</span>' + parts[1] + '<span class="blink-colon">:</span>' + parts[2];
         }
 
-        // Resumption Countdown (Tuesday 13 Oct 2026, 17:30 NZST)
-        var targetDate = new Date('2026-10-13T17:30:00+13:00');
+        // Resumption Countdown (Saturday 10 Oct 2026, 18:30 NZST)
+        var targetDate = new Date('2026-10-10T18:30:00+13:00');
         var diff = targetDate.getTime() - now.getTime();
         if (diff > 0) {
           var d = Math.floor(diff / (1000 * 60 * 60 * 24));

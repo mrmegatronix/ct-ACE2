@@ -153,6 +153,34 @@
       animation: pulse-glow 3s infinite;
     }
 
+    /* Confetti Animation */
+    .confetti {
+      position: absolute;
+      top: -10%;
+      color: rgba(212, 175, 55, 0.25);
+      animation: fall linear infinite;
+      z-index: 2;
+      text-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+      pointer-events: none;
+      user-select: none;
+    }
+    @keyframes fall {
+      0% {
+        transform: translateY(-10vh) rotate(0deg) translateX(0);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(115vh) rotate(720deg) translateX(30px);
+        opacity: 0;
+      }
+    }
+
     /* Header Bar (Visible on Slide 1+) */
     #top-header {
       position: absolute;
@@ -283,40 +311,45 @@
 
     /* 3D Playing Card */
     .card-3d-wrap {
-      width: 320px;
-      height: 450px;
-      border-radius: 26px;
+      width: 340px;
+      height: 480px;
+      border-radius: 28px;
       padding: 6px;
       background: linear-gradient(to bottom, #FFE082, #D4AF37, #78540B);
       box-shadow: 0 30px 70px rgba(0,0,0,0.95), 0 0 60px rgba(212,175,55,0.7);
       animation: float-card 6s ease-in-out infinite;
       cursor: pointer;
+      margin: 15px 0 25px 0;
     }
     .card-inner {
       width: 100%;
       height: 100%;
-      border-radius: 20px;
+      border-radius: 22px;
       background: linear-gradient(135deg, #1A1813, #0E0E10, #221D12);
       border: 2px solid #D4AF37;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      padding: 18px;
+      padding: 20px;
       box-sizing: border-box;
       overflow: hidden;
       position: relative;
     }
     .card-spade-center {
-      width: 150px;
-      height: 150px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 190px;
+      height: 190px;
       border-radius: 50%;
-      background: linear-gradient(to bottom, rgba(212,175,55,0.3), transparent);
-      border: 2px solid #D4AF37;
+      background: radial-gradient(circle, rgba(212,175,55,0.35) 0%, rgba(212,175,55,0.08) 60%, transparent 80%);
+      border: 3px solid rgba(212,175,55,0.85);
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 50px rgba(212,175,55,0.85);
-      margin: auto 0;
+      box-shadow: 0 0 55px rgba(212,175,55,0.9);
+      pointer-events: none;
     }
 
     /* Playing Card Cabinet (4 x 13) */
@@ -462,6 +495,7 @@
       <div class="suit-particle" style="top: 120px; right: 140px; font-size: 32px; color: rgba(239,68,68,0.25);">♥</div>
       <div class="suit-particle" style="bottom: 140px; left: 160px; font-size: 32px; color: rgba(239,68,68,0.25);">♦</div>
       <div class="suit-particle" style="bottom: 120px; right: 120px; font-size: 36px; color: rgba(212,175,55,0.3);">♣</div>
+      <div class="background-effects" id="confetti-container" style="position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 2;"></div>
     </div>
 
     <!-- Top Persistent Header (Hidden on Slide 0 Intro) -->
@@ -485,7 +519,6 @@
       <div class="header-status">
         <span class="status-pill">PAUSED • RESUMES AT $500</span>
         <span id="slide-num-indicator" style="font-size: 30px; font-weight: 800; color: #D4AF37;">SLIDE 1 OF 7</span>
-        <div class="header-clock" id="live-nz-clock">--<span class="blink-colon">:</span>--<span class="blink-colon">:</span>--</div>
       </div>
     </header>
 
@@ -500,12 +533,12 @@
            ==================================================================== -->
       <section class="slide-pane active" id="slide-0">
         <!-- Top Banner: Gameplay Paused Pill Box -->
-        <div style="z-index: 10; display: flex; align-items: center; gap: 16px; background: linear-gradient(90deg, rgba(0,0,0,0.95), rgba(30,25,14,0.95), rgba(0,0,0,0.95)); border: 2px solid rgba(245,158,11,0.85); padding: 12px 36px; border-radius: 9999px; box-shadow: 0 0 35px rgba(245,158,11,0.4); margin-top: 4px;">
-          <span style="font-size: 32px; color: #F59E0B; animation: pulse-glow 1.5s infinite;">⚠️</span>
-          <span style="font-size: 30px; font-weight: 900; letter-spacing: 0.12em; text-transform: uppercase; color: #FCD34D; font-family: 'Outfit', sans-serif; white-space: nowrap; text-shadow: 0 2px 12px rgba(245,158,11,0.7);">
+        <div style="z-index: 10; display: flex; align-items: center; justify-content: center; gap: 20px; background: linear-gradient(90deg, rgba(0,0,0,0.95), rgba(30,25,14,0.95), rgba(0,0,0,0.95)); border: 2.5px solid rgba(245,158,11,0.9); padding: 14px 44px; border-radius: 9999px; box-shadow: 0 0 35px rgba(245,158,11,0.4); margin-top: 2px; width: auto; max-width: 96%;">
+          <span style="font-size: 40px; color: #F59E0B; animation: pulse-glow 1.5s infinite; line-height: 1;">⚠️</span>
+          <span style="font-size: 38px; font-weight: 900; letter-spacing: 0.08em; text-transform: uppercase; color: #FCD34D; font-family: 'Outfit', sans-serif; white-space: nowrap; text-shadow: 0 2px 14px rgba(245,158,11,0.8); line-height: 1.1;">
             CURRENT GAMEPLAY IS TEMPORARILY PAUSED • RESUMES AT $500 POOL
           </span>
-          <span style="font-size: 32px; color: #F59E0B; animation: pulse-glow 1.5s infinite;">⚠️</span>
+          <span style="font-size: 40px; color: #F59E0B; animation: pulse-glow 1.5s infinite; line-height: 1;">⚠️</span>
         </div>
 
         <!-- Center Cinematic Stage: 3D Floating Hero Card & Colossal Title -->
@@ -523,7 +556,7 @@
                 </span>
               </div>
               <div class="card-spade-center">
-                <span style="font-size: 90px; color: #F3E5AB; filter: drop-shadow(0 0 25px rgba(212,175,55,1)); line-height: 1;">♠</span>
+                <span style="font-size: 140px; color: #F3E5AB; filter: drop-shadow(0 0 28px rgba(212,175,55,1)); line-height: 1;">♠</span>
               </div>
               <div style="display: flex; justify-content: space-between; align-items: flex-end; line-height: 1; transform: rotate(180deg);">
                 <div style="display: flex; flex-direction: column; align-items: center; color: #F3E5AB;">
@@ -538,18 +571,18 @@
           </div>
 
           <!-- Colossal Main Title: ♠ CHASE ♠ THE ♠ ACE ♠ -->
-          <h1 class="title-colossal">
-            <span class="animate-spade-loop" style="font-size: 72px; line-height: 1;">♠</span>
+          <h1 class="title-colossal" style="font-size: 140px; margin: 12px 0 6px 0;">
+            <span class="animate-spade-loop" style="font-size: 90px; line-height: 1;">♠</span>
             <span>CHASE</span>
-            <span class="animate-spade-loop" style="font-size: 72px; line-height: 1; animation-delay: 1.5s;">♠</span>
+            <span class="animate-spade-loop" style="font-size: 90px; line-height: 1; animation-delay: 1.5s;">♠</span>
             <span>THE</span>
-            <span class="animate-spade-loop" style="font-size: 72px; line-height: 1; animation-delay: 3s;">♠</span>
+            <span class="animate-spade-loop" style="font-size: 90px; line-height: 1; animation-delay: 3s;">♠</span>
             <span>ACE</span>
-            <span class="animate-spade-loop" style="font-size: 72px; line-height: 1; animation-delay: 4.5s;">♠</span>
+            <span class="animate-spade-loop" style="font-size: 90px; line-height: 1; animation-delay: 4.5s;">♠</span>
           </h1>
 
           <!-- High Impact Subtitle -->
-          <p class="subtitle-colossal">
+          <p class="subtitle-colossal" style="font-size: 42px; margin: 6px 0 0 0;">
             FIND THE ACE OF SPADES • WIN THE CASH JACKPOT
           </p>
         </div>
@@ -622,7 +655,7 @@
               LOCKED VENUE CABINET <span class="animate-spade-loop" style="font-size: 40px;">♠</span> <span style="color: #D4AF37;">52 CARDS</span>
             </h2>
             <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px;">
-              AUTHENTIC PLAYING CARDS MOUNTED IN SECURE CABINET BEHIND BAR
+              AUTHENTIC PLAYING CARDS MOUNTED IN SECURE VENUE CABINET
             </p>
           </div>
           <div style="background: rgba(0,0,0,0.85); border: 2px solid #D4AF37; padding: 12px 28px; border-radius: 16px; font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #D4AF37; letter-spacing: 0.1em;">
@@ -645,7 +678,7 @@
             CARD VAULT STATUS <span class="animate-spade-loop" style="font-size: 42px;">♠</span>
           </h2>
           <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
-            FULL 52-CARD DECK SECURED IN BAR CABINET
+            FULL 52-CARD DECK SECURED IN VENUE CABINET
           </p>
         </div>
 
@@ -754,7 +787,7 @@
             <div>
               <div style="font-size: 36px; font-weight: 900; color: #D4AF37; margin-bottom: 14px;">03. PICK A CARD</div>
               <p style="font-size: 30px; line-height: 1.35; color: #E5E5E5; font-weight: 600;">
-                If your ticket is drawn, choose 1 numbered envelope from the locked cabinet behind the bar to reveal the card.
+                If your ticket is drawn, choose 1 numbered envelope from the locked venue cabinet to reveal the card.
               </p>
             </div>
             <div style="font-size: 30px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 24px; letter-spacing: 0.05em;">
@@ -957,6 +990,27 @@
         }
       }
       generateCabinetGrid();
+
+      // Confetti generation
+      (function initConfetti() {
+        var container = document.getElementById('confetti-container');
+        if (!container) return;
+        var suits = ['♠', '♥', '♦', '♣'];
+        for (var i = 0; i < 40; i++) {
+          var el = document.createElement('div');
+          el.className = 'confetti';
+          el.textContent = suits[Math.floor(Math.random() * suits.length)];
+          el.style.left = (Math.random() * 100) + '%';
+          el.style.animationDuration = (Math.random() * 6 + 6) + 's';
+          el.style.animationDelay = (Math.random() * 6) + 's';
+          el.style.fontSize = (Math.random() * 40 + 35) + 'px';
+          el.style.opacity = (Math.random() * 0.4 + 0.15).toFixed(2);
+          if (el.textContent === '♥' || el.textContent === '♦') {
+            el.style.color = 'rgba(239, 68, 68, 0.22)';
+          }
+          container.appendChild(el);
+        }
+      })();
 
       // 3. SLIDE TRANSITION LOGIC
       function showSlide(index) {

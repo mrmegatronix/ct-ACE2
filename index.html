@@ -580,7 +580,7 @@
               <span style="font-size: 30px; font-weight: 900; color: #FCD34D; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
                 CURRENT BUILDING POT
               </span>
-              <span class="live-jackpot-val" style="font-size: 72px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; text-shadow: 0 0 25px rgba(212,175,55,0.7); white-space: nowrap; margin-top: 2px;">
+              <span class="live-jackpot-val" style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; text-shadow: 0 0 25px rgba(212,175,55,0.7); white-space: nowrap; margin-top: 2px;">
                 $400.00
               </span>
               <span style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
@@ -598,7 +598,7 @@
               <span style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
                 GAMEPLAY RESUMPTION
               </span>
-              <span style="font-size: 72px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
+              <span style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
                 $500.00 POOL
               </span>
               <span style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
@@ -616,8 +616,8 @@
               <span style="font-size: 30px; font-weight: 900; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
                 DRAW PROCEDURE
               </span>
-              <span style="font-size: 72px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
-                LOCKED CARD VAULT
+              <span style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
+                SECURE VAULT
               </span>
               <span style="font-size: 30px; font-weight: 800; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
                 52 SEALED CARDS IN PLAY
@@ -634,14 +634,14 @@
         <div style="width: 100%; max-width: 1840px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
           <div>
             <h2 class="sheen-text" style="font-size: 50px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.04em;">
-              LOCKED VENUE CABINET <span class="animate-spade-loop" style="font-size: 40px;">♠</span> <span style="color: #D4AF37;">52 CARDS</span>
+              LOCKED VENUE CABINET <span class="animate-spade-loop" style="font-size: 40px;">♠</span> <span id="cabinet-title-cards" style="color: #D4AF37;">52 CARDS</span>
             </h2>
             <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px;">
               AUTHENTIC PLAYING CARDS MOUNTED IN SECURE VENUE CABINET
             </p>
           </div>
           <div style="background: rgba(0,0,0,0.85); border: 2px solid #D4AF37; padding: 12px 28px; border-radius: 16px; font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #D4AF37; letter-spacing: 0.1em;">
-            🔒 52 OF 52 CARDS UNOPENED
+            <span id="cabinet-status-pill">🔒 52 OF 52 CARDS UNOPENED</span>
           </div>
         </div>
 
@@ -667,20 +667,20 @@
         <div style="width: 100%; max-width: 1800px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; margin-bottom: 28px;">
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
             <div style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">CARDS REMAINING</div>
-            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 12px 0;">52</div>
-            <div style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">100% OF DECK IN PLAY</div>
+            <div id="status-cards-remaining" style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 12px 0;">52</div>
+            <div id="status-deck-pct" style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">100% OF DECK IN PLAY</div>
           </div>
 
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
             <div style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">CARDS DRAWN</div>
-            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #F59E0B; line-height: 1; margin: 12px 0;">0</div>
+            <div id="status-cards-drawn" style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #F59E0B; line-height: 1; margin: 12px 0;">0</div>
             <div style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">ROUND RESETS AT $500</div>
           </div>
 
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
             <div style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">WINNING CHANCE</div>
-            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 12px 0;">1.92%</div>
-            <div style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">1 IN 52 ODDS ON START</div>
+            <div id="status-winning-chance" style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 12px 0;">1.92%</div>
+            <div id="status-odds-ratio" style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">1 IN 52 ODDS ON START</div>
           </div>
 
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
@@ -773,7 +773,7 @@
               </p>
             </div>
             <div style="font-size: 36px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 24px; letter-spacing: 0.05em;">
-              52 SECURE CARDS
+              <span id="rules-secure-cards">52 SECURE CARDS</span>
             </div>
           </div>
 
@@ -1116,10 +1116,34 @@
           generateCabinetGrid();
           var cardsEl = document.querySelectorAll('.vault-card');
           if (cardsEl.length === 52) {
+            var cardsRemaining = 52 - parsedDrawnCards.length;
+            var cabinetTitleCards = document.getElementById('cabinet-title-cards');
+            if (cabinetTitleCards) cabinetTitleCards.textContent = cardsRemaining + ' CARDS';
+            var cabinetStatusPill = document.getElementById('cabinet-status-pill');
+            if (cabinetStatusPill) cabinetStatusPill.textContent = (cardsRemaining === 0 ? '🔓' : '🔒') + ' ' + cardsRemaining + ' OF 52 CARDS UNOPENED';
+            var rulesSecureCards = document.getElementById('rules-secure-cards');
+            if (rulesSecureCards) rulesSecureCards.textContent = cardsRemaining + ' SECURE CARDS';
+
+            var statCardsRemaining = document.getElementById('status-cards-remaining');
+            if (statCardsRemaining) statCardsRemaining.textContent = cardsRemaining;
+            var statCardsDrawn = document.getElementById('status-cards-drawn');
+            if (statCardsDrawn) statCardsDrawn.textContent = parsedDrawnCards.length;
+            
+            var pctPlay = Math.round((cardsRemaining / 52) * 100);
+            var statDeckPct = document.getElementById('status-deck-pct');
+            if (statDeckPct) statDeckPct.textContent = pctPlay + '% OF DECK IN PLAY';
+            
+            var winChance = cardsRemaining > 0 ? (100 / cardsRemaining).toFixed(2) : '100.00';
+            var statWinningChance = document.getElementById('status-winning-chance');
+            if (statWinningChance) statWinningChance.textContent = winChance + '%';
+            
+            var statOddsRatio = document.getElementById('status-odds-ratio');
+            if (statOddsRatio) statOddsRatio.textContent = '1 IN ' + cardsRemaining + ' ODDS IN PLAY';
+
             parsedDrawnCards.forEach(function(dc) {
                var idx = dc.num - 1;
                var upCard = dc.card.toUpperCase();
-               var isRed = upCard.indexOf('HEART') !== -1 || upCard.indexOf('DIAMOND') !== -1;
+               var isRed = upCard.indexOf('HEART') !== -1 || upCard.indexOf('DIAMOND') !== -1 || upCard.indexOf('♥') !== -1 || upCard.indexOf('♦') !== -1;
                var color = isRed ? '#EF4444' : '#0A0A0A';
                if (cardsEl[idx]) {
                   cardsEl[idx].innerHTML = 

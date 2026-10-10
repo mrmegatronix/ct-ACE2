@@ -1208,7 +1208,7 @@
             if (day === 2 || day === 6) {
               next.setHours(day === 2 ? 17 : 18, 30, 0, 0);
               // Hold target until 30 minutes past draw time
-              if (next.getTime() + (30 * 60 * 1000) > currentTime.getTime()) {
+              if (next.getTime() + (15 * 60 * 1000) > currentTime.getTime()) {
                 return next;
               }
             }
@@ -1252,7 +1252,7 @@
         }
 
         // Countdown Build-up Lock & Climax Retention
-        var s5 = document.getElementById("slide-5"); var topH = document.getElementById("top-header"); if (diff <= 10 * 60 * 1000 && diff >= -30 * 60 * 1000) { window.wasLocked = true; if (s5) s5.classList.add("epic-mode"); if (topH) topH.style.opacity = "0";
+        var s5 = document.getElementById("slide-5"); var topH = document.getElementById("top-header"); if (diff <= 10 * 60 * 1000 && diff >= -15 * 60 * 1000) { window.wasLocked = true; if (s5) s5.classList.add("epic-mode"); if (topH) topH.style.opacity = "0";
           if (typeof currentSlide !== 'undefined' && currentSlide !== 5) {
             showSlide(5);
           }

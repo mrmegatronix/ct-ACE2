@@ -361,29 +361,34 @@
       position: relative;
       overflow: hidden;
       border-radius: 18px;
+      cursor: grab;
+      user-select: none;
+    }
+    .cabinet-board-wrap:active {
+      cursor: grabbing;
     }
     .cabinet-board {
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 10px;
       width: 100%;
       height: 100%;
       justify-content: center;
       transform-origin: center center;
-      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: transform 0.4s ease-out;
     }
     .cabinet-row {
       display: flex;
       justify-content: center;
-      gap: 14px;
+      gap: 12px;
       width: 100%;
     }
     .vault-card {
       position: relative;
-      width: 160px;
-      height: 112px;
+      width: 148px;
+      height: 102px;
       border-radius: 12px;
-      padding: 3px;
+      padding: 2.5px;
       background: linear-gradient(to bottom, #FFE082, #D4AF37, #78540B);
       box-shadow: 0 4px 16px rgba(0,0,0,0.85);
       display: flex;
@@ -400,32 +405,45 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 5px 8px;
+      padding: 4px 6px;
       box-sizing: border-box;
       overflow: hidden;
     }
     .vault-card-num {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 38px;
+      font-size: 34px;
       color: #F3E5AB;
       line-height: 1;
     }
 
-    /* Cinematic sweep/pan animation for Cabinet slide */
-    .slide-pane#slide-1.active .cabinet-board {
-      animation: cabinetCameraPan 28s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
+    /* Cinematic sweep/pan animation for Cabinet slide (Zero Clipping) */
+    .slide-pane#slide-1.active .cabinet-board:not(.user-interacting) {
+      animation: cabinetCameraPan 28s ease-in-out infinite alternate;
+      will-change: transform;
     }
     @keyframes cabinetCameraPan {
-      0% { transform: scale(1) translate(0, 0); }
-      15% { transform: scale(1.35) translate(-10%, -15%); }
-      45% { transform: scale(1.35) translate(12%, 10%); }
-      75% { transform: scale(1.35) translate(-8%, 15%); }
-      90% { transform: scale(1) translate(0, 0); }
-      100% { transform: scale(1) translate(0, 0); }
+      0% {
+        transform: scale(1) translate(0, 0);
+      }
+      20% {
+        transform: scale(1.12) translate(-3%, -1.2%);
+      }
+      50% {
+        transform: scale(1.12) translate(3%, -1%);
+      }
+      76% {
+        transform: scale(1.12) translate(-1%, 1.2%);
+      }
+      92% {
+        transform: scale(1) translate(0, 0);
+      }
+      100% {
+        transform: scale(1) translate(0, 0);
+      }
     }
     .vault-card-logo-wrap {
-      width: 60px;
-      height: 60px;
+      width: 54px;
+      height: 54px;
       border-radius: 50%;
       background: rgba(0,0,0,0.9);
       border: 1.5px solid #D4AF37;
@@ -1228,13 +1246,13 @@
           var suit = upCard.indexOf('♠') !== -1 ? '♠' : (upCard.indexOf('♥') !== -1 ? '♥' : (upCard.indexOf('♦') !== -1 ? '♦' : (upCard.indexOf('♣') !== -1 ? '♣' : '')));
           var rank = upCard.replace(/[♠♥♦♣]/g, '').trim() || upCard;
           return '<div class="vault-card" style="background: #FFFFFF; border: 2.5px solid ' + color + '; box-shadow: 0 6px 18px rgba(0,0,0,0.9);">' +
-            '<div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 4px 8px; box-sizing: border-box;">' +
+            '<div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 4px 6px; box-sizing: border-box;">' +
               '<div style="width: 100%; display: flex; justify-content: space-between; align-items: center; line-height: 1;">' +
-                '<span style="font-family: \'Oswald\', sans-serif; font-size: 20px; font-weight: 800; color: #64748B;">#' + num + '</span>' +
-                '<span style="font-size: 24px; font-weight: 900; color: ' + color + ';">' + suit + '</span>' +
+                '<span style="font-family: \'Oswald\', sans-serif; font-size: 18px; font-weight: 800; color: #64748B;">#' + num + '</span>' +
+                '<span style="font-size: 20px; font-weight: 900; color: ' + color + ';">' + suit + '</span>' +
               '</div>' +
-              '<div style="font-family: \'Bebas Neue\', sans-serif; font-size: 52px; font-weight: 900; line-height: 1; text-align: center; color: ' + color + ';">' + rank + suit + '</div>' +
-              '<div style="font-size: 13px; font-weight: 900; color: #EF4444; text-align: center; text-transform: uppercase; background: rgba(239,68,68,0.12); border-radius: 4px; padding: 2px 0;">DRAWN</div>' +
+              '<div style="font-family: \'Bebas Neue\', sans-serif; font-size: 46px; font-weight: 900; line-height: 1; text-align: center; color: ' + color + ';">' + rank + suit + '</div>' +
+              '<div style="font-size: 11px; font-weight: 900; color: #EF4444; text-align: center; text-transform: uppercase; background: rgba(239,68,68,0.12); border-radius: 3px; padding: 2px 0;">DRAWN</div>' +
             '</div>' +
           '</div>';
         }
@@ -1242,7 +1260,7 @@
           '<div class="vault-card-body">' +
             '<div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">' +
               '<span class="vault-card-num">#' + num + '</span>' +
-              '<span style="font-size: 42px; color: #D4AF37; line-height: 1;">♠</span>' +
+              '<span style="font-size: 36px; color: #D4AF37; line-height: 1;">♠</span>' +
             '</div>' +
             '<div class="vault-card-logo-wrap">' +
               '<img src="./logo.png" alt="Coasters" class="vault-card-logo-img" onerror="this.style.display=\'none\'">' +
@@ -1309,6 +1327,66 @@
         if (statOddsRatio) statOddsRatio.textContent = '1 IN ' + cardsRemaining + ' ODDS IN PLAY';
       }
       generateCabinetGrid();
+
+      // 4. INTERACTIVE ZOOM & DRAG FOR CABINET BOARD
+      (function initCabinetInteractivity() {
+        var wrap = document.querySelector('.cabinet-board-wrap');
+        var grid = document.getElementById('cabinet-grid-container');
+        if (!wrap || !grid) return;
+
+        var scale = 1.0;
+        var panX = 0;
+        var panY = 0;
+        var isDragging = false;
+        var startX = 0, startY = 0;
+        var resetTimeout = null;
+
+        function updateTransform() {
+          grid.classList.add('user-interacting');
+          grid.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + scale + ')';
+          clearTimeout(resetTimeout);
+          resetTimeout = setTimeout(function() {
+            grid.style.transform = '';
+            grid.classList.remove('user-interacting');
+            scale = 1.0;
+            panX = 0;
+            panY = 0;
+          }, 12000);
+        }
+
+        wrap.addEventListener('wheel', function(e) {
+          e.preventDefault();
+          var delta = e.deltaY < 0 ? 0.08 : -0.08;
+          scale = Math.min(Math.max(0.9, scale + delta), 1.6);
+          updateTransform();
+        }, { passive: false });
+
+        wrap.addEventListener('mousedown', function(e) {
+          if (e.button !== 0) return;
+          isDragging = true;
+          startX = e.clientX - panX;
+          startY = e.clientY - panY;
+        });
+
+        window.addEventListener('mousemove', function(e) {
+          if (!isDragging) return;
+          panX = e.clientX - startX;
+          panY = e.clientY - startY;
+          updateTransform();
+        });
+
+        window.addEventListener('mouseup', function() {
+          isDragging = false;
+        });
+
+        wrap.addEventListener('dblclick', function() {
+          grid.style.transform = '';
+          grid.classList.remove('user-interacting');
+          scale = 1.0;
+          panX = 0;
+          panY = 0;
+        });
+      })();
 
       // Confetti generation
       (function initConfetti() {

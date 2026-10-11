@@ -12,17 +12,17 @@
 * **Subtitle**:
   * `FIND THE ACE OF SPADES ♠ WIN THE CASH JACKPOT`
 * **Left Box (The Vault)**:
-  * Icon: `🗄️`
+  * Icon: `🃏`
   * Heading: `THE VAULT`
   * Value: `53 CARDS`
   * Detail: `53 OF 54 REMAINING`
 * **Center Box (Current Jackpot)**:
-  * Icon: `🔥`
+  * Icon: `💰`
   * Heading: `CURRENT JACKPOT`
   * Value: `$600.00`
   * Detail: `+$100 EVERY DRAW`
 * **Right Box (Next Draw)**:
-  * Icon: `🛡️`
+  * Icon: `🎟️`
   * Heading: `NEXT DRAW`
   * Value: `TUE 13 OCT`
   * Detail: `5:30 PM ♠ MUST BE PRESENT`
@@ -76,7 +76,7 @@
 
 ## Slide 3: Current Cash Jackpot
 
-* **Icon**: `💲💰💲`
+* **Icon**: `💰`
 * **Heading**:
   * `CURRENT CASH JACKPOT`
 * **Amount**:
@@ -99,7 +99,7 @@
 * **Rule 02**:
   * Title: `02. ATTEND DRAW`
   * Body: `Draws occur Tuesdays at 5:30 PM & Saturdays at 6:30 PM. Ticket holders MUST be present in venue to claim!`
-  * Footer: `TUE 5:30PM • SAT 6:30PM`
+  * Footer: `TUE 5:30PM ♠ SAT 6:30PM`
 * **Rule 03**:
   * Title: `03. PICK A CARD`
   * Body: `If your ticket is drawn, choose 1 numbered card from the locked venue cabinet to reveal the card.`
@@ -114,9 +114,9 @@
 ## Slide 5: Next Draw Countdown & Climax Ceremony
 
 * **Countdown Stage**:
-  * Title: `NEXT DRAW COUNTDOWN ♠`
+  * Title (Enlarged 70px with color-cycle ♠): `NEXT DRAW COUNTDOWN ♠`
   * Units: `DAYS` : `HOURS` : `MINUTES` : `SECONDS`
-  * Schedule: `RESUMES SATURDAY 10 OCTOBER 2026 • 6:30 PM NZST`
+  * Schedule (Enlarged 46px with color-cycle ♠): `RESUMES SATURDAY 10 OCTOBER 2026 ♠ 6:30 PM NZST`
 * **T-0 Climax Ceremony Sequence**:
   * Phase 1: `IT'S TIME FOR 1 LUCKY TICKET TO BE DRAWN!`
   * Phase 2: `GOOD LUCK! 🍀`
@@ -134,16 +134,16 @@
 * **Header Title**:
   * `OFFICIAL DRAW HISTORY ♠`
 * **Header Subtitle**:
-  * `COASTERS TAVERN • DRAW RECORD`
+  * `COASTERS TAVERN ♠ DRAW RECORD`
 * **Series Status Bar**:
-  * Title: `SERIES #2 • ACTIVE PLAY`
-  * Schedule: `NEXT DRAW: TUESDAY 13 OCTOBER 2026 • 5:30 PM`
+  * Title: `SERIES #2 ♠ ACTIVE PLAY`
+  * Schedule: `NEXT DRAW: TUESDAY 13 OCTOBER 2026 ♠ 5:30 PM`
   * Jackpot: `$600.00`
 * **Event 1 Audit Record**:
-  * Card Graphic: `5 ♣`
-  * Event Title: `EVENT 1 • 10/10/2026 • CARD #14 (5♣) DRAWN`
-  * Outcome Subtitle: `ACE OF SPADES MISSED • +$100 ACCUMULATES TO $600`
-  * Audit Note: `CUSTOMER LAUNCH AT $500 • DRAW #1 AUDITED & VERIFIED`
+  * Card Graphic: `5 ♣` (5-pip authentic quincunx layout)
+  * Event Title: `EVENT 1 ♠ 10/10/2026 ♠ CARD #14 (5♣) DRAWN`
+  * Outcome Subtitle: `ACE OF SPADES MISSED ♠ +$100 ACCUMULATES TO $600`
+  * Audit Note: `CUSTOMER LAUNCH AT $500 ♠ DRAW #1 AUDITED & VERIFIED`
   * Badge: `OUTCOME: MISSED $500`
 
 ---
@@ -151,9 +151,9 @@
 ## Slide 7: Hall of Master Ace Chasers (Previous Winners)
 
 * **Header Title**:
-  * `HALL OF MASTER ACE CHASERS ♠`
+  * `HALL OF MASTER ACE CHASERS ♠` (Enlarged 72px with color-cycle ♠)
 * **Header Subtitle**:
-  * `COASTERS TAVERN • LEGENDARY JACKPOT WINNERS RECORD`
+  * *(Removed)*
 * **Table Header**:
   * `VERIFIED JACKPOT WINNERS`
   * `COASTERS TAVERN`

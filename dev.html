@@ -473,6 +473,22 @@
       white-space: nowrap;
     }
 
+    /* Dynamic Color-Cycling Spade Effect */
+    .color-cycle-spade {
+      display: inline-block;
+      animation: spadeColorCycle 4s ease-in-out infinite alternate;
+      vertical-align: middle;
+      padding: 0 6px;
+      line-height: 1;
+    }
+    @keyframes spadeColorCycle {
+      0% { color: #D4AF37; filter: drop-shadow(0 0 10px rgba(212,175,55,0.95)); }
+      25% { color: #FCD34D; filter: drop-shadow(0 0 12px rgba(252,211,77,0.95)); }
+      50% { color: #EF4444; filter: drop-shadow(0 0 12px rgba(239,68,68,0.95)); }
+      75% { color: #10B981; filter: drop-shadow(0 0 12px rgba(16,185,129,0.95)); }
+      100% { color: #38BDF8; filter: drop-shadow(0 0 12px rgba(56,189,248,0.95)); }
+    }
+
     /* Bottom Progress Bar */
     #timer-progress-wrap {
       position: absolute;
@@ -651,16 +667,16 @@
 
           <!-- High Impact Subtitle -->
           <p class="subtitle-colossal" style="font-size: 42px; margin: 6px 0 0 0;">
-            FIND THE ACE OF SPADES ♠ WIN THE CASH JACKPOT
+            <span class="color-cycle-spade">♠</span> FIND THE ACE OF SPADES <span class="color-cycle-spade">♠</span> WIN THE CASH JACKPOT <span class="color-cycle-spade">♠</span>
           </p>
         </div>
 
         <!-- Bottom Status Showcase (Centered Layout) -->
         <div style="z-index: 10; width: 100%; max-width: 1840px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 6px;">
-          <!-- Tile 1: The Vault (Left) -->
+          <!-- Tile 1: The Vault (Left - Playing Card / Safe) -->
           <div class="gold-panel" style="padding: 22px 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-            <div style="width: 76px; height: 76px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 38px; color: #D4AF37; margin-bottom: 6px; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
-              🗄️
+            <div style="width: 76px; height: 76px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 44px; color: #D4AF37; margin-bottom: 6px; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
+              🃏
             </div>
             <span style="font-size: 30px; font-weight: 900; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
               THE VAULT
@@ -673,10 +689,10 @@
             </span>
           </div>
 
-          <!-- Tile 2: Current Cash Jackpot (Center) -->
+          <!-- Tile 2: Current Cash Jackpot (Center - Money Bag) -->
           <div class="gold-panel" style="padding: 22px 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border: 2px solid #D4AF37; box-shadow: 0 16px 45px rgba(0,0,0,0.9), 0 0 35px rgba(212,175,55,0.45);">
-            <div style="width: 76px; height: 76px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 38px; color: #F59E0B; margin-bottom: 6px; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
-              🔥
+            <div style="width: 76px; height: 76px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 44px; color: #F59E0B; margin-bottom: 6px; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
+              💰
             </div>
             <span style="font-size: 30px; font-weight: 900; color: #FCD34D; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
               CURRENT JACKPOT
@@ -689,10 +705,10 @@
             </span>
           </div>
 
-          <!-- Tile 3: Next Draw (Right) -->
+          <!-- Tile 3: Next Draw (Right - Ticket) -->
           <div class="gold-panel" style="padding: 22px 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
-            <div style="width: 76px; height: 76px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 38px; color: #D4AF37; margin-bottom: 6px; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
-              🛡️
+            <div style="width: 76px; height: 76px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 44px; color: #D4AF37; margin-bottom: 6px; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
+              🎟️
             </div>
             <span style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
               NEXT DRAW
@@ -701,7 +717,7 @@
               TUE 13 OCT
             </span>
             <span style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
-              5:30 PM ♠ MUST BE PRESENT
+              5:30 PM <span class="color-cycle-spade">♠</span> MUST BE PRESENT
             </span>
           </div>
         </div>
@@ -732,10 +748,10 @@
       <section class="slide-pane slide-with-header" id="slide-2">
         <div style="text-align: center; margin-bottom: 24px;">
           <h2 class="sheen-text" style="font-size: 52px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.06em;">
-            CARD VAULT STATUS
+            <span class="color-cycle-spade">♠</span> CARD VAULT STATUS <span class="color-cycle-spade">♠</span>
           </h2>
           <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
-            FULL 54-CARD DECK SECURED IN VENUE CABINET
+            <span class="color-cycle-spade">♠</span> FULL 54-CARD DECK SECURED IN VENUE CABINET <span class="color-cycle-spade">♠</span>
           </p>
         </div>
 
@@ -791,13 +807,13 @@
             💲💰💲
           </div>
           <h2 class="sheen-text" style="font-size: 50px; font-weight: 900; color: #D4AF37; letter-spacing: 0.1em; text-transform: uppercase;">
-            CURRENT CASH JACKPOT
+            <span class="color-cycle-spade">♠</span> CURRENT CASH JACKPOT <span class="color-cycle-spade">♠</span>
           </h2>
           <div class="live-jackpot-val" style="font-family: 'Oswald', sans-serif; font-size: 240px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 15px 0; text-shadow: 0 0 55px rgba(212,175,55,0.85); letter-spacing: 0.02em;">
             $600.00
           </div>
           <div style="font-size: 30px; font-weight: 900; color: #E5E5E5; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(0,0,0,0.7); border: 2px solid rgba(212,175,55,0.6); padding: 14px 44px; border-radius: 9999px;">
-            +$100 ADDED IF NOT STRUCK ♠ MUST BE PRESENT TO WIN
+            <span class="color-cycle-spade">♠</span> +$100 ADDED IF NOT STRUCK <span class="color-cycle-spade">♠</span> MUST BE PRESENT TO WIN <span class="color-cycle-spade">♠</span>
           </div>
         </div>
       </section>
@@ -808,10 +824,10 @@
       <section class="slide-pane slide-with-header" id="slide-4">
         <div style="text-align: center; margin-bottom: 24px;">
           <h2 class="sheen-text" style="font-size: 52px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.06em;">
-            HOW TO PLAY & OFFICIAL RULES <span class="animate-spade-loop" style="font-size: 42px;">♠</span>
+            <span class="color-cycle-spade">♠</span> HOW TO PLAY & OFFICIAL RULES <span class="color-cycle-spade">♠</span>
           </h2>
           <p style="font-size: 36px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
-            SIMPLE STEPS TO WIN BIG AT COASTERS TAVERN
+            <span class="color-cycle-spade">♠</span> SIMPLE STEPS TO WIN BIG AT COASTERS TAVERN <span class="color-cycle-spade">♠</span>
           </p>
         </div>
 
@@ -836,7 +852,7 @@
               </p>
             </div>
             <div style="font-size: 36px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 24px; letter-spacing: 0.05em;">
-              TUE 5:30PM • SAT 6:30PM
+              TUE 5:30PM <span class="color-cycle-spade">♠</span> SAT 6:30PM
             </div>
           </div>
 
@@ -871,8 +887,8 @@
            ==================================================================== -->
       <section class="slide-pane slide-with-header" id="slide-5">
         <div id="countdown-main-stage" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; width: 100%;">
-          <h2 class="sheen-text" style="font-size: 52px; font-weight: 900; color: #D4AF37; letter-spacing: 0.1em; text-transform: uppercase;">
-            NEXT DRAW COUNTDOWN <span class="animate-spade-loop" style="font-size: 42px;">♠</span>
+          <h2 class="sheen-text" style="font-size: 70px; font-weight: 900; color: #D4AF37; letter-spacing: 0.1em; text-transform: uppercase;">
+            <span class="color-cycle-spade">♠</span> NEXT DRAW COUNTDOWN <span class="color-cycle-spade">♠</span>
           </h2>
 
           <!-- Countdown Timer Display with BLINKING COLONS & High-Contrast Digits -->
@@ -916,9 +932,9 @@
             </div>
           </div>
 
-          <!-- Draw Schedule positioned below the clock digits -->
-          <p class="dynamic-draw-date" style="font-size: 32px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 8px;">
-            RESUMES SATURDAY 10 OCTOBER 2026 • 6:30 PM NZST
+          <!-- Draw Schedule positioned below the clock digits (Larger font per request) -->
+          <p class="dynamic-draw-date" style="font-size: 46px; font-weight: 800; color: #F3E5AB; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 14px;">
+            <span class="color-cycle-spade">♠</span> RESUMES SATURDAY 10 OCTOBER 2026 <span class="color-cycle-spade">♠</span> 6:30 PM NZST <span class="color-cycle-spade">♠</span>
           </p>
         </div>
 
@@ -946,10 +962,10 @@
       <section class="slide-pane slide-with-header" id="slide-6">
         <div style="text-align: center; margin-bottom: 25px;">
           <h2 class="sheen-text" style="font-size: 52px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.06em;">
-            OFFICIAL DRAW HISTORY <span class="animate-spade-loop" style="font-size: 42px;">♠</span>
+            <span class="color-cycle-spade">♠</span> OFFICIAL DRAW HISTORY <span class="color-cycle-spade">♠</span>
           </h2>
           <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
-            COASTERS TAVERN • DRAW RECORD
+            <span class="color-cycle-spade">♠</span> COASTERS TAVERN <span class="color-cycle-spade">♠</span> DRAW RECORD <span class="color-cycle-spade">♠</span>
           </p>
         </div>
 
@@ -961,8 +977,8 @@
                 ♠
               </div>
               <div>
-                <div style="font-size: 40px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">SERIES #2 • ACTIVE PLAY</div>
-                <div style="font-size: 30px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;" class="dynamic-draw-date">NEXT DRAW: TUESDAY 13 OCTOBER 2026 • 5:30 PM</div>
+                <div style="font-size: 40px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">SERIES #2 <span class="color-cycle-spade">♠</span> ACTIVE PLAY</div>
+                <div style="font-size: 30px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;" class="dynamic-draw-date">NEXT DRAW: TUESDAY 13 OCTOBER 2026 <span class="color-cycle-spade">♠</span> 5:30 PM</div>
               </div>
             </div>
             <div class="live-jackpot-val" style="font-family: 'Bebas Neue', sans-serif; font-size: 85px; font-weight: 900; color: #D4AF37; letter-spacing: 0.05em; line-height: 1;">
@@ -970,34 +986,43 @@
             </div>
           </div>
 
-          <!-- Event 1 Draw Showcase with Authentic Playing Card Graphic -->
+          <!-- Event 1 Draw Showcase with Authentic Correctly-Pictured 5 of Clubs Playing Card -->
           <div class="gold-panel" style="padding: 30px 45px; display: flex; justify-content: space-between; align-items: center; border: 2px solid #D4AF37;">
             <div style="display: flex; align-items: center; gap: 35px;">
-              <!-- Authentic Playing Card 5 of Clubs Graphic -->
-              <div style="width: 130px; height: 185px; background: #FFFFFF; border-radius: 12px; border: 3px solid #1C1A14; box-shadow: 0 10px 30px rgba(0,0,0,0.85); display: flex; flex-direction: column; justify-content: space-between; padding: 8px 10px; box-sizing: border-box; flex-shrink: 0; color: #0A0A0A; position: relative;">
-                <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1;">
-                  <span style="font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 900;">5</span>
-                  <span style="font-size: 24px; line-height: 1;">♣</span>
+              <!-- Authentic Playing Card 5 of Clubs (Quincunx 5-Pip Layout) -->
+              <div style="width: 140px; height: 200px; background: #FFFFFF; border-radius: 12px; border: 3px solid #1C1A14; box-shadow: 0 12px 32px rgba(0,0,0,0.85); position: relative; flex-shrink: 0; color: #0A0A0A; padding: 8px 10px; box-sizing: border-box;">
+                <!-- Top-Left Index -->
+                <div style="position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; align-items: center; width: 22px; line-height: 1;">
+                  <span style="font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 900; color: #0A0A0A;">5</span>
+                  <span style="font-size: 20px; line-height: 1; color: #0A0A0A;">♣</span>
                 </div>
-                <div style="text-align: center; font-size: 58px; line-height: 1;">
-                  ♣
+
+                <!-- 5 Pips Body (Quincunx Dice Pattern) -->
+                <div style="position: absolute; inset: 22px 28px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; align-items: center; justify-items: center; font-size: 34px; color: #0A0A0A; line-height: 1;">
+                  <span style="grid-column: 1; grid-row: 1;">♣</span>
+                  <span style="grid-column: 2; grid-row: 1;">♣</span>
+                  <span style="grid-column: 1 / span 2; grid-row: 2;">♣</span>
+                  <span style="grid-column: 1; grid-row: 3; transform: rotate(180deg);">♣</span>
+                  <span style="grid-column: 2; grid-row: 3; transform: rotate(180deg);">♣</span>
                 </div>
-                <div style="display: flex; flex-direction: column; align-items: flex-end; line-height: 1; transform: rotate(180deg);">
-                  <span style="font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 900;">5</span>
-                  <span style="font-size: 24px; line-height: 1;">♣</span>
+
+                <!-- Bottom-Right Index (Rotated) -->
+                <div style="position: absolute; bottom: 8px; right: 8px; display: flex; flex-direction: column; align-items: center; width: 22px; line-height: 1; transform: rotate(180deg);">
+                  <span style="font-family: 'Outfit', sans-serif; font-size: 26px; font-weight: 900; color: #0A0A0A;">5</span>
+                  <span style="font-size: 20px; line-height: 1; color: #0A0A0A;">♣</span>
                 </div>
               </div>
 
               <!-- Draw Text Meta -->
               <div>
                 <div id="prior-draw-title" style="font-size: 42px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">
-                  EVENT 1 • 10/10/2026 • CARD #14 (5♣) DRAWN
+                  EVENT 1 <span class="color-cycle-spade">♠</span> 10/10/2026 <span class="color-cycle-spade">♠</span> CARD #14 (5♣) DRAWN
                 </div>
                 <div id="prior-draw-sub" style="font-size: 32px; font-weight: 700; color: #F3E5AB; text-transform: uppercase; margin-top: 8px;">
-                  ACE OF SPADES MISSED • +$100 ACCUMULATES TO $600
+                  ACE OF SPADES MISSED <span class="color-cycle-spade">♠</span> +$100 ACCUMULATES TO $600
                 </div>
                 <div style="font-size: 28px; font-weight: 600; color: #94A3B8; margin-top: 6px;">
-                  CUSTOMER LAUNCH AT $500 • DRAW #1 AUDITED & VERIFIED
+                  CUSTOMER LAUNCH AT $500 <span class="color-cycle-spade">♠</span> DRAW #1 AUDITED & VERIFIED
                 </div>
               </div>
             </div>
@@ -1017,12 +1042,9 @@
            ==================================================================== -->
       <section class="slide-pane slide-with-header" id="slide-7">
         <div style="text-align: center; margin-bottom: 25px;">
-          <h2 class="sheen-text" style="font-size: 52px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.06em;">
-            HALL OF MASTER ACE CHASERS <span class="animate-spade-loop" style="font-size: 42px;">♠</span>
+          <h2 class="sheen-text" style="font-size: 72px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.06em;">
+            <span class="color-cycle-spade">♠</span> HALL OF MASTER ACE CHASERS <span class="color-cycle-spade">♠</span>
           </h2>
-          <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
-            COASTERS TAVERN • LEGENDARY JACKPOT WINNERS RECORD
-          </p>
         </div>
 
         <div style="width: 100%; max-width: 1680px; display: flex; flex-direction: column;">
@@ -1660,12 +1682,13 @@
         window.countdownDiff = diff;
         
         var dynamicTexts = document.querySelectorAll('.dynamic-draw-date');
-        var targetStr = (targetDate.getDay() === 2 ? 'TUESDAY ' : 'SATURDAY ') + 
+        var targetStr = '<span class="color-cycle-spade">♠</span> ' +
+                        (targetDate.getDay() === 2 ? 'TUESDAY ' : 'SATURDAY ') + 
                         targetDate.getDate() + ' ' + 
                         targetDate.toLocaleString('default', { month: 'long' }).toUpperCase() + ' ' + 
-                        targetDate.getFullYear() + ' • ' + 
-                        (targetDate.getDay() === 2 ? '5:30' : '6:30') + ' PM NZST';
-        dynamicTexts.forEach(function(el) { el.textContent = targetStr; });
+                        targetDate.getFullYear() + ' <span class="color-cycle-spade">♠</span> ' + 
+                        (targetDate.getDay() === 2 ? '5:30' : '6:30') + ' PM NZST <span class="color-cycle-spade">♠</span>';
+        dynamicTexts.forEach(function(el) { el.innerHTML = targetStr; });
 
         var dynamicShortTexts = document.querySelectorAll('.dynamic-draw-date-short');
         var shortMonth = targetDate.toLocaleString('default', { month: 'short' }).toUpperCase();

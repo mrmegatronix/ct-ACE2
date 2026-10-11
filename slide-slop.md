@@ -160,5 +160,26 @@
 * **Columns**:
   * `WINNER` | `DATE` | `JACKPOT WON`
 * **Rows**:
-  * `♠ H.` | `19/9/2026` | `$2,700.00`
-  * `♠ C. W.` | `—` | `—`
+  * `♠ H.` | `19/Sep/2026` | `$2,700.00`
+  * `♠ C. W.` | `23/June/2026` | `$3,400.00`
+  * `♠ P. M.` | `28/Feb/2026` | `$3,400.00`
+  * `♠ R. N.` | `28/Oct/2025` | `$500.00`
+  * `♠ K. M.` | `11/Oct/2025` | `$1,500.00`
+  * `♠ S.` | `26/Jul/2025` | `$5,000.00`
+
+---
+
+## Slide 8: Total Ace Payments Showcase
+
+* **Header Title**:
+  * `TOTAL ACE PAYMENTS ♠`
+* **Header Subtitle**:
+  * `CASH JACKPOTS AWARDED TO VENUE PATRONS`
+* **Feature Panel**:
+  * Icons: `🏆 ♠ 💰`
+  * Eyebrow: `TOTAL CASH JACKPOTS WON AT COASTERS TAVERN`
+  * Colossal Amount: `$16,500.00` (195px neon emerald glow with 50% reduced sheen)
+* **Pill Badges**:
+  * `♠ 6 VERIFIED JACKPOT WINNERS`
+  * `♠ FLIP THE ACE OF SPADES TO WIN`
+  * `♠ GUARANTEED VENUE CASH`

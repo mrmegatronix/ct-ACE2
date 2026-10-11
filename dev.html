@@ -352,12 +352,11 @@
       pointer-events: none;
     }
 
-    /* Playing Card Cabinet (4 x 13) */
+    /* Playing Card Cabinet (54 Cards) */
     .cabinet-grid {
       display: grid;
-      grid-template-columns: repeat(13, 1fr);
-      grid-template-rows: repeat(4, 1fr);
-      gap: 14px;
+      grid-template-columns: repeat(14, 1fr);
+      gap: 12px;
       width: 100%;
       max-width: 1840px;
       height: auto;
@@ -606,11 +605,11 @@
               <span style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
                 NEXT DRAW
               </span>
-              <span class="live-jackpot-val" style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
-                $600.00
+              <span class="dynamic-draw-date-short" style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
+                TUE 13 OCT
               </span>
-              <span class="dynamic-draw-date-short" style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
-                TUE 13 OCT • 5:30 PM
+              <span style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
+                5:30 PM • MUST BE PRESENT
               </span>
             </div>
           </div>
@@ -624,11 +623,11 @@
               <span style="font-size: 30px; font-weight: 900; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
                 THE VAULT
               </span>
-              <span style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
-                SECURE VAULT
+              <span id="intro-cards-remaining-big" style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
+                53 CARDS
               </span>
               <span style="font-size: 30px; font-weight: 800; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
-                <span id="intro-cards-remaining">51</span> SEALED CARDS
+                <span id="intro-cards-remaining">53</span> OF 54 REMAINING
               </span>
             </div>
           </div>
@@ -642,18 +641,18 @@
         <div style="width: 100%; max-width: 1840px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
           <div>
             <h2 class="sheen-text" style="font-size: 50px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.04em;">
-              LOCKED VENUE CABINET <span class="animate-spade-loop" style="font-size: 40px;">♠</span> <span id="cabinet-title-cards" style="color: #D4AF37;">51 CARDS</span>
+              LOCKED VENUE CABINET <span class="animate-spade-loop" style="font-size: 40px;">♠</span> <span id="cabinet-title-cards" style="color: #D4AF37;">53 CARDS</span>
             </h2>
             <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px;">
-              AUTHENTIC PLAYING CARDS MOUNTED IN SECURE VENUE CABINET
+              AUTHENTIC 54-CARD DECK MOUNTED IN SECURE VENUE CABINET
             </p>
           </div>
           <div style="background: rgba(0,0,0,0.85); border: 2px solid #D4AF37; padding: 12px 28px; border-radius: 16px; font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #D4AF37; letter-spacing: 0.1em;">
-            <span id="cabinet-status-pill">🔒 51 OF 52 CARDS UNOPENED</span>
+            <span id="cabinet-status-pill">🔒 53 OF 54 CARDS UNOPENED</span>
           </div>
         </div>
 
-        <!-- 52 Card Cabinet Grid -->
+        <!-- 54 Card Cabinet Grid -->
         <div class="cabinet-grid" id="cabinet-grid-container">
           <!-- Dynamically generated 52 playing cards -->
         </div>
@@ -668,14 +667,14 @@
             CARD VAULT STATUS <span class="animate-spade-loop" style="font-size: 42px;">♠</span>
           </h2>
           <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
-            FULL 52-CARD DECK SECURED IN VENUE CABINET
+            FULL 54-CARD DECK SECURED IN VENUE CABINET
           </p>
         </div>
 
         <div style="width: 100%; max-width: 1800px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; margin-bottom: 28px;">
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
             <div style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">CARDS REMAINING</div>
-            <div id="status-cards-remaining" style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 12px 0;">51</div>
+            <div id="status-cards-remaining" style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 12px 0;">53</div>
             <div id="status-deck-pct" style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">98% OF DECK IN PLAY</div>
           </div>
 
@@ -687,8 +686,8 @@
 
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
             <div style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">WINNING CHANCE</div>
-            <div id="status-winning-chance" style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 12px 0;">1.96%</div>
-            <div id="status-odds-ratio" style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">1 IN 51 ODDS IN PLAY</div>
+            <div id="status-winning-chance" style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 12px 0;">1.89%</div>
+            <div id="status-odds-ratio" style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">1 IN 53 ODDS IN PLAY</div>
           </div>
 
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
@@ -781,7 +780,7 @@
               </p>
             </div>
             <div style="font-size: 36px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 24px; letter-spacing: 0.05em;">
-              <span id="rules-secure-cards">51 SECURE CARDS</span>
+              <span id="rules-secure-cards">53 SECURE CARDS</span>
             </div>
           </div>
 
@@ -896,11 +895,11 @@
               </div>
               <div>
                 <div style="font-size: 38px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">EVENT 4 • 10/10/2026 • CARD #14 (5♣) DRAWN</div>
-                <div style="font-size: 30px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;">ACE OF SPADES NOT DRAWN • +$100 ACCUMULATES TO $600</div>
+                <div style="font-size: 30px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;">ACE OF SPADES MISSED • +$100 ACCUMULATES TO $600</div>
               </div>
             </div>
             <div style="font-family: 'Bebas Neue', sans-serif; font-size: 85px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1;">
-              NOW $600
+              MISSED $500
             </div>
           </div>
 
@@ -954,12 +953,12 @@
       var pauseIndicator = document.getElementById('pause-indicator');
       var nzClockEl = document.getElementById('live-nz-clock');
 
-      // 2. GENERATE 52 PLAYING CARDS IN CABINET GRID
+      // 2. GENERATE 54 PLAYING CARDS IN CABINET GRID
       function generateCabinetGrid() {
         var grid = document.getElementById('cabinet-grid-container');
         if (!grid) return;
         grid.innerHTML = '';
-        for (var i = 1; i <= 52; i++) {
+        for (var i = 1; i <= 54; i++) {
           var card = document.createElement('div');
           card.className = 'vault-card';
           card.innerHTML = 
@@ -1094,17 +1093,23 @@
         if (!csvText) return false;
         var lines = csvText.trim().split(/\r?\n/).filter(function(l) { return l.trim(); });
         var parsedJackpot = false;
-        for (var k = 0; k < lines.length; k++) {
-          if (lines[k].indexOf('JACKPOT TOTAL:') !== -1) {
+        var TOTAL_CARDS = 54;
+
+        // Search lines from bottom up for jackpot amount
+        for (var k = lines.length - 1; k >= 0; k--) {
+          if (lines[k].indexOf('JACKPOT TOTAL:') !== -1 || lines[k].indexOf('$') !== -1) {
             var match = lines[k].match(/\$([0-9,.]+)/);
             if (match && match[1]) {
-              activeJackpot = '$' + parseFloat(match[1].replace(/,/g, '')).toFixed(2);
-              var els = document.querySelectorAll('.live-jackpot-val');
-              for (var j = 0; j < els.length; j++) {
-                els[j].textContent = activeJackpot;
+              var val = parseFloat(match[1].replace(/,/g, ''));
+              if (val >= 100) {
+                activeJackpot = '$' + val.toFixed(2);
+                var els = document.querySelectorAll('.live-jackpot-val');
+                for (var j = 0; j < els.length; j++) {
+                  els[j].textContent = activeJackpot;
+                }
+                parsedJackpot = true;
+                break;
               }
-              parsedJackpot = true;
-              break;
             }
           }
         }
@@ -1116,7 +1121,7 @@
             var drawn = row[9] ? row[9].replace(/^"|"$/g, '').trim() : '';
             var cNumStr = row[10] ? row[10].replace(/^"|"$/g, '').trim() : '';
             var cNum = parseInt(cNumStr, 10);
-            if (cNum >= 1 && cNum <= 52 && drawn && drawn !== 'N/A' && drawn.toUpperCase() !== 'CARD DRAWN') {
+            if (cNum >= 1 && cNum <= TOTAL_CARDS && drawn && drawn !== 'N/A' && drawn.toUpperCase() !== 'CARD DRAWN') {
               parsedDrawnCards.push({ num: cNum, card: drawn });
             }
           }
@@ -1125,14 +1130,17 @@
         if (typeof generateCabinetGrid === 'function') {
           generateCabinetGrid();
           var cardsEl = document.querySelectorAll('.vault-card');
-          if (cardsEl.length === 52) {
-            var cardsRemaining = 52 - parsedDrawnCards.length;
+          if (cardsEl.length === TOTAL_CARDS) {
+            var cardsRemaining = TOTAL_CARDS - parsedDrawnCards.length;
             var introCardsRem = document.getElementById('intro-cards-remaining');
             if (introCardsRem) introCardsRem.textContent = cardsRemaining;
+            var introCardsBig = document.getElementById('intro-cards-remaining-big');
+            if (introCardsBig) introCardsBig.textContent = cardsRemaining + ' CARDS';
+
             var cabinetTitleCards = document.getElementById('cabinet-title-cards');
             if (cabinetTitleCards) cabinetTitleCards.textContent = cardsRemaining + ' CARDS';
             var cabinetStatusPill = document.getElementById('cabinet-status-pill');
-            if (cabinetStatusPill) cabinetStatusPill.textContent = (cardsRemaining === 0 ? '🔓' : '🔒') + ' ' + cardsRemaining + ' OF 52 CARDS UNOPENED';
+            if (cabinetStatusPill) cabinetStatusPill.textContent = (cardsRemaining === 0 ? '🔓' : '🔒') + ' ' + cardsRemaining + ' OF ' + TOTAL_CARDS + ' CARDS UNOPENED';
             var rulesSecureCards = document.getElementById('rules-secure-cards');
             if (rulesSecureCards) rulesSecureCards.textContent = cardsRemaining + ' SECURE CARDS';
 
@@ -1141,7 +1149,7 @@
             var statCardsDrawn = document.getElementById('status-cards-drawn');
             if (statCardsDrawn) statCardsDrawn.textContent = parsedDrawnCards.length;
             
-            var pctPlay = Math.round((cardsRemaining / 52) * 100);
+            var pctPlay = Math.round((cardsRemaining / TOTAL_CARDS) * 100);
             var statDeckPct = document.getElementById('status-deck-pct');
             if (statDeckPct) statDeckPct.textContent = pctPlay + '% OF DECK IN PLAY';
             
@@ -1236,8 +1244,7 @@
         var dynamicShortTexts = document.querySelectorAll('.dynamic-draw-date-short');
         var shortMonth = targetDate.toLocaleString('default', { month: 'short' }).toUpperCase();
         var shortDay = targetDate.getDay() === 2 ? 'TUE' : 'SAT';
-        var shortTime = targetDate.getDay() === 2 ? '5:30 PM' : '6:30 PM';
-        var targetShortStr = shortDay + ' ' + targetDate.getDate() + ' ' + shortMonth + ' • ' + shortTime;
+        var targetShortStr = shortDay + ' ' + targetDate.getDate() + ' ' + shortMonth;
         dynamicShortTexts.forEach(function(el) { el.textContent = targetShortStr; });
 
         var dEl = document.getElementById('cd-days');

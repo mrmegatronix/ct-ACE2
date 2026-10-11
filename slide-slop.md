@@ -138,7 +138,7 @@
 * **Header Title**:
   * `OFFICIAL DRAW HISTORY ♠`
 * **Header Subtitle**:
-  * `COASTERS TAVERN ♠ DRAW RECORD`
+  * *(Removed)*
 * **Event 1 Audit Record**:
   * Card Graphic: `5 ♣` (5-pip authentic quincunx layout)
   * Event Title: `EVENT 1 ♠ 10/10/2026 ♠ CARD #14 (5♣) DRAWN`

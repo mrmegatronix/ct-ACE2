@@ -352,47 +352,76 @@
       pointer-events: none;
     }
 
-    /* Playing Card Cabinet (54 Cards) */
-    .cabinet-grid {
-      display: grid;
-      grid-template-columns: repeat(14, 1fr);
-      gap: 12px;
+    /* Playing Card Cabinet (7 Rows: 7, 8, 8, 8, 8, 7, 8 = 54 Cards) */
+    .cabinet-board-wrap {
       width: 100%;
       max-width: 1840px;
-      height: auto;
+      height: 720px;
       margin: auto 0;
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+    }
+    .cabinet-board {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      transform-origin: center center;
+      transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .cabinet-row {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
     }
     .vault-card {
       position: relative;
-      width: 100%;
-      height: 100%;
-      aspect-ratio: 2.5 / 3.5;
-      border-radius: 12px;
-      padding: 2.5px;
+      width: 110px;
+      height: 84px;
+      border-radius: 10px;
+      padding: 2px;
       background: linear-gradient(to bottom, #FFE082, #D4AF37, #78540B);
       box-shadow: 0 4px 14px rgba(0,0,0,0.8);
       display: flex;
       flex-direction: column;
+      flex-shrink: 0;
     }
     .vault-card-body {
       width: 100%;
       height: 100%;
-      border-radius: 9px;
+      border-radius: 8px;
       background: linear-gradient(135deg, #1C1A14, #0E0E10, #221F18);
       border: 1px solid rgba(212,175,55,0.7);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 4px;
+      padding: 3px 6px;
       box-sizing: border-box;
       overflow: hidden;
     }
     .vault-card-num {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 46px;
+      font-size: 32px;
       color: #F3E5AB;
       line-height: 1;
+    }
+
+    /* Cinematic sweep/pan animation for Cabinet slide */
+    .slide-pane#slide-1.active .cabinet-board {
+      animation: cabinetCameraPan 28s cubic-bezier(0.25, 1, 0.5, 1) infinite alternate;
+    }
+    @keyframes cabinetCameraPan {
+      0% { transform: scale(1) translate(0, 0); }
+      15% { transform: scale(1.35) translate(-10%, -15%); }
+      45% { transform: scale(1.35) translate(12%, 10%); }
+      75% { transform: scale(1.35) translate(-8%, 15%); }
+      90% { transform: scale(1) translate(0, 0); }
+      100% { transform: scale(1) translate(0, 0); }
     }
     .vault-card-logo-wrap {
       width: 50px;
@@ -479,6 +508,36 @@
       z-index: 100;
       box-shadow: 0 0 20px rgba(0,0,0,0.9);
     }
+    /* Colossal Title Wow Load Effect */
+    .slide-pane#slide-0.active .title-colossal {
+      animation: heroTitleWow 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    @keyframes heroTitleWow {
+      0% { transform: scale(0.7) translateY(40px); opacity: 0; filter: blur(12px) brightness(2.5); }
+      50% { transform: scale(1.04) translateY(-8px); filter: blur(0px) brightness(1.6); }
+      100% { transform: scale(1) translateY(0); opacity: 1; filter: brightness(1); }
+    }
+
+    /* Pulsing Text Effect for Ceremonial Stage */
+    .pulsing-ceremony-text {
+      animation: ceremonyTextPulse 1.2s ease-in-out infinite alternate;
+    }
+    @keyframes ceremonyTextPulse {
+      0% { transform: scale(1); filter: drop-shadow(0 0 25px rgba(212,175,55,0.8)); }
+      100% { transform: scale(1.08); filter: drop-shadow(0 0 65px rgba(245,158,11,1)) drop-shadow(0 0 100px rgba(255,255,255,0.9)); }
+    }
+
+    /* Full-screen Fireworks Canvas Overlay */
+    #fireworks-canvas {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+      display: none;
+    }
+
     #slide-5.epic-mode h2,
     #slide-5.epic-mode p,
     #slide-5.epic-mode > div > div:last-child {
@@ -492,6 +551,26 @@
 <body style="background-color: #0A0A0A; color: #FFFFFF; margin: 0; padding: 0; overflow: hidden;">
 
   <div id="app-container">
+    <!-- Full-screen Fireworks FX Canvas -->
+    <canvas id="fireworks-canvas"></canvas>
+
+    <!-- Full-screen Winner Celebration Overlay (15-Minute Climax) -->
+    <div id="winner-celebration-overlay" style="display: none; position: absolute; inset: 0; background: rgba(10,10,12,0.94); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px;">
+      <div style="font-size: 80px; line-height: 1; margin-bottom: 24px;">🏆 ♠ 🏆</div>
+      <h1 class="sheen-text" style="font-family: 'Outfit', sans-serif; font-size: 105px; font-weight: 900; color: #FCD34D; text-transform: uppercase; letter-spacing: 0.06em; line-height: 1.1; text-shadow: 0 0 60px rgba(212,175,55,1);">
+        ACE OF SPADES STRUCK!
+      </h1>
+      <p style="font-family: 'Cinzel', serif; font-size: 48px; font-weight: 800; color: #FFFFFF; margin: 26px 0; letter-spacing: 0.08em; text-transform: uppercase;">
+        CONGRATULATIONS TO TONIGHT'S CASH JACKPOT WINNER!
+      </p>
+      <div class="live-jackpot-val pulsing-ceremony-text" style="font-family: 'Oswald', sans-serif; font-size: 210px; font-weight: 900; color: #10B981; line-height: 1; text-shadow: 0 0 70px rgba(16,185,129,0.9); margin-top: 15px;">
+        $600.00
+      </div>
+      <div style="margin-top: 35px; font-size: 32px; font-weight: 800; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.15em; border: 2px solid rgba(212,175,55,0.6); padding: 12px 36px; border-radius: 9999px; background: rgba(0,0,0,0.6);">
+        COASTERS TAVERN • CHASE THE ACE CHAMPION
+      </div>
+    </div>
+
     <!-- Ambient Energy Background -->
     <div class="ambient-bg">
       <div class="ambient-glow"></div>
@@ -576,60 +655,54 @@
           </p>
         </div>
 
-        <!-- Bottom Status Showcase -->
+        <!-- Bottom Status Showcase (Centered Layout) -->
         <div style="z-index: 10; width: 100%; max-width: 1840px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 6px;">
-          <!-- Tile 1: Current Building Pot -->
-          <div class="gold-panel" style="padding: 22px 28px; display: flex; align-items: center; gap: 22px;">
-            <div style="width: 86px; height: 86px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 42px; color: #F59E0B; flex-shrink: 0; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
-              🔥
-            </div>
-            <div style="display: flex; flex-direction: column; min-width: 0;">
-              <span style="font-size: 30px; font-weight: 900; color: #FCD34D; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
-                CURRENT JACKPOT
-              </span>
-              <span class="live-jackpot-val" style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; text-shadow: 0 0 25px rgba(212,175,55,0.7); white-space: nowrap; margin-top: 2px;">
-                $600.00
-              </span>
-              <span style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
-                +$100 EVERY DRAW
-              </span>
-            </div>
-          </div>
-
-          <!-- Tile 2: Next Draw -->
-          <div class="gold-panel" style="padding: 22px 28px; display: flex; align-items: center; gap: 22px;">
-            <div style="width: 86px; height: 86px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 40px; color: #D4AF37; flex-shrink: 0; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
-              🛡️
-            </div>
-            <div style="display: flex; flex-direction: column; min-width: 0;">
-              <span style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
-                NEXT DRAW
-              </span>
-              <span class="dynamic-draw-date-short" style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
-                TUE 13 OCT
-              </span>
-              <span style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
-                5:30 PM • MUST BE PRESENT
-              </span>
-            </div>
-          </div>
-
-          <!-- Tile 3: Draw Mechanism -->
-          <div class="gold-panel" style="padding: 22px 28px; display: flex; align-items: center; gap: 22px;">
-            <div style="width: 86px; height: 86px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 40px; color: #D4AF37; flex-shrink: 0; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
+          <!-- Tile 1: The Vault (Left) -->
+          <div class="gold-panel" style="padding: 22px 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+            <div style="width: 76px; height: 76px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 38px; color: #D4AF37; margin-bottom: 6px; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
               🗄️
             </div>
-            <div style="display: flex; flex-direction: column; min-width: 0;">
-              <span style="font-size: 30px; font-weight: 900; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
-                THE VAULT
-              </span>
-              <span id="intro-cards-remaining-big" style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
-                53 CARDS
-              </span>
-              <span style="font-size: 30px; font-weight: 800; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
-                <span id="intro-cards-remaining">53</span> OF 54 REMAINING
-              </span>
+            <span style="font-size: 30px; font-weight: 900; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
+              THE VAULT
+            </span>
+            <span id="intro-cards-remaining-big" style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
+              53 CARDS
+            </span>
+            <span style="font-size: 30px; font-weight: 800; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
+              <span id="intro-cards-remaining">53</span> OF 54 REMAINING
+            </span>
+          </div>
+
+          <!-- Tile 2: Current Cash Jackpot (Center) -->
+          <div class="gold-panel" style="padding: 22px 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border: 2px solid #D4AF37; box-shadow: 0 16px 45px rgba(0,0,0,0.9), 0 0 35px rgba(212,175,55,0.45);">
+            <div style="width: 76px; height: 76px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 38px; color: #F59E0B; margin-bottom: 6px; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
+              🔥
             </div>
+            <span style="font-size: 30px; font-weight: 900; color: #FCD34D; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
+              CURRENT JACKPOT
+            </span>
+            <span class="live-jackpot-val" style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; text-shadow: 0 0 25px rgba(212,175,55,0.7); white-space: nowrap; margin-top: 2px;">
+              $600.00
+            </span>
+            <span style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
+              +$100 EVERY DRAW
+            </span>
+          </div>
+
+          <!-- Tile 3: Next Draw (Right) -->
+          <div class="gold-panel" style="padding: 22px 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
+            <div style="width: 76px; height: 76px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 38px; color: #D4AF37; margin-bottom: 6px; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
+              🛡️
+            </div>
+            <span style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
+              NEXT DRAW
+            </span>
+            <span class="dynamic-draw-date-short" style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
+              TUE 13 OCT
+            </span>
+            <span style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
+              5:30 PM • MUST BE PRESENT
+            </span>
           </div>
         </div>
       </section>
@@ -638,13 +711,13 @@
            SLIDE 1: LOCKED CARD CABINET (4 x 13 PLAYING CARDS)
            ==================================================================== -->
       <section class="slide-pane slide-with-header" id="slide-1">
-        <div style="width: 100%; max-width: 1840px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <div style="width: 100%; max-width: 1840px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
           <div>
             <h2 class="sheen-text" style="font-size: 50px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.04em;">
               LOCKED VENUE CABINET <span class="animate-spade-loop" style="font-size: 40px;">♠</span> <span id="cabinet-title-cards" style="color: #D4AF37;">53 CARDS</span>
             </h2>
             <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px;">
-              AUTHENTIC 54-CARD DECK MOUNTED IN SECURE VENUE CABINET
+              AUTHENTIC PLAYING CARDS SECURED IN VENUE VAULT
             </p>
           </div>
           <div style="background: rgba(0,0,0,0.85); border: 2px solid #D4AF37; padding: 12px 28px; border-radius: 16px; font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #D4AF37; letter-spacing: 0.1em;">
@@ -652,9 +725,11 @@
           </div>
         </div>
 
-        <!-- 54 Card Cabinet Grid -->
-        <div class="cabinet-grid" id="cabinet-grid-container">
-          <!-- Dynamically generated 52 playing cards -->
+        <!-- 54 Card Physical Cabinet Board (7 Rows with Smooth Pan Feature) -->
+        <div class="cabinet-board-wrap">
+          <div class="cabinet-board" id="cabinet-grid-container">
+            <!-- Dynamically generated 7 rows (7, 8, 8, 8, 8, 7, 8 = 54 cards) -->
+          </div>
         </div>
       </section>
 
@@ -681,7 +756,7 @@
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
             <div style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">CARDS DRAWN</div>
             <div id="status-cards-drawn" style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #F59E0B; line-height: 1; margin: 12px 0;">1</div>
-            <div style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">PRIZE POOL ACCUMULATING</div>
+            <div id="status-cards-drawn-sub" style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">1 CARD REVEALED</div>
           </div>
 
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
@@ -723,9 +798,9 @@
             💰
           </div>
           <h2 class="sheen-text" style="font-size: 50px; font-weight: 900; color: #D4AF37; letter-spacing: 0.1em; text-transform: uppercase;">
-            CURRENT BUILDING JACKPOT
+            CURRENT CASH JACKPOT
           </h2>
-          <div class="live-jackpot-val" style="font-family: 'Oswald', sans-serif; font-size: 240px; font-weight: 900; color: #D4AF37; line-height: 1; margin: 15px 0; text-shadow: 0 0 55px rgba(212,175,55,0.85); letter-spacing: 0.02em;">
+          <div class="live-jackpot-val" style="font-family: 'Oswald', sans-serif; font-size: 240px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 15px 0; text-shadow: 0 0 55px rgba(212,175,55,0.85); letter-spacing: 0.02em;">
             $600.00
           </div>
           <div style="font-size: 30px; font-weight: 900; color: #E5E5E5; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(0,0,0,0.7); border: 2px solid rgba(212,175,55,0.6); padding: 14px 44px; border-radius: 9999px;">
@@ -802,16 +877,13 @@
            SLIDE 5: COUNTDOWN TO RESUMPTION DRAW
            ==================================================================== -->
       <section class="slide-pane slide-with-header" id="slide-5">
-        <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0;">
+        <div id="countdown-main-stage" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; width: 100%;">
           <h2 class="sheen-text" style="font-size: 52px; font-weight: 900; color: #D4AF37; letter-spacing: 0.1em; text-transform: uppercase;">
             NEXT DRAW COUNTDOWN <span class="animate-spade-loop" style="font-size: 42px;">♠</span>
           </h2>
-          <p class="dynamic-draw-date" style="font-size: 30px; font-weight: 700; color: #E5E5E5; letter-spacing: 0.15em; text-transform: uppercase; margin-top: 8px;">
-            RESUMES SATURDAY 10 OCTOBER 2026 • 6:30 PM NZST
-          </p>
 
           <!-- Countdown Timer Display with BLINKING COLONS & High-Contrast Digits -->
-          <div id="countdown-timer-container" style="display: flex; align-items: center; justify-content: center; gap: 20px; margin: 35px 0; transition: transform 1s ease;">
+          <div id="countdown-timer-container" style="display: flex; align-items: center; justify-content: center; gap: 20px; margin: 30px 0 20px 0; transition: transform 1s ease;">
             <!-- Days -->
             <div style="display: flex; flex-direction: column; align-items: center;">
               <div class="gold-panel" style="width: 240px; height: 210px; display: flex; align-items: center; justify-content: center; border-radius: 28px; box-shadow: 0 16px 45px rgba(0,0,0,0.95), 0 0 35px rgba(212,175,55,0.4);">
@@ -851,34 +923,52 @@
             </div>
           </div>
 
-          <div style="background: rgba(245,158,11,0.18); border: 2px solid #F59E0B; color: #FCD34D; font-size: 30px; font-weight: 900; padding: 14px 40px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.08em;">
-            OFFICIAL PRIZE POOL: <span class="live-jackpot-val">$600.00</span> CASH JACKPOT!
+          <!-- Draw Schedule positioned below the clock digits -->
+          <p class="dynamic-draw-date" style="font-size: 32px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 8px;">
+            RESUMES SATURDAY 10 OCTOBER 2026 • 6:30 PM NZST
+          </p>
+        </div>
+
+        <!-- Climax Draw Stage (Shown at T-0 or upon draw trigger) -->
+        <div id="ceremony-stage" style="display: none; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; width: 100%; z-index: 50;">
+          <div id="ceremony-msg-box" style="padding: 20px 40px; text-align: center;">
+            <div id="ceremony-step-text" style="font-family: 'Outfit', sans-serif; font-size: 68px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.05em; text-shadow: 0 0 35px rgba(212,175,55,0.9); line-height: 1.2;">
+              IT'S TIME FOR 1 LUCKY TICKET TO BE DRAWN!
+            </div>
+          </div>
+          <div id="ceremony-jackpot-wrap" style="display: none; flex-direction: column; align-items: center; margin-top: 25px;">
+            <div style="font-size: 42px; font-weight: 900; color: #FCD34D; text-transform: uppercase; letter-spacing: 0.15em;">
+              TONIGHT'S JACKPOT IS:
+            </div>
+            <div class="live-jackpot-val pulsing-ceremony-text" style="font-family: 'Oswald', sans-serif; font-size: 210px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 15px 0;">
+              $600.00
+            </div>
           </div>
         </div>
       </section>
 
       <!-- ====================================================================
-           SLIDE 6: OFFICIAL SEASON TRACKER & RECORD
+           SLIDE 6: OFFICIAL DRAW HISTORY & AUDIT RECORD
            ==================================================================== -->
       <section class="slide-pane slide-with-header" id="slide-6">
         <div style="text-align: center; margin-bottom: 25px;">
           <h2 class="sheen-text" style="font-size: 52px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.06em;">
-            OFFICIAL DRAW TRACKER & RECORD <span class="animate-spade-loop" style="font-size: 42px;">♠</span>
+            OFFICIAL DRAW HISTORY <span class="animate-spade-loop" style="font-size: 42px;">♠</span>
           </h2>
           <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
             COASTERS TAVERN • VERIFIED DRAW AUDIT RECORD
           </p>
         </div>
 
-        <div style="width: 100%; max-width: 1680px; display: flex; flex-direction: column; gap: 20px;">
-          <!-- Current Season Status -->
-          <div class="gold-panel" style="padding: 26px 45px; display: flex; justify-content: space-between; align-items: center;">
+        <div style="width: 100%; max-width: 1680px; display: flex; flex-direction: column; gap: 24px;">
+          <!-- Series 2 Status Bar -->
+          <div class="gold-panel" style="padding: 24px 45px; display: flex; justify-content: space-between; align-items: center;">
             <div style="display: flex; align-items: center; gap: 28px;">
               <div style="width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, #D4AF37, #F59E0B); display: flex; align-items: center; justify-content: center; font-size: 38px; font-weight: 900; color: #000; box-shadow: 0 0 25px rgba(212,175,55,0.6);">
                 ♠
               </div>
               <div>
-                <div style="font-size: 40px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">CURRENT SERIES #2 • IN ACTIVE PLAY</div>
+                <div style="font-size: 40px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">SERIES #2 • ACTIVE PLAY</div>
                 <div style="font-size: 30px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;" class="dynamic-draw-date">NEXT DRAW: TUESDAY 13 OCTOBER 2026 • 5:30 PM</div>
               </div>
             </div>
@@ -887,57 +977,96 @@
             </div>
           </div>
 
-          <!-- Verified Prior Draws -->
-          <div class="gold-panel" style="padding: 26px 45px; display: flex; justify-content: space-between; align-items: center;">
-            <div style="display: flex; align-items: center; gap: 28px;">
-              <div style="width: 76px; height: 76px; border-radius: 50%; background: rgba(212,175,55,0.2); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 900; color: #D4AF37;">
-                📋
+          <!-- Event 1 Draw Showcase with Authentic Playing Card Graphic -->
+          <div class="gold-panel" style="padding: 30px 45px; display: flex; justify-content: space-between; align-items: center; border: 2px solid #D4AF37;">
+            <div style="display: flex; align-items: center; gap: 35px;">
+              <!-- Authentic Playing Card 5 of Clubs Graphic -->
+              <div style="width: 130px; height: 185px; background: #FFFFFF; border-radius: 12px; border: 3px solid #1C1A14; box-shadow: 0 10px 30px rgba(0,0,0,0.85); display: flex; flex-direction: column; justify-content: space-between; padding: 8px 10px; box-sizing: border-box; flex-shrink: 0; color: #0A0A0A; position: relative;">
+                <div style="display: flex; flex-direction: column; align-items: flex-start; line-height: 1;">
+                  <span style="font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 900;">5</span>
+                  <span style="font-size: 24px; line-height: 1;">♣</span>
+                </div>
+                <div style="text-align: center; font-size: 58px; line-height: 1;">
+                  ♣
+                </div>
+                <div style="display: flex; flex-direction: column; align-items: flex-end; line-height: 1; transform: rotate(180deg);">
+                  <span style="font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 900;">5</span>
+                  <span style="font-size: 24px; line-height: 1;">♣</span>
+                </div>
               </div>
+
+              <!-- Draw Text Meta -->
               <div>
-                <div id="prior-draw-title" style="font-size: 38px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">EVENT 4 • 10/10/2026 • CARD #14 (5♣) DRAWN</div>
-                <div id="prior-draw-sub" style="font-size: 30px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;">ACE OF SPADES MISSED • +$100 ACCUMULATES TO $600</div>
+                <div id="prior-draw-title" style="font-size: 42px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">
+                  EVENT 1 • 10/10/2026 • CARD #14 (5♣) DRAWN
+                </div>
+                <div id="prior-draw-sub" style="font-size: 32px; font-weight: 700; color: #F3E5AB; text-transform: uppercase; margin-top: 8px;">
+                  ACE OF SPADES MISSED • +$100 ACCUMULATES TO $600
+                </div>
+                <div style="font-size: 28px; font-weight: 600; color: #94A3B8; margin-top: 6px;">
+                  CUSTOMER LAUNCH AT $500 • DRAW #1 AUDITED & VERIFIED
+                </div>
               </div>
             </div>
-            <div id="prior-draw-badge" style="font-family: 'Bebas Neue', sans-serif; font-size: 85px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1;">
-              MISSED $500
+
+            <div id="prior-draw-badge" style="display: flex; flex-direction: column; align-items: flex-end;">
+              <span style="font-size: 26px; font-weight: 800; color: #94A3B8; text-transform: uppercase;">OUTCOME</span>
+              <span style="font-family: 'Bebas Neue', sans-serif; font-size: 80px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1;">
+                MISSED $500
+              </span>
             </div>
           </div>
+        </div>
+      </section>
 
-          <!-- Hall of Master Ace Chasers (Dynamic Winners Table) -->
-          <div class="gold-panel" style="padding: 24px 45px; border: 2px solid #D4AF37;">
-            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; border-bottom: 2px solid rgba(212,175,55,0.4); padding-bottom: 10px;">
+      <!-- ====================================================================
+           SLIDE 7: HALL OF MASTER ACE CHASERS (PREVIOUS WINNERS)
+           ==================================================================== -->
+      <section class="slide-pane slide-with-header" id="slide-7">
+        <div style="text-align: center; margin-bottom: 25px;">
+          <h2 class="sheen-text" style="font-size: 52px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.06em;">
+            HALL OF MASTER ACE CHASERS <span class="animate-spade-loop" style="font-size: 42px;">♠</span>
+          </h2>
+          <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.15em; text-transform: uppercase;">
+            COASTERS TAVERN • LEGENDARY JACKPOT WINNERS RECORD
+          </p>
+        </div>
+
+        <div style="width: 100%; max-width: 1680px; display: flex; flex-direction: column;">
+          <div class="gold-panel" style="padding: 28px 45px; border: 2px solid #D4AF37; box-shadow: 0 16px 45px rgba(0,0,0,0.9), 0 0 35px rgba(212,175,55,0.4);">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; border-bottom: 2px solid rgba(212,175,55,0.4); padding-bottom: 12px;">
               <div style="display: flex; align-items: center; gap: 20px;">
-                <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(212,175,55,0.2); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: 900; color: #D4AF37;">
+                <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 900; color: #D4AF37; box-shadow: 0 0 20px rgba(212,175,55,0.5);">
                   🏆
                 </div>
-                <div style="font-size: 34px; font-weight: 900; color: #F3E5AB; letter-spacing: 0.05em; text-transform: uppercase;">
-                  HALL OF MASTER ACE CHASERS
+                <div style="font-size: 38px; font-weight: 900; color: #F3E5AB; letter-spacing: 0.05em; text-transform: uppercase;">
+                  VERIFIED JACKPOT WINNERS
                 </div>
               </div>
-              <div style="font-size: 30px; font-weight: 700; color: #94A3B8; text-transform: uppercase;">
-                PREVIOUS WINNERS
+              <div style="font-size: 30px; font-weight: 800; color: #D4AF37; text-transform: uppercase;">
+                COASTERS TAVERN
               </div>
             </div>
             
             <div id="winners-table-container">
               <table style="width: 100%; border-collapse: collapse;">
                 <thead>
-                  <tr style="color: #D4AF37; font-size: 30px; font-weight: 800; text-transform: uppercase; border-bottom: 2px solid rgba(212,175,55,0.3);">
-                    <th style="padding: 8px 16px; text-align: left;">WINNER</th>
-                    <th style="padding: 8px 16px; text-align: center;">DATE</th>
-                    <th style="padding: 8px 16px; text-align: right;">JACKPOT WON</th>
+                  <tr style="color: #D4AF37; font-size: 32px; font-weight: 800; text-transform: uppercase; border-bottom: 2px solid rgba(212,175,55,0.3);">
+                    <th style="padding: 12px 20px; text-align: left;">WINNER</th>
+                    <th style="padding: 12px 20px; text-align: center;">DATE</th>
+                    <th style="padding: 12px 20px; text-align: right;">JACKPOT WON</th>
                   </tr>
                 </thead>
                 <tbody id="winners-table-body">
                   <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    <td style="padding: 12px 16px; font-size: 32px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">H.</td>
-                    <td style="padding: 12px 16px; font-size: 30px; font-weight: 700; color: #94A3B8; text-align: center; white-space: nowrap;">19/9/2026</td>
-                    <td style="padding: 12px 16px; font-family: 'Bebas Neue', sans-serif; font-size: 48px; font-weight: 900; color: #10B981; text-align: right; white-space: nowrap;">$2,700.00</td>
+                    <td style="padding: 16px 20px; font-size: 36px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">H.</td>
+                    <td style="padding: 16px 20px; font-size: 32px; font-weight: 700; color: #94A3B8; text-align: center; white-space: nowrap;">19/9/2026</td>
+                    <td style="padding: 16px 20px; font-family: 'Bebas Neue', sans-serif; font-size: 56px; font-weight: 900; color: #10B981; text-align: right; white-space: nowrap;">$2,700.00</td>
                   </tr>
                   <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    <td style="padding: 12px 16px; font-size: 32px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">C. W.</td>
-                    <td style="padding: 12px 16px; font-size: 30px; font-weight: 700; color: #94A3B8; text-align: center; white-space: nowrap;">?</td>
-                    <td style="padding: 12px 16px; font-family: 'Bebas Neue', sans-serif; font-size: 48px; font-weight: 900; color: #FCD34D; text-align: right; white-space: nowrap;">?</td>
+                    <td style="padding: 16px 20px; font-size: 36px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">C. W.</td>
+                    <td style="padding: 16px 20px; font-size: 32px; font-weight: 700; color: #94A3B8; text-align: center; white-space: nowrap;">—</td>
+                    <td style="padding: 16px 20px; font-family: 'Bebas Neue', sans-serif; font-size: 56px; font-weight: 900; color: #FCD34D; text-align: right; white-space: nowrap;">—</td>
                   </tr>
                 </tbody>
               </table>
@@ -961,8 +1090,8 @@
     (function() {
       // 1. STATE & CONFIGURATION
       var currentSlide = 0;
-      var totalSlides = 7;
-      var slideDuration = 20000; // default 20s
+      var totalSlides = 8;
+      var slideDuration = 30000; // default 30s
       var isPaused = false;
       var isLocked = false;
       var slideTimer = null;
@@ -978,26 +1107,192 @@
       var pauseIndicator = document.getElementById('pause-indicator');
       var nzClockEl = document.getElementById('live-nz-clock');
 
-      // 2. GENERATE 54 PLAYING CARDS IN CABINET GRID
+      // 2. FIREWORKS ENGINE & CEREMONY SYSTEM
+      var fireworksCanvas = document.getElementById('fireworks-canvas');
+      var fwCtx = fireworksCanvas ? fireworksCanvas.getContext('2d') : null;
+      var fwParticles = [];
+      var fwInterval = null;
+      var isFireworksActive = false;
+
+      function resizeFireworks() {
+        if (fireworksCanvas) {
+          fireworksCanvas.width = window.innerWidth;
+          fireworksCanvas.height = window.innerHeight;
+        }
+      }
+      window.addEventListener('resize', resizeFireworks);
+      resizeFireworks();
+
+      function createFirework() {
+        var x = Math.random() * (window.innerWidth * 0.8) + (window.innerWidth * 0.1);
+        var y = Math.random() * (window.innerHeight * 0.5) + (window.innerHeight * 0.1);
+        var colors = ['#D4AF37', '#FCD34D', '#EF4444', '#10B981', '#38BDF8', '#FFFFFF', '#F59E0B'];
+        var color = colors[Math.floor(Math.random() * colors.length)];
+        var count = 55;
+        for (var i = 0; i < count; i++) {
+          var angle = (Math.PI * 2 / count) * i;
+          var speed = Math.random() * 5 + 2;
+          fwParticles.push({
+            x: x,
+            y: y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            alpha: 1,
+            decay: Math.random() * 0.015 + 0.008,
+            color: color,
+            radius: Math.random() * 3 + 2
+          });
+        }
+      }
+
+      function updateFireworks() {
+        if (!fwCtx || !isFireworksActive) return;
+        fwCtx.clearRect(0, 0, fireworksCanvas.width, fireworksCanvas.height);
+        for (var i = fwParticles.length - 1; i >= 0; i--) {
+          var p = fwParticles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += 0.06;
+          p.alpha -= p.decay;
+          if (p.alpha <= 0) {
+            fwParticles.splice(i, 1);
+            continue;
+          }
+          fwCtx.save();
+          fwCtx.globalAlpha = p.alpha;
+          fwCtx.fillStyle = p.color;
+          fwCtx.beginPath();
+          fwCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+          fwCtx.fill();
+          fwCtx.restore();
+        }
+        if (isFireworksActive) {
+          requestAnimationFrame(updateFireworks);
+        }
+      }
+
+      function startFireworks() {
+        if (!fireworksCanvas) return;
+        isFireworksActive = true;
+        fireworksCanvas.style.display = 'block';
+        resizeFireworks();
+        requestAnimationFrame(updateFireworks);
+        if (!fwInterval) {
+          createFirework();
+          fwInterval = setInterval(function() {
+            if (isFireworksActive) {
+              createFirework();
+              createFirework();
+            }
+          }, 650);
+        }
+      }
+
+      function stopFireworks() {
+        isFireworksActive = false;
+        if (fwInterval) {
+          clearInterval(fwInterval);
+          fwInterval = null;
+        }
+        if (fireworksCanvas) {
+          fireworksCanvas.style.display = 'none';
+        }
+        fwParticles = [];
+      }
+
+      // Default verified drawn cards (Card 14 = 5♣ drawn 10/10/2026)
+      var activeDrawnCards = [
+        { num: 14, card: '5♣', event: '1', date: '10/10/2026', comment: '$500 missed' }
+      ];
+
+      // 3. GENERATE 54 PLAYING CARDS IN 7 PHYSICAL CABINET ROWS
+      function renderCardHtml(num, drawnCard) {
+        if (drawnCard) {
+          var upCard = (drawnCard.card || '').toUpperCase();
+          var isRed = upCard.indexOf('HEART') !== -1 || upCard.indexOf('DIAMOND') !== -1 || upCard.indexOf('♥') !== -1 || upCard.indexOf('♦') !== -1;
+          var color = isRed ? '#DC2626' : '#111827';
+          var suit = upCard.indexOf('♠') !== -1 ? '♠' : (upCard.indexOf('♥') !== -1 ? '♥' : (upCard.indexOf('♦') !== -1 ? '♦' : (upCard.indexOf('♣') !== -1 ? '♣' : '')));
+          var rank = upCard.replace(/[♠♥♦♣]/g, '').trim() || upCard;
+          return '<div class="vault-card" style="background: #FFFFFF; border: 2px solid ' + color + '; box-shadow: 0 4px 14px rgba(0,0,0,0.85);">' +
+            '<div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 3px 6px; box-sizing: border-box;">' +
+              '<div style="width: 100%; display: flex; justify-content: space-between; align-items: center; line-height: 1;">' +
+                '<span style="font-family: \'Oswald\', sans-serif; font-size: 16px; font-weight: 800; color: #64748B;">#' + num + '</span>' +
+                '<span style="font-size: 18px; font-weight: 900; color: ' + color + ';">' + suit + '</span>' +
+              '</div>' +
+              '<div style="font-family: \'Bebas Neue\', sans-serif; font-size: 38px; font-weight: 900; line-height: 1; text-align: center; color: ' + color + ';">' + rank + suit + '</div>' +
+              '<div style="font-size: 10px; font-weight: 900; color: #EF4444; text-align: center; text-transform: uppercase; background: rgba(239,68,68,0.12); border-radius: 3px; padding: 1px 0;">DRAWN</div>' +
+            '</div>' +
+          '</div>';
+        }
+        return '<div class="vault-card">' +
+          '<div class="vault-card-body">' +
+            '<div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">' +
+              '<span class="vault-card-num">#' + num + '</span>' +
+              '<span style="font-size: 38px; color: #D4AF37; line-height: 1;">♠</span>' +
+            '</div>' +
+            '<div class="vault-card-logo-wrap">' +
+              '<img src="./logo.png" alt="Coasters" class="vault-card-logo-img" onerror="this.style.display=\'none\'">' +
+            '</div>' +
+          '</div>' +
+        '</div>';
+      }
+
       function generateCabinetGrid() {
         var grid = document.getElementById('cabinet-grid-container');
         if (!grid) return;
         grid.innerHTML = '';
-        for (var i = 1; i <= 54; i++) {
-          var card = document.createElement('div');
-          card.className = 'vault-card';
-          card.innerHTML = 
-            '<div class="vault-card-body">' +
-              '<div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">' +
-                '<span class="vault-card-num">#' + i + '</span>' +
-                '<span style="font-size: 42px; color: #D4AF37; line-height: 1;">♠</span>' +
-              '</div>' +
-              '<div class="vault-card-logo-wrap">' +
-                '<img src="./logo.png" alt="Coasters" class="vault-card-logo-img" onerror="this.style.display=\'none\'">' +
-              '</div>' +
-            '</div>';
-          grid.appendChild(card);
+        var rowCounts = [7, 8, 8, 8, 8, 7, 8]; // 54 cards total
+        var currentNum = 1;
+
+        for (var r = 0; r < rowCounts.length; r++) {
+          var rowEl = document.createElement('div');
+          rowEl.className = 'cabinet-row';
+          for (var c = 0; c < rowCounts[r]; c++) {
+            var cNum = currentNum++;
+            var drawn = null;
+            for (var d = 0; d < activeDrawnCards.length; d++) {
+              if (activeDrawnCards[d].num === cNum) {
+                drawn = activeDrawnCards[d];
+                break;
+              }
+            }
+            var cardWrap = document.createElement('div');
+            cardWrap.innerHTML = renderCardHtml(cNum, drawn);
+            rowEl.appendChild(cardWrap.firstElementChild);
+          }
+          grid.appendChild(rowEl);
         }
+
+        // Update statistics
+        var TOTAL_CARDS = 54;
+        var cardsRemaining = TOTAL_CARDS - activeDrawnCards.length;
+        var introCardsRem = document.getElementById('intro-cards-remaining');
+        if (introCardsRem) introCardsRem.textContent = cardsRemaining;
+        var introCardsBig = document.getElementById('intro-cards-remaining-big');
+        if (introCardsBig) introCardsBig.textContent = cardsRemaining + ' CARDS';
+
+        var cabinetTitleCards = document.getElementById('cabinet-title-cards');
+        if (cabinetTitleCards) cabinetTitleCards.textContent = cardsRemaining + ' CARDS';
+        var cabinetStatusPill = document.getElementById('cabinet-status-pill');
+        if (cabinetStatusPill) cabinetStatusPill.textContent = (cardsRemaining === 0 ? '🔓' : '🔒') + ' ' + cardsRemaining + ' OF ' + TOTAL_CARDS + ' CARDS UNOPENED';
+        var rulesSecureCards = document.getElementById('rules-secure-cards');
+        if (rulesSecureCards) rulesSecureCards.textContent = cardsRemaining + ' SECURE CARDS';
+
+        var statCardsRemaining = document.getElementById('status-cards-remaining');
+        if (statCardsRemaining) statCardsRemaining.textContent = cardsRemaining;
+        var statCardsDrawn = document.getElementById('status-cards-drawn');
+        if (statCardsDrawn) statCardsDrawn.textContent = activeDrawnCards.length;
+        
+        var pctPlay = Math.round((cardsRemaining / TOTAL_CARDS) * 100);
+        var statDeckPct = document.getElementById('status-deck-pct');
+        if (statDeckPct) statDeckPct.textContent = pctPlay + '% OF DECK IN PLAY';
+        
+        var winChance = cardsRemaining > 0 ? (100 / cardsRemaining).toFixed(2) : '100.00';
+        var statWinningChance = document.getElementById('status-winning-chance');
+        if (statWinningChance) statWinningChance.textContent = winChance + '%';
+        
+        var statOddsRatio = document.getElementById('status-odds-ratio');
+        if (statOddsRatio) statOddsRatio.textContent = '1 IN ' + cardsRemaining + ' ODDS IN PLAY';
       }
       generateCabinetGrid();
 
@@ -1337,7 +1632,10 @@
       updateWinnersFromCsv();
       setInterval(updateWinnersFromCsv, 60 * 1000);
 
-      // 5. BLINKING NZ CLOCK & COUNTDOWN LOGIC
+      // 5. BLINKING NZ CLOCK & COUNTDOWN LOGIC (WITH T-0 CEREMONY)
+      var ceremonyActive = false;
+      var winnerOverlay = document.getElementById('winner-celebration-overlay');
+
       function updateClocks() {
         var now = new Date();
         var nzTimeStr = now.toLocaleTimeString('en-NZ', { timeZone: 'Pacific/Auckland', hour12: false });
@@ -1353,8 +1651,8 @@
             var day = next.getDay();
             if (day === 2 || day === 6) {
               next.setHours(day === 2 ? 17 : 18, 30, 0, 0);
-              // Hold target until 30 minutes past draw time
-              if (next.getTime() + (15 * 60 * 1000) > currentTime.getTime()) {
+              // Hold target until 14 minutes past draw time for ceremony
+              if (next.getTime() + (14 * 60 * 1000) > currentTime.getTime()) {
                 return next;
               }
             }
@@ -1386,7 +1684,15 @@
         var mEl = document.getElementById('cd-mins');
         var sEl = document.getElementById('cd-secs');
 
+        var countdownStage = document.getElementById('countdown-main-stage');
+        var ceremonyStage = document.getElementById('ceremony-stage');
+        var ceremonyText = document.getElementById('ceremony-step-text');
+        var ceremonyJackpotWrap = document.getElementById('ceremony-jackpot-wrap');
+        var s5 = document.getElementById('slide-5');
+        var topH = document.getElementById('top-header');
+
         if (diff > 0) {
+          // Pre-draw countdown
           var d = Math.floor(diff / (1000 * 60 * 60 * 24));
           var h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           var m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -1396,22 +1702,89 @@
           if (hEl) hEl.textContent = pad(h);
           if (mEl) mEl.textContent = pad(m);
           if (sEl) sEl.textContent = pad(s);
-        } else {
-          if (dEl) dEl.textContent = '00';
-          if (hEl) hEl.textContent = '00';
-          if (mEl) mEl.textContent = '00';
-          if (sEl) sEl.textContent = '00';
-        }
 
-        // Countdown Build-up Lock & Climax Retention
-        var s5 = document.getElementById("slide-5"); var topH = document.getElementById("top-header"); if (diff <= 10 * 60 * 1000 && diff >= -15 * 60 * 1000) { window.wasLocked = true; if (s5) s5.classList.add("epic-mode"); if (topH) topH.style.opacity = "0";
-          if (typeof currentSlide !== 'undefined' && currentSlide !== 5) {
-            showSlide(5);
+          // Normal stage display
+          if (countdownStage) countdownStage.style.display = 'flex';
+          if (ceremonyStage) ceremonyStage.style.display = 'none';
+          if (ceremonyActive) {
+            ceremonyActive = false;
+            stopFireworks();
           }
-          if (typeof slideTimer !== 'undefined') clearTimeout(slideTimer);
-          if (typeof progressInterval !== 'undefined') clearInterval(progressInterval);
-          if (typeof progressBar !== 'undefined') progressBar.style.width = '100%';
-        } else { if (s5) s5.classList.remove("epic-mode"); if (window.wasLocked) { window.wasLocked = false; if (typeof nextSlide === "function") nextSlide(); } }
+
+          // 10-Minute Lock before draw
+          if (diff <= 10 * 60 * 1000) {
+            window.wasLocked = true;
+            if (s5) s5.classList.add('epic-mode');
+            if (topH) topH.style.opacity = '0';
+            if (currentSlide !== 5) showSlide(5);
+            if (slideTimer) clearTimeout(slideTimer);
+            if (progressInterval) clearInterval(progressInterval);
+            if (progressBar) progressBar.style.width = '100%';
+          } else {
+            if (s5) s5.classList.remove('epic-mode');
+            if (window.wasLocked) {
+              window.wasLocked = false;
+              window.nextSlide();
+            }
+          }
+        } else if (diff <= 0 && diff >= -14 * 60 * 1000) {
+          // T-0 CLIMAX CEREMONY (Hold for 14 minutes)
+          if (!ceremonyActive) {
+            ceremonyActive = true;
+            startFireworks();
+          }
+
+          if (currentSlide !== 5) showSlide(5);
+          if (slideTimer) clearTimeout(slideTimer);
+          if (progressInterval) clearInterval(progressInterval);
+          if (progressBar) progressBar.style.width = '100%';
+          if (topH) topH.style.opacity = '0';
+
+          if (countdownStage) countdownStage.style.display = 'none';
+          if (ceremonyStage) ceremonyStage.style.display = 'flex';
+
+          var elapsedSec = Math.floor(Math.abs(diff) / 1000);
+
+          // Sequence messages:
+          // 1. 3x "It's time for 1 lucky ticket to be drawn!" (~15s)
+          // 2. 2x "Good luck!" (~10s)
+          // 3. "Drawn ticket holder will get to flip 1 card in the cabinet" & "Flip the ACE of SPADES..." (~15s)
+          // 4. "Tonight's JACKPOT is: [AMOUNT]" (pulsing effect, hold remainder of 14 mins)
+          if (elapsedSec < 15) {
+            if (ceremonyText) {
+              ceremonyText.style.display = 'block';
+              ceremonyText.innerHTML = "IT'S TIME FOR 1 LUCKY TICKET TO BE DRAWN!";
+            }
+            if (ceremonyJackpotWrap) ceremonyJackpotWrap.style.display = 'none';
+          } else if (elapsedSec < 25) {
+            if (ceremonyText) {
+              ceremonyText.style.display = 'block';
+              ceremonyText.innerHTML = 'GOOD LUCK! 🍀';
+            }
+            if (ceremonyJackpotWrap) ceremonyJackpotWrap.style.display = 'none';
+          } else if (elapsedSec < 40) {
+            if (ceremonyText) {
+              ceremonyText.style.display = 'block';
+              ceremonyText.innerHTML = 
+                '<div style="font-size: 52px; color: #FFFFFF; margin-bottom: 12px;">DRAWN TICKET HOLDER WILL GET TO FLIP 1 CARD IN THE CABINET</div>' +
+                '<div style="font-size: 46px; color: #FCD34D;">FLIP THE ACE OF SPADES TO INSTANTLY WIN TONIGHT\'S CASH JACKPOT!</div>';
+            }
+            if (ceremonyJackpotWrap) ceremonyJackpotWrap.style.display = 'none';
+          } else {
+            if (ceremonyText) ceremonyText.style.display = 'none';
+            if (ceremonyJackpotWrap) ceremonyJackpotWrap.style.display = 'flex';
+          }
+        } else {
+          // After 14 minutes, reset ceremony and resume regular slides
+          if (ceremonyActive) {
+            ceremonyActive = false;
+            stopFireworks();
+            if (countdownStage) countdownStage.style.display = 'flex';
+            if (ceremonyStage) ceremonyStage.style.display = 'none';
+            if (topH) topH.style.opacity = '1';
+            window.nextSlide();
+          }
+        }
       }
       setInterval(updateClocks, 1000);
       updateClocks();
@@ -1468,7 +1841,7 @@
         }
       });
 
-      // 7. BROADCASTCHANNEL SYNC
+      // 7. BROADCASTCHANNEL SYNC & ADMIN ACTION DISPATCHER
       try {
         var aceChannel = new BroadcastChannel('ct_ace_signage_channel');
         aceChannel.onmessage = function(ev) {
@@ -1478,6 +1851,61 @@
           else if (data.action === 'togglePause') togglePause();
           else if (data.action === 'toggleLock') toggleLock();
           else if (data.action === 'slide' && typeof data.value === 'number') showSlide(data.value);
+          else if (data.action === 'setDuration' && typeof data.value === 'number') {
+            slideDuration = data.value * 1000;
+            resetProgressTimer();
+          }
+          else if (data.action === 'reload') {
+            window.location.reload();
+          }
+          else if (data.action === 'ace_winner') {
+            // ACE OF SPADES WINNER CELEBRATION
+            if (winnerOverlay) winnerOverlay.style.display = 'flex';
+            startFireworks();
+            // Celebrate for 15 minutes, then freeze / pause game
+            setTimeout(function() {
+              if (winnerOverlay) winnerOverlay.style.display = 'none';
+              stopFireworks();
+              isPaused = true;
+              if (pauseIndicator) {
+                pauseIndicator.textContent = '🏆 JACKPOT WON • GAME PAUSED';
+                pauseIndicator.style.display = 'block';
+              }
+            }, 15 * 60 * 1000);
+          }
+          else if (data.action === 'card_drawn') {
+            // ACE NOT STRUCK - RECORD DRAW & ADVANCE
+            var cNum = parseInt(data.number, 10);
+            var cardStr = data.card || '';
+            if (cNum >= 1 && cNum <= 54 && cardStr) {
+              activeDrawnCards.push({
+                num: cNum,
+                card: cardStr,
+                event: (activeDrawnCards.length + 1).toString(),
+                date: new Date().toLocaleDateString('en-GB'),
+                comment: 'Missed'
+              });
+              generateCabinetGrid();
+              
+              // Increment jackpot +$100
+              var curPot = parseFloat(activeJackpot.replace(/[$,]/g, '')) || 600;
+              curPot += 100;
+              activeJackpot = '$' + curPot.toFixed(2);
+              var els = document.querySelectorAll('.live-jackpot-val');
+              for (var j = 0; j < els.length; j++) {
+                els[j].textContent = activeJackpot;
+              }
+
+              // Hide ceremony if active and resume slide rotation
+              ceremonyActive = false;
+              stopFireworks();
+              var cStage = document.getElementById('ceremony-stage');
+              var cdStage = document.getElementById('countdown-main-stage');
+              if (cStage) cStage.style.display = 'none';
+              if (cdStage) cdStage.style.display = 'flex';
+              window.nextSlide();
+            }
+          }
         };
       } catch(e) {}
 

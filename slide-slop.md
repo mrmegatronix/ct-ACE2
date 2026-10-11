@@ -32,13 +32,13 @@
 ## Slide 1: Locked Cabinet (Physical Board)
 
 * **Header Title**:
-  * ``
+  * *(Removed)*
 * **Header Subtitle**:
-  * ``
+  * *(Removed)*
 * **Status Pill**:
-  * `🔒 53 OF 54 CARDS REMAINING`
+  * *(Removed for clean visual presentation)*
 * **Board Cards**:
-  * 54 Cards (7 Rows: 7, 8, 8, 8, 8, 7, 8)
+  * 54 Cards (7 Rows: 7, 8, 8, 8, 8, 7, 8) expanded to fill 890px vertical height
   * Face-down cards: `#1` to `#54` with Coasters Logo
   * Slot `#14`: Face-up `5♣` (`#14`, `5♣`, `DRAWN`)
 

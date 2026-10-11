@@ -356,7 +356,7 @@
     .cabinet-board-wrap {
       width: 100%;
       max-width: 1840px;
-      height: 720px;
+      height: 890px;
       margin: auto 0;
       position: relative;
       overflow: hidden;
@@ -365,7 +365,7 @@
     .cabinet-board {
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 12px;
       width: 100%;
       height: 100%;
       justify-content: center;
@@ -375,17 +375,17 @@
     .cabinet-row {
       display: flex;
       justify-content: center;
-      gap: 12px;
+      gap: 14px;
       width: 100%;
     }
     .vault-card {
       position: relative;
-      width: 110px;
-      height: 84px;
-      border-radius: 10px;
-      padding: 2px;
+      width: 160px;
+      height: 112px;
+      border-radius: 12px;
+      padding: 3px;
       background: linear-gradient(to bottom, #FFE082, #D4AF37, #78540B);
-      box-shadow: 0 4px 14px rgba(0,0,0,0.8);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.85);
       display: flex;
       flex-direction: column;
       flex-shrink: 0;
@@ -393,20 +393,20 @@
     .vault-card-body {
       width: 100%;
       height: 100%;
-      border-radius: 8px;
+      border-radius: 10px;
       background: linear-gradient(135deg, #1C1A14, #0E0E10, #221F18);
       border: 1px solid rgba(212,175,55,0.7);
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 3px 6px;
+      padding: 5px 8px;
       box-sizing: border-box;
       overflow: hidden;
     }
     .vault-card-num {
       font-family: 'Bebas Neue', sans-serif;
-      font-size: 32px;
+      font-size: 38px;
       color: #F3E5AB;
       line-height: 1;
     }
@@ -424,17 +424,17 @@
       100% { transform: scale(1) translate(0, 0); }
     }
     .vault-card-logo-wrap {
-      width: 50px;
-      height: 50px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       background: rgba(0,0,0,0.9);
-      border: 1px solid #D4AF37;
+      border: 1.5px solid #D4AF37;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      padding: 2px;
-      box-shadow: 0 0 10px rgba(212,175,55,0.5);
+      padding: 3px;
+      box-shadow: 0 0 12px rgba(212,175,55,0.5);
     }
     .vault-card-logo-img {
       width: 100%;
@@ -724,15 +724,11 @@
       </section>
 
       <!-- ====================================================================
-           SLIDE 1: LOCKED CARD CABINET (4 x 13 PLAYING CARDS)
+           SLIDE 1: LOCKED CARD CABINET (54 PLAYING CARDS)
            ==================================================================== -->
-      <section class="slide-pane slide-with-header" id="slide-1">
-        <div style="width: 100%; max-width: 1840px; display: flex; justify-content: flex-end; align-items: center; margin-bottom: 12px; min-height: 58px;">
-          <span id="cabinet-title-cards" style="display: none;"></span>
-          <div style="background: rgba(0,0,0,0.85); border: 2px solid #D4AF37; padding: 12px 28px; border-radius: 16px; font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #D4AF37; letter-spacing: 0.1em;">
-            <span id="cabinet-status-pill">🔒 53 OF 54 CARDS REMAINING</span>
-          </div>
-        </div>
+      <section class="slide-pane slide-with-header" id="slide-1" style="padding-top: 130px; padding-bottom: 20px;">
+        <span id="cabinet-title-cards" style="display: none;"></span>
+        <span id="cabinet-status-pill" style="display: none;"></span>
 
         <!-- 54 Card Physical Cabinet Board (7 Rows with Smooth Pan Feature) -->
         <div class="cabinet-board-wrap">
@@ -1228,14 +1224,14 @@
           var color = isRed ? '#DC2626' : '#111827';
           var suit = upCard.indexOf('♠') !== -1 ? '♠' : (upCard.indexOf('♥') !== -1 ? '♥' : (upCard.indexOf('♦') !== -1 ? '♦' : (upCard.indexOf('♣') !== -1 ? '♣' : '')));
           var rank = upCard.replace(/[♠♥♦♣]/g, '').trim() || upCard;
-          return '<div class="vault-card" style="background: #FFFFFF; border: 2px solid ' + color + '; box-shadow: 0 4px 14px rgba(0,0,0,0.85);">' +
-            '<div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 3px 6px; box-sizing: border-box;">' +
+          return '<div class="vault-card" style="background: #FFFFFF; border: 2.5px solid ' + color + '; box-shadow: 0 6px 18px rgba(0,0,0,0.9);">' +
+            '<div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; padding: 4px 8px; box-sizing: border-box;">' +
               '<div style="width: 100%; display: flex; justify-content: space-between; align-items: center; line-height: 1;">' +
-                '<span style="font-family: \'Oswald\', sans-serif; font-size: 16px; font-weight: 800; color: #64748B;">#' + num + '</span>' +
-                '<span style="font-size: 18px; font-weight: 900; color: ' + color + ';">' + suit + '</span>' +
+                '<span style="font-family: \'Oswald\', sans-serif; font-size: 20px; font-weight: 800; color: #64748B;">#' + num + '</span>' +
+                '<span style="font-size: 24px; font-weight: 900; color: ' + color + ';">' + suit + '</span>' +
               '</div>' +
-              '<div style="font-family: \'Bebas Neue\', sans-serif; font-size: 38px; font-weight: 900; line-height: 1; text-align: center; color: ' + color + ';">' + rank + suit + '</div>' +
-              '<div style="font-size: 10px; font-weight: 900; color: #EF4444; text-align: center; text-transform: uppercase; background: rgba(239,68,68,0.12); border-radius: 3px; padding: 1px 0;">DRAWN</div>' +
+              '<div style="font-family: \'Bebas Neue\', sans-serif; font-size: 52px; font-weight: 900; line-height: 1; text-align: center; color: ' + color + ';">' + rank + suit + '</div>' +
+              '<div style="font-size: 13px; font-weight: 900; color: #EF4444; text-align: center; text-transform: uppercase; background: rgba(239,68,68,0.12); border-radius: 4px; padding: 2px 0;">DRAWN</div>' +
             '</div>' +
           '</div>';
         }
@@ -1243,7 +1239,7 @@
           '<div class="vault-card-body">' +
             '<div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">' +
               '<span class="vault-card-num">#' + num + '</span>' +
-              '<span style="font-size: 38px; color: #D4AF37; line-height: 1;">♠</span>' +
+              '<span style="font-size: 42px; color: #D4AF37; line-height: 1;">♠</span>' +
             '</div>' +
             '<div class="vault-card-logo-wrap">' +
               '<img src="./logo.png" alt="Coasters" class="vault-card-logo-img" onerror="this.style.display=\'none\'">' +

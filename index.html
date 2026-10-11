@@ -894,11 +894,11 @@
                 📋
               </div>
               <div>
-                <div style="font-size: 38px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">EVENT 4 • 10/10/2026 • CARD #14 (5♣) DRAWN</div>
-                <div style="font-size: 30px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;">ACE OF SPADES MISSED • +$100 ACCUMULATES TO $600</div>
+                <div id="prior-draw-title" style="font-size: 38px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">EVENT 4 • 10/10/2026 • CARD #14 (5♣) DRAWN</div>
+                <div id="prior-draw-sub" style="font-size: 30px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;">ACE OF SPADES MISSED • +$100 ACCUMULATES TO $600</div>
               </div>
             </div>
-            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 85px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1;">
+            <div id="prior-draw-badge" style="font-family: 'Bebas Neue', sans-serif; font-size: 85px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1;">
               MISSED $500
             </div>
           </div>
@@ -1158,7 +1158,13 @@
             var cNumStr = row[cardNumIdx] ? row[cardNumIdx].replace(/^"|"$/g, '').trim() : '';
             var cNum = parseInt(cNumStr, 10);
             if (cNum >= 1 && cNum <= TOTAL_CARDS && drawn && drawn !== 'N/A' && drawn.toUpperCase() !== 'CARD DRAWN') {
-              parsedDrawnCards.push({ num: cNum, card: drawn });
+              parsedDrawnCards.push({
+                num: cNum,
+                card: drawn,
+                event: row[0] ? row[0].replace(/^"|"$/g, '').trim() : '',
+                date: row[1] ? row[1].replace(/^"|"$/g, '').trim() : '',
+                comment: row[5] ? row[5].replace(/^"|"$/g, '').trim() : ''
+              });
             }
           }
         }
@@ -1213,6 +1219,24 @@
                     '</div>';
                }
             });
+
+            // Dynamically populate Slide 6 Verified Prior Draws with latest draw
+            if (parsedDrawnCards.length > 0) {
+              var lastDraw = parsedDrawnCards[parsedDrawnCards.length - 1];
+              var pTitle = document.getElementById('prior-draw-title');
+              if (pTitle) pTitle.textContent = 'EVENT ' + lastDraw.event + ' • ' + lastDraw.date + ' • CARD #' + lastDraw.num + ' (' + lastDraw.card + ') DRAWN';
+              var pSub = document.getElementById('prior-draw-sub');
+              var isAce = lastDraw.card.indexOf('♠') !== -1 && (lastDraw.card.toUpperCase().indexOf('A') !== -1 || lastDraw.card.toUpperCase().indexOf('ACE') !== -1);
+              if (pSub) {
+                pSub.textContent = isAce ? 'ACE OF SPADES REVEALED • JACKPOT WON!' : 'ACE OF SPADES MISSED • +$100 ACCUMULATES TO ' + activeJackpot;
+              }
+              var pBadge = document.getElementById('prior-draw-badge');
+              if (pBadge) {
+                var prevPotMatch = (lastDraw.comment || '').match(/\$([0-9,.]+)/);
+                var prevPot = prevPotMatch ? ('$' + prevPotMatch[1]) : '$500';
+                pBadge.textContent = isAce ? 'WON JACKPOT' : 'MISSED ' + prevPot;
+              }
+            }
           }
         }
         
@@ -1242,7 +1266,7 @@
           });
       }
       updateJackpotFromCsv();
-      setInterval(updateJackpotFromCsv, 5 * 60 * 1000);
+      setInterval(updateJackpotFromCsv, 60 * 1000);
 
       // 4b. LIVE WINNERS CSV FETCHING (gid=2141332002)
       var REMOTE_WINNERS_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQDwqNaCeNn7Q6WSgc5gN8aOS08Ltkxu2v9QBSVuaKrJFX61PZ1Nuninkqh_F62wQ5t47usf2e19dxx/pub?gid=2141332002&output=csv';
@@ -1311,7 +1335,7 @@
           });
       }
       updateWinnersFromCsv();
-      setInterval(updateWinnersFromCsv, 5 * 60 * 1000);
+      setInterval(updateWinnersFromCsv, 60 * 1000);
 
       // 5. BLINKING NZ CLOCK & COUNTDOWN LOGIC
       function updateClocks() {

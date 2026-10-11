@@ -38,9 +38,12 @@
 * **Status Pill**:
   * *(Removed for clean visual presentation)*
 * **Board Cards**:
-  * 54 Cards (7 Rows: 7, 8, 8, 8, 8, 7, 8) expanded to fill 890px vertical height
+  * 54 Cards (7 Rows: 7, 8, 8, 8, 8, 7, 8) sized at 148x102px across 890px vertical height
   * Face-down cards: `#1` to `#54` with Coasters Logo
   * Slot `#14`: Face-up `5♣` (`#14`, `5♣`, `DRAWN`)
+* **Motion & Interactivity**:
+  * Smooth cinematic Ken Burns camera sweep (28s ease-in-out, zero clipping, 1.12 scale focus on top rows & drawn card)
+  * Interactive mouse wheel zoom (0.9x to 1.6x) and click-and-drag pan with auto-resume timeout
 
 ---
 

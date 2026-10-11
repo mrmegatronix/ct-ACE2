@@ -1139,12 +1139,23 @@
           }
         }
         
+        var cardDrawnIdx = 8;
+        var cardNumIdx = 9;
+        for (var h = 0; h < lines.length; h++) {
+          var hRow = lines[h].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
+          for (var c = 0; c < hRow.length; c++) {
+            var colHeader = hRow[c].replace(/^"|"$/g, '').trim().toUpperCase();
+            if (colHeader === 'CARD DRAWN') cardDrawnIdx = c;
+            if (colHeader === 'CARD NUMBER') cardNumIdx = c;
+          }
+        }
+
         var parsedDrawnCards = [];
         for (var i = 1; i < lines.length; i++) {
           var row = lines[i].split(/,(?=(?:(?:[^"]*"){2})*[^"]*$)/);
-          if (row.length > 10) {
-            var drawn = row[9] ? row[9].replace(/^"|"$/g, '').trim() : '';
-            var cNumStr = row[10] ? row[10].replace(/^"|"$/g, '').trim() : '';
+          if (row.length > Math.max(cardDrawnIdx, cardNumIdx)) {
+            var drawn = row[cardDrawnIdx] ? row[cardDrawnIdx].replace(/^"|"$/g, '').trim() : '';
+            var cNumStr = row[cardNumIdx] ? row[cardNumIdx].replace(/^"|"$/g, '').trim() : '';
             var cNum = parseInt(cNumStr, 10);
             if (cNum >= 1 && cNum <= TOTAL_CARDS && drawn && drawn !== 'N/A' && drawn.toUpperCase() !== 'CARD DRAWN') {
               parsedDrawnCards.push({ num: cNum, card: drawn });
@@ -1192,8 +1203,13 @@
                var color = isRed ? '#EF4444' : '#0A0A0A';
                if (cardsEl[idx]) {
                   cardsEl[idx].innerHTML = 
-                    '<div style="width: 100%; height: 100%; border-radius: 9px; background: #FFFFFF; display: flex; align-items: center; justify-content: center; flex-direction: column; padding: 6px; border: 3px solid ' + color + '; box-sizing: border-box;">' +
-                      '<div style="font-family: \'Bebas Neue\', sans-serif; font-size: 38px; font-weight: 900; line-height: 0.9; text-align: center; color: ' + color + '; word-break: break-word;">' + upCard + '</div>' +
+                    '<div style="width: 100%; height: 100%; border-radius: 9px; background: #FFFFFF; display: flex; flex-direction: column; justify-content: space-between; padding: 6px 8px; border: 3px solid ' + color + '; box-sizing: border-box; box-shadow: inset 0 0 10px rgba(0,0,0,0.15);">' +
+                      '<div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">' +
+                        '<span style="font-family: \'Oswald\', sans-serif; font-size: 22px; font-weight: 800; color: #64748B;">#' + dc.num + '</span>' +
+                        '<span style="font-size: 24px; font-weight: 900; color: ' + color + ';">' + upCard + '</span>' +
+                      '</div>' +
+                      '<div style="font-family: \'Bebas Neue\', sans-serif; font-size: 52px; font-weight: 900; line-height: 1; text-align: center; color: ' + color + '; word-break: break-word;">' + upCard + '</div>' +
+                      '<div style="font-size: 14px; font-weight: 800; color: #EF4444; text-align: center; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(239,68,68,0.12); border-radius: 4px; padding: 2px 4px;">DRAWN</div>' +
                     '</div>';
                }
             });

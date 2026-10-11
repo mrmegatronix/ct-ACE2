@@ -10,7 +10,7 @@
 * **Main Title**:
   * `♠ CHASE ♠ THE ♠ ACE ♠`
 * **Subtitle**:
-  * `FIND THE ACE OF SPADES • WIN THE CASH JACKPOT`
+  * `FIND THE ACE OF SPADES ♠ WIN THE CASH JACKPOT`
 * **Left Box (The Vault)**:
   * Icon: `🗄️`
   * Heading: `THE VAULT`
@@ -25,18 +25,18 @@
   * Icon: `🛡️`
   * Heading: `NEXT DRAW`
   * Value: `TUE 13 OCT`
-  * Detail: `5:30 PM • MUST BE PRESENT`
+  * Detail: `5:30 PM ♠ MUST BE PRESENT`
 
 ---
 
 ## Slide 1: Locked Cabinet (Physical Board)
 
 * **Header Title**:
-  * `LOCKED VENUE CABINET ♠ 53 CARDS`
+  * ``
 * **Header Subtitle**:
-  * `AUTHENTIC PLAYING CARDS SECURED IN VENUE VAULT`
+  * ``
 * **Status Pill**:
-  * `🔒 53 OF 54 CARDS UNOPENED`
+  * `🔒 53 OF 54 CARDS REMAINING`
 * **Board Cards**:
   * 54 Cards (7 Rows: 7, 8, 8, 8, 8, 7, 8)
   * Face-down cards: `#1` to `#54` with Coasters Logo
@@ -47,7 +47,7 @@
 ## Slide 2: Card Vault Status
 
 * **Header Title**:
-  * `CARD VAULT STATUS ♠`
+  * `CARD VAULT STATUS`
 * **Header Subtitle**:
   * `FULL 54-CARD DECK SECURED IN VENUE CABINET`
 * **Box 1 (Cards Remaining)**:
@@ -76,13 +76,13 @@
 
 ## Slide 3: Current Cash Jackpot
 
-* **Icon**: `💰`
+* **Icon**: `💲💰💲`
 * **Heading**:
   * `CURRENT CASH JACKPOT`
 * **Amount**:
   * `$600.00`
 * **Warning / Accumulator Pill**:
-  * `⚠️ +$100 ACCUMULATES EVERY DRAW • MUST BE PRESENT TO WIN ⚠️`
+  * `+$100 ADDED IF NOT STRUCK ♠ MUST BE PRESENT TO WIN`
 
 ---
 
@@ -122,7 +122,7 @@
   * Phase 2: `GOOD LUCK! 🍀`
   * Phase 3:
     * `DRAWN TICKET HOLDER WILL GET TO FLIP 1 CARD IN THE CABINET`
-    * `FLIP THE ACE OF SPADES TO INSTANTLY WIN TONIGHT'S CASH JACKPOT!`
+    * `FLIP THE ACE OF SPADES TO INSTANTLY WIN TONIGHT'S CASH 💲JACKPOT!💲`
   * Phase 4:
     * `TONIGHT'S JACKPOT IS:`
     * `$600.00` (Pulsing)
@@ -134,7 +134,7 @@
 * **Header Title**:
   * `OFFICIAL DRAW HISTORY ♠`
 * **Header Subtitle**:
-  * `COASTERS TAVERN • VERIFIED DRAW AUDIT RECORD`
+  * `COASTERS TAVERN • DRAW RECORD`
 * **Series Status Bar**:
   * Title: `SERIES #2 • ACTIVE PLAY`
   * Schedule: `NEXT DRAW: TUESDAY 13 OCTOBER 2026 • 5:30 PM`
@@ -160,5 +160,5 @@
 * **Columns**:
   * `WINNER` | `DATE` | `JACKPOT WON`
 * **Rows**:
-  * `H.` | `19/9/2026` | `$2,700.00`
-  * `C. W.` | `—` | `—`
+  * `♠ H.` | `19/9/2026` | `$2,700.00`
+  * `♠ C. W.` | `—` | `—`

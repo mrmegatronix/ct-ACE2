@@ -586,18 +586,18 @@
             </div>
             <div style="display: flex; flex-direction: column; min-width: 0;">
               <span style="font-size: 30px; font-weight: 900; color: #FCD34D; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
-                CURRENT POT
+                CURRENT JACKPOT
               </span>
               <span class="live-jackpot-val" style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; text-shadow: 0 0 25px rgba(212,175,55,0.7); white-space: nowrap; margin-top: 2px;">
-                $400.00
+                $600.00
               </span>
-              <span class="dynamic-draw-date" style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
+              <span style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
                 +$100 EVERY DRAW
               </span>
             </div>
           </div>
 
-          <!-- Tile 2: Resumption Target -->
+          <!-- Tile 2: Next Draw -->
           <div class="gold-panel" style="padding: 22px 28px; display: flex; align-items: center; gap: 22px;">
             <div style="width: 86px; height: 86px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 40px; color: #D4AF37; flex-shrink: 0; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
               🛡️
@@ -606,11 +606,11 @@
               <span style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
                 NEXT DRAW
               </span>
-              <span style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
-                $500.00 POOL
+              <span class="live-jackpot-val" style="font-size: 62px; font-weight: 900; font-family: 'Bebas Neue', sans-serif; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1; white-space: nowrap; margin-top: 2px;">
+                $600.00
               </span>
-              <span class="dynamic-draw-date" style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
-                SAT 10 OCT 2026
+              <span class="dynamic-draw-date-short" style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
+                TUE 13 OCT • 5:30 PM
               </span>
             </div>
           </div>
@@ -628,7 +628,7 @@
                 SECURE VAULT
               </span>
               <span style="font-size: 30px; font-weight: 800; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
-                52 SEALED CARDS
+                <span id="intro-cards-remaining">51</span> SEALED CARDS
               </span>
             </div>
           </div>
@@ -642,14 +642,14 @@
         <div style="width: 100%; max-width: 1840px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
           <div>
             <h2 class="sheen-text" style="font-size: 50px; font-weight: 900; color: #FFFFFF; text-transform: uppercase; letter-spacing: 0.04em;">
-              LOCKED VENUE CABINET <span class="animate-spade-loop" style="font-size: 40px;">♠</span> <span id="cabinet-title-cards" style="color: #D4AF37;">52 CARDS</span>
+              LOCKED VENUE CABINET <span class="animate-spade-loop" style="font-size: 40px;">♠</span> <span id="cabinet-title-cards" style="color: #D4AF37;">51 CARDS</span>
             </h2>
             <p style="font-size: 30px; font-weight: 700; color: #F3E5AB; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 4px;">
               AUTHENTIC PLAYING CARDS MOUNTED IN SECURE VENUE CABINET
             </p>
           </div>
           <div style="background: rgba(0,0,0,0.85); border: 2px solid #D4AF37; padding: 12px 28px; border-radius: 16px; font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: #D4AF37; letter-spacing: 0.1em;">
-            <span id="cabinet-status-pill">🔒 52 OF 52 CARDS UNOPENED</span>
+            <span id="cabinet-status-pill">🔒 51 OF 52 CARDS UNOPENED</span>
           </div>
         </div>
 
@@ -675,20 +675,20 @@
         <div style="width: 100%; max-width: 1800px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; margin-bottom: 28px;">
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
             <div style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">CARDS REMAINING</div>
-            <div id="status-cards-remaining" style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 12px 0;">52</div>
-            <div id="status-deck-pct" style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">100% OF DECK IN PLAY</div>
+            <div id="status-cards-remaining" style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 12px 0;">51</div>
+            <div id="status-deck-pct" style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">98% OF DECK IN PLAY</div>
           </div>
 
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
             <div style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">CARDS DRAWN</div>
-            <div id="status-cards-drawn" style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #F59E0B; line-height: 1; margin: 12px 0;">0</div>
+            <div id="status-cards-drawn" style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #F59E0B; line-height: 1; margin: 12px 0;">1</div>
             <div style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">PRIZE POOL ACCUMULATING</div>
           </div>
 
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
             <div style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">WINNING CHANCE</div>
-            <div id="status-winning-chance" style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 12px 0;">1.92%</div>
-            <div id="status-odds-ratio" style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">1 IN 52 ODDS ON START</div>
+            <div id="status-winning-chance" style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 12px 0;">1.96%</div>
+            <div id="status-odds-ratio" style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase;">1 IN 51 ODDS IN PLAY</div>
           </div>
 
           <div class="gold-panel" style="padding: 34px 20px; text-align: center;">
@@ -727,7 +727,7 @@
             CURRENT BUILDING JACKPOT
           </h2>
           <div class="live-jackpot-val" style="font-family: 'Oswald', sans-serif; font-size: 240px; font-weight: 900; color: #D4AF37; line-height: 1; margin: 15px 0; text-shadow: 0 0 55px rgba(212,175,55,0.85); letter-spacing: 0.02em;">
-            $400.00
+            $600.00
           </div>
           <div style="font-size: 30px; font-weight: 900; color: #E5E5E5; letter-spacing: 0.08em; text-transform: uppercase; background: rgba(0,0,0,0.7); border: 2px solid rgba(212,175,55,0.6); padding: 14px 44px; border-radius: 9999px;">
             ⚠️ +$100 ACCUMULATES EVERY DRAW • MUST BE PRESENT TO WIN ⚠️
@@ -781,7 +781,7 @@
               </p>
             </div>
             <div style="font-size: 36px; font-weight: 800; color: #FCD34D; text-transform: uppercase; margin-top: 24px; letter-spacing: 0.05em;">
-              <span id="rules-secure-cards">52 SECURE CARDS</span>
+              <span id="rules-secure-cards">51 SECURE CARDS</span>
             </div>
           </div>
 
@@ -853,7 +853,7 @@
           </div>
 
           <div style="background: rgba(245,158,11,0.18); border: 2px solid #F59E0B; color: #FCD34D; font-size: 30px; font-weight: 900; padding: 14px 40px; border-radius: 9999px; text-transform: uppercase; letter-spacing: 0.08em;">
-            OFFICIAL CASH PRIZE POOL DRAW EVENT!
+            OFFICIAL PRIZE POOL: <span class="live-jackpot-val">$600.00</span> CASH JACKPOT!
           </div>
         </div>
       </section>
@@ -879,12 +879,12 @@
                 ♠
               </div>
               <div>
-                <div style="font-size: 40px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">CURRENT SERIES #2 • IN ACCUMULATION</div>
-                <div style="font-size: 30px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;" class="dynamic-draw-date">OFFICIAL RESUMPTION DRAW: SATURDAY 10 OCTOBER 2026 • 6:30 PM</div>
+                <div style="font-size: 40px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">CURRENT SERIES #2 • IN ACTIVE PLAY</div>
+                <div style="font-size: 30px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;" class="dynamic-draw-date">NEXT DRAW: TUESDAY 13 OCTOBER 2026 • 5:30 PM</div>
               </div>
             </div>
-            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 85px; font-weight: 900; color: #D4AF37; letter-spacing: 0.05em; line-height: 1;">
-              $500.00 POOL
+            <div class="live-jackpot-val" style="font-family: 'Bebas Neue', sans-serif; font-size: 85px; font-weight: 900; color: #D4AF37; letter-spacing: 0.05em; line-height: 1;">
+              $600.00
             </div>
           </div>
 
@@ -895,12 +895,12 @@
                 📋
               </div>
               <div>
-                <div style="font-size: 38px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">EVENTS 1, 2 & 3 • ACCUMULATION PERIOD</div>
-                <div style="font-size: 30px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;">29/09/2026, 03/10/2026 & 06/10/2026 • +$100 ACCUMULATED PER DRAW DATE</div>
+                <div style="font-size: 38px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">EVENT 4 • 10/10/2026 • CARD #14 (5♣) DRAWN</div>
+                <div style="font-size: 30px; font-weight: 700; color: #94A3B8; text-transform: uppercase; margin-top: 4px;">ACE OF SPADES NOT DRAWN • +$100 ACCUMULATES TO $600</div>
               </div>
             </div>
             <div style="font-family: 'Bebas Neue', sans-serif; font-size: 85px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1;">
-              $400.00 ACCUMULATED
+              ROLLED ➔ $600
             </div>
           </div>
 
@@ -944,7 +944,7 @@
       var slideTimer = null;
       var progressInterval = null;
       var progressStartTime = Date.now();
-      var activeJackpot = "$400.00";
+      var activeJackpot = "$600.00";
 
       // DOM Elements
       var slides = document.querySelectorAll('.slide-pane');
@@ -1094,16 +1094,18 @@
         if (!csvText) return false;
         var lines = csvText.trim().split(/\r?\n/).filter(function(l) { return l.trim(); });
         var parsedJackpot = false;
-        var lastLine = lines[lines.length - 1];
-        if (lastLine && lastLine.indexOf('JACKPOT TOTAL:') !== -1) {
-          var match = lastLine.match(/\$([0-9,.]+)/);
-          if (match && match[1]) {
-            activeJackpot = '$' + parseFloat(match[1].replace(/,/g, '')).toFixed(2);
-            var els = document.querySelectorAll('.live-jackpot-val');
-            for (var j = 0; j < els.length; j++) {
-              els[j].textContent = activeJackpot;
+        for (var k = 0; k < lines.length; k++) {
+          if (lines[k].indexOf('JACKPOT TOTAL:') !== -1) {
+            var match = lines[k].match(/\$([0-9,.]+)/);
+            if (match && match[1]) {
+              activeJackpot = '$' + parseFloat(match[1].replace(/,/g, '')).toFixed(2);
+              var els = document.querySelectorAll('.live-jackpot-val');
+              for (var j = 0; j < els.length; j++) {
+                els[j].textContent = activeJackpot;
+              }
+              parsedJackpot = true;
+              break;
             }
-            parsedJackpot = true;
           }
         }
         
@@ -1125,6 +1127,8 @@
           var cardsEl = document.querySelectorAll('.vault-card');
           if (cardsEl.length === 52) {
             var cardsRemaining = 52 - parsedDrawnCards.length;
+            var introCardsRem = document.getElementById('intro-cards-remaining');
+            if (introCardsRem) introCardsRem.textContent = cardsRemaining;
             var cabinetTitleCards = document.getElementById('cabinet-title-cards');
             if (cabinetTitleCards) cabinetTitleCards.textContent = cardsRemaining + ' CARDS';
             var cabinetStatusPill = document.getElementById('cabinet-status-pill');
@@ -1227,7 +1231,14 @@
                         targetDate.toLocaleString('default', { month: 'long' }).toUpperCase() + ' ' + 
                         targetDate.getFullYear() + ' • ' + 
                         (targetDate.getDay() === 2 ? '5:30' : '6:30') + ' PM NZST';
-        dynamicTexts.forEach(function(el) { el.textContent = 'RESUMES ' + targetStr; });
+        dynamicTexts.forEach(function(el) { el.textContent = targetStr; });
+
+        var dynamicShortTexts = document.querySelectorAll('.dynamic-draw-date-short');
+        var shortMonth = targetDate.toLocaleString('default', { month: 'short' }).toUpperCase();
+        var shortDay = targetDate.getDay() === 2 ? 'TUE' : 'SAT';
+        var shortTime = targetDate.getDay() === 2 ? '5:30 PM' : '6:30 PM';
+        var targetShortStr = shortDay + ' ' + targetDate.getDate() + ' ' + shortMonth + ' • ' + shortTime;
+        dynamicShortTexts.forEach(function(el) { el.textContent = targetShortStr; });
 
         var dEl = document.getElementById('cd-days');
         var hEl = document.getElementById('cd-hours');

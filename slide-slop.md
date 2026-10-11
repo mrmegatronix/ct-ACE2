@@ -71,6 +71,7 @@
   * `♥ 13 HEARTS`
   * `♦ 13 DIAMONDS`
   * `♣ 13 CLUBS`
+  * `🃏 2 JOKERS`
 
 ---
 

@@ -80,7 +80,7 @@
 
 ## Slide 3: Current Cash Jackpot
 
-* **Icon**: `💰`
+* **Icon**: `💰` (Enlarged 92px money bag)
 * **Heading**:
   * `CURRENT CASH JACKPOT`
 * **Amount**:

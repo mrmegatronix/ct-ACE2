@@ -69,9 +69,9 @@
 * **Bottom Suits Bar**:
   * `♠ 13 SPADES`
   * `♥ 13 HEARTS`
+  * `🃏 2 JOKERS`
   * `♦ 13 DIAMONDS`
   * `♣ 13 CLUBS`
-  * `🃏 2 JOKERS`
 
 ---
 

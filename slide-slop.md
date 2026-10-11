@@ -42,8 +42,8 @@
   * Face-down cards: `#1` to `#54` with Coasters Logo
   * Slot `#14`: Face-up `5♣` (`#14`, `5♣`, `DRAWN`)
 * **Motion & Interactivity**:
-  * Smooth cinematic Ken Burns camera sweep (28s ease-in-out, zero clipping, 1.12 scale focus on top rows & drawn card)
-  * Interactive mouse wheel zoom (0.9x to 1.6x) and click-and-drag pan with auto-resume timeout
+  * Smooth cinematic Ken Burns camera sweep traversing ALL 54 cards: Full view overview (all 54 cards) -> Top rows (Cards 1-15 & drawn 5♣) -> Mid rows (Cards 16-31) -> Bottom rows (Cards 32-54) -> Full view hold (all 54 cards)
+  * Natural vertical mouse wheel scrolling to browse from Card #1 down to Card #54, Ctrl+wheel zoom, click-and-drag pan, double-click reset to full view
 
 ---
 

@@ -184,7 +184,9 @@
     const bc = new BroadcastChannel('ct_ace_signage_channel');
 
     function sendAction(action, value = null) {
-      bc.postMessage({ action, value });
+      const payload = { action, value, time: Date.now() };
+      try { bc.postMessage(payload); } catch(e) {}
+      try { localStorage.setItem('ct_ace_sync_action', JSON.stringify(payload)); } catch(e) {}
       const fb = document.getElementById('feedback-text');
       fb.innerText = 'Command: ' + action + (value !== null ? ' (' + value + ')' : '');
       if (navigator.vibrate) navigator.vibrate(40);

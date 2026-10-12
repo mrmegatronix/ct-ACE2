@@ -1720,23 +1720,8 @@
             var statOddsRatio = document.getElementById('status-odds-ratio');
             if (statOddsRatio) statOddsRatio.textContent = '1 IN ' + cardsRemaining + ' ODDS IN PLAY';
 
-            parsedDrawnCards.forEach(function(dc) {
-               var idx = dc.num - 1;
-               var upCard = dc.card.toUpperCase();
-               var isRed = upCard.indexOf('HEART') !== -1 || upCard.indexOf('DIAMOND') !== -1 || upCard.indexOf('♥') !== -1 || upCard.indexOf('♦') !== -1;
-               var color = isRed ? '#EF4444' : '#0A0A0A';
-               if (cardsEl[idx]) {
-                  cardsEl[idx].innerHTML = 
-                    '<div style="width: 100%; height: 100%; border-radius: 9px; background: #FFFFFF; display: flex; flex-direction: column; justify-content: space-between; padding: 6px 8px; border: 3px solid ' + color + '; box-sizing: border-box; box-shadow: inset 0 0 10px rgba(0,0,0,0.15);">' +
-                      '<div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">' +
-                        '<span style="font-family: \'Oswald\', sans-serif; font-size: 22px; font-weight: 800; color: #64748B;">#' + dc.num + '</span>' +
-                        '<span style="font-size: 24px; font-weight: 900; color: ' + color + ';">' + upCard + '</span>' +
-                      '</div>' +
-                      '<div style="font-family: \'Bebas Neue\', sans-serif; font-size: 52px; font-weight: 900; line-height: 1; text-align: center; color: ' + color + '; word-break: break-word;">' + upCard + '</div>' +
-                      '<div style="font-size: 14px; font-weight: 800; color: #EF4444; text-align: center; text-transform: uppercase; letter-spacing: 0.05em; background: rgba(239,68,68,0.12); border-radius: 4px; padding: 2px 4px;">DRAWN</div>' +
-                    '</div>';
-               }
-            });
+            activeDrawnCards = parsedDrawnCards;
+            generateCabinetGrid();
 
             // Dynamically populate Slide 6 Verified Prior Draws with latest draw
             if (parsedDrawnCards.length > 0) {
@@ -2079,83 +2064,95 @@
         }
       });
 
-      // 7. BROADCASTCHANNEL SYNC & ADMIN ACTION DISPATCHER
+      // 7. DUAL BROADCASTCHANNEL & LOCALSTORAGE ACTION DISPATCHER
+      function handleAction(data) {
+        if (!data || !data.action) return;
+        if (data.action === 'next') window.nextSlide();
+        else if (data.action === 'prev') window.prevSlide();
+        else if (data.action === 'togglePause') togglePause();
+        else if (data.action === 'toggleLock') toggleLock();
+        else if (data.action === 'slide' && typeof data.value === 'number') showSlide(data.value);
+        else if (data.action === 'setDuration' && typeof data.value === 'number') {
+          slideDuration = data.value * 1000;
+          resetProgressTimer();
+        }
+        else if (data.action === 'reload') {
+          window.location.reload();
+        }
+        else if (data.action === 'confetti') {
+          triggerConfetti(data.value || 75);
+        }
+        else if (data.action === 'fireworks') {
+          startFireworks();
+          var dur = typeof data.value === 'number' ? data.value * 1000 : 15000;
+          setTimeout(function() {
+            stopFireworks();
+          }, dur);
+        }
+        else if (data.action === 'ace_winner') {
+          // ACE OF SPADES WINNER CELEBRATION
+          if (winnerOverlay) winnerOverlay.style.display = 'flex';
+          startFireworks();
+          setTimeout(function() {
+            if (winnerOverlay) winnerOverlay.style.display = 'none';
+            stopFireworks();
+            isPaused = true;
+            if (pauseIndicator) {
+              pauseIndicator.textContent = '🏆 JACKPOT WON • GAME PAUSED';
+              pauseIndicator.style.display = 'block';
+            }
+          }, 15 * 60 * 1000);
+        }
+        else if (data.action === 'card_drawn') {
+          // ACE NOT STRUCK - RECORD DRAW & ADVANCE
+          var cNum = parseInt(data.number, 10);
+          var cardStr = data.card || '';
+          if (cNum >= 1 && cNum <= 54 && cardStr) {
+            activeDrawnCards.push({
+              num: cNum,
+              card: cardStr,
+              event: (activeDrawnCards.length + 1).toString(),
+              date: new Date().toLocaleDateString('en-GB'),
+              comment: 'Missed'
+            });
+            generateCabinetGrid();
+            
+            // Increment jackpot +$100
+            var curPot = parseFloat(activeJackpot.replace(/[$,]/g, '')) || 600;
+            curPot += 100;
+            activeJackpot = '$' + curPot.toFixed(2);
+            var els = document.querySelectorAll('.live-jackpot-val');
+            for (var j = 0; j < els.length; j++) {
+              els[j].textContent = activeJackpot;
+            }
+
+            // Hide ceremony if active and resume slide rotation
+            ceremonyActive = false;
+            stopFireworks();
+            var cStage = document.getElementById('ceremony-stage');
+            var cdStage = document.getElementById('countdown-main-stage');
+            if (cStage) cStage.style.display = 'none';
+            if (cdStage) cdStage.style.display = 'flex';
+            window.nextSlide();
+          }
+        }
+      }
+
       try {
         var aceChannel = new BroadcastChannel('ct_ace_signage_channel');
         aceChannel.onmessage = function(ev) {
-          var data = ev.data || {};
-          if (data.action === 'next') window.nextSlide();
-          else if (data.action === 'prev') window.prevSlide();
-          else if (data.action === 'togglePause') togglePause();
-          else if (data.action === 'toggleLock') toggleLock();
-          else if (data.action === 'slide' && typeof data.value === 'number') showSlide(data.value);
-          else if (data.action === 'setDuration' && typeof data.value === 'number') {
-            slideDuration = data.value * 1000;
-            resetProgressTimer();
-          }
-          else if (data.action === 'reload') {
-            window.location.reload();
-          }
-          else if (data.action === 'confetti') {
-            triggerConfetti(data.value || 75);
-          }
-          else if (data.action === 'fireworks') {
-            startFireworks();
-            var dur = typeof data.value === 'number' ? data.value * 1000 : 15000;
-            setTimeout(function() {
-              stopFireworks();
-            }, dur);
-          }
-          else if (data.action === 'ace_winner') {
-            // ACE OF SPADES WINNER CELEBRATION
-            if (winnerOverlay) winnerOverlay.style.display = 'flex';
-            startFireworks();
-            // Celebrate for 15 minutes, then freeze / pause game
-            setTimeout(function() {
-              if (winnerOverlay) winnerOverlay.style.display = 'none';
-              stopFireworks();
-              isPaused = true;
-              if (pauseIndicator) {
-                pauseIndicator.textContent = '🏆 JACKPOT WON • GAME PAUSED';
-                pauseIndicator.style.display = 'block';
-              }
-            }, 15 * 60 * 1000);
-          }
-          else if (data.action === 'card_drawn') {
-            // ACE NOT STRUCK - RECORD DRAW & ADVANCE
-            var cNum = parseInt(data.number, 10);
-            var cardStr = data.card || '';
-            if (cNum >= 1 && cNum <= 54 && cardStr) {
-              activeDrawnCards.push({
-                num: cNum,
-                card: cardStr,
-                event: (activeDrawnCards.length + 1).toString(),
-                date: new Date().toLocaleDateString('en-GB'),
-                comment: 'Missed'
-              });
-              generateCabinetGrid();
-              
-              // Increment jackpot +$100
-              var curPot = parseFloat(activeJackpot.replace(/[$,]/g, '')) || 600;
-              curPot += 100;
-              activeJackpot = '$' + curPot.toFixed(2);
-              var els = document.querySelectorAll('.live-jackpot-val');
-              for (var j = 0; j < els.length; j++) {
-                els[j].textContent = activeJackpot;
-              }
-
-              // Hide ceremony if active and resume slide rotation
-              ceremonyActive = false;
-              stopFireworks();
-              var cStage = document.getElementById('ceremony-stage');
-              var cdStage = document.getElementById('countdown-main-stage');
-              if (cStage) cStage.style.display = 'none';
-              if (cdStage) cdStage.style.display = 'flex';
-              window.nextSlide();
-            }
-          }
+          handleAction(ev.data);
         };
       } catch(e) {}
+
+      window.addEventListener('storage', function(e) {
+        if (e.key === 'ct_ace_sync_action' && e.newValue) {
+          try {
+            var parsed = JSON.parse(e.newValue);
+            handleAction(parsed);
+          } catch(err) {}
+        }
+      });
 
       // 8. START PLAYBACK
       resetProgressTimer();

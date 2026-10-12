@@ -314,7 +314,9 @@
     const bc = new BroadcastChannel('ct_ace_signage_channel');
 
     function sendAction(action, value = null) {
-      bc.postMessage({ action, value });
+      const payload = { action, value, time: Date.now() };
+      try { bc.postMessage(payload); } catch(e) {}
+      try { localStorage.setItem('ct_ace_sync_action', JSON.stringify(payload)); } catch(e) {}
       const tag = document.getElementById('status-tag');
       tag.innerText = 'Sent: ' + action;
       setTimeout(() => { tag.innerText = 'Connected'; }, 1500);
@@ -322,7 +324,10 @@
 
     // Initialize QR Code
     (function initQr() {
-      const currentUrl = window.location.href;
+      let currentUrl = window.location.href;
+      if (window.location.protocol === 'file:') {
+        currentUrl = 'https://mrmegatronix.github.io/ct-ACE2/admin.html';
+      }
       const urlDisp = document.getElementById('admin-url-display');
       if (urlDisp) urlDisp.innerText = currentUrl;
       const qrImg = document.getElementById('admin-qr-code');
@@ -366,12 +371,15 @@
       const rank = document.getElementById('draw-card-rank').value;
       const suit = document.getElementById('draw-card-suit').value;
       const cardStr = rank + suit;
-
-      bc.postMessage({
+      const payload = {
         action: 'card_drawn',
         number: num,
-        card: cardStr
-      });
+        card: cardStr,
+        time: Date.now()
+      };
+
+      try { bc.postMessage(payload); } catch(e) {}
+      try { localStorage.setItem('ct_ace_sync_action', JSON.stringify(payload)); } catch(e) {}
 
       const tag = document.getElementById('status-tag');
       tag.innerText = 'Drawn: Card #' + num + ' (' + cardStr + ')';

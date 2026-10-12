@@ -146,21 +146,27 @@
     <div class="card" style="border: 2px solid var(--gold); box-shadow: 0 0 25px rgba(212,175,55,0.25);">
       <h2 style="color: var(--gold);">🎯 Draw Event Actions (Live Floor Control)</h2>
       
-      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px;">
+      <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 16px;">
         <!-- Winner Button -->
-        <button onclick="triggerAceWinner()" style="background: linear-gradient(135deg, #10B981, #047857); color: white; padding: 20px; font-size: 15px; font-weight: 900; border: none;">
-          🏆 ACE OF SPADES WINNER!
+        <button onclick="triggerAceWinner()" style="background: linear-gradient(135deg, #10B981, #047857); color: white; padding: 20px 14px; font-size: 14px; font-weight: 900; border: none;">
+          🏆 ACE WINNER!
         </button>
 
         <!-- Ace Missed Button -->
-        <button onclick="openDrawModal()" style="background: linear-gradient(135deg, #F59E0B, #B45309); color: white; padding: 20px; font-size: 15px; font-weight: 900; border: none;">
-          🃏 ACE NOT STRUCK (SELECT CARD)
+        <button onclick="openDrawModal()" style="background: linear-gradient(135deg, #F59E0B, #B45309); color: white; padding: 20px 14px; font-size: 14px; font-weight: 900; border: none;">
+          🃏 ACE NOT STRUCK
+        </button>
+
+        <!-- Confetti Burst Button -->
+        <button onclick="triggerConfettiBurst()" style="background: linear-gradient(135deg, #8B5CF6, #6D28D9); color: white; padding: 20px 14px; font-size: 14px; font-weight: 900; border: none; box-shadow: 0 0 15px rgba(139,92,246,0.4);">
+          🎉 BLAST CONFETTI
         </button>
       </div>
 
       <div style="font-size: 13px; color: #94A3B8; line-height: 1.4;">
-        • <strong>ACE OF SPADES WINNER</strong>: Triggers 15-minute victory fireworks & congratulations banner across displays, then sets game to Paused.<br>
-        • <strong>ACE NOT STRUCK</strong>: Selects the drawn card & slot number, marks card face-up in cabinet, increments jackpot (+$100), and resumes rotation.
+        • <strong>ACE WINNER</strong>: Triggers 15-minute victory fireworks & congratulations banner across displays, then sets game to Paused.<br>
+        • <strong>ACE NOT STRUCK</strong>: Selects the drawn card & slot number, marks card face-up in cabinet, increments jackpot (+$100), and resumes rotation.<br>
+        • <strong>BLAST CONFETTI</strong>: Fires a high-density burst of gold, emerald, ruby, and playing-suit confetti across all signage displays.
       </div>
     </div>
 
@@ -324,6 +330,14 @@
       if (confirm("Are you sure? This will trigger the 15-minute fireworks celebration for the ACE OF SPADES WINNER and pause the game.")) {
         sendAction('ace_winner');
       }
+    }
+
+    // Confetti burst trigger
+    function triggerConfettiBurst() {
+      sendAction('confetti', 80);
+      const tag = document.getElementById('status-tag');
+      tag.innerText = '🎉 Confetti Blasted!';
+      setTimeout(() => { tag.innerText = 'Connected'; }, 1800);
     }
 
     // Card Draw Modal Controls

@@ -1473,6 +1473,35 @@
       })();
 
       // Confetti generation
+      function triggerConfetti(count) {
+        var container = document.getElementById('confetti-container');
+        if (!container) return;
+        var suits = ['♠', '♥', '♦', '♣', '🎉', '✨'];
+        var n = count || 60;
+        for (var i = 0; i < n; i++) {
+          var el = document.createElement('div');
+          el.className = 'confetti';
+          el.textContent = suits[Math.floor(Math.random() * suits.length)];
+          el.style.left = (Math.random() * 100) + '%';
+          el.style.animationDuration = (Math.random() * 5 + 4) + 's';
+          el.style.animationDelay = (Math.random() * 2) + 's';
+          el.style.fontSize = (Math.random() * 44 + 30) + 'px';
+          el.style.opacity = (Math.random() * 0.6 + 0.3).toFixed(2);
+          if (el.textContent === '♥' || el.textContent === '♦') {
+            el.style.color = 'rgba(239, 68, 68, 0.7)';
+          } else if (el.textContent === '♠' || el.textContent === '♣') {
+            el.style.color = 'rgba(212, 175, 55, 0.7)';
+          }
+          container.appendChild(el);
+          (function(elem) {
+            setTimeout(function() {
+              if (elem && elem.parentNode) elem.parentNode.removeChild(elem);
+            }, 10000);
+          })(el);
+        }
+      }
+      window.triggerConfetti = triggerConfetti;
+
       (function initConfetti() {
         var container = document.getElementById('confetti-container');
         if (!container) return;
@@ -2048,6 +2077,9 @@
           }
           else if (data.action === 'reload') {
             window.location.reload();
+          }
+          else if (data.action === 'confetti') {
+            triggerConfetti(data.value || 75);
           }
           else if (data.action === 'ace_winner') {
             // ACE OF SPADES WINNER CELEBRATION

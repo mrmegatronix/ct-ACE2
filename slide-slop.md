@@ -172,13 +172,12 @@
 ## Slide 8: Total Ace Payments Showcase
 
 * **Header Title**:
-  * `TOTAL ACE PAYMENTS ♠`
+  * `♠ TOTAL CHASE THE ACE JACKPOTS WON ♠`
 * **Header Subtitle**:
-  * `CASH JACKPOTS AWARDED TO VENUE PATRONS`
+  * *(Removed)*
 * **Feature Panel**:
-  * Icons: `🏆 ♠ 💰`
-  * Eyebrow: `TOTAL CASH JACKPOTS WON AT COASTERS TAVERN`
+  * Icons: `💰💰💰💰💰`
+  * Eyebrow: *(Removed)*
   * Colossal Amount: `$16,500.00` (195px neon emerald glow with 50% reduced sheen)
 * **Pill Badges**:
-  * `♠ 6 VERIFIED JACKPOT WINNERS`
-  * `♠ FLIP THE ACE OF SPADES TO WIN`
+  * `♠ 6 VERIFIED JACKPOT WINNERS ♠`

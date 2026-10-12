@@ -2081,6 +2081,13 @@
           else if (data.action === 'confetti') {
             triggerConfetti(data.value || 75);
           }
+          else if (data.action === 'fireworks') {
+            startFireworks();
+            var dur = typeof data.value === 'number' ? data.value * 1000 : 15000;
+            setTimeout(function() {
+              stopFireworks();
+            }, dur);
+          }
           else if (data.action === 'ace_winner') {
             // ACE OF SPADES WINNER CELEBRATION
             if (winnerOverlay) winnerOverlay.style.display = 'flex';

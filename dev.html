@@ -486,6 +486,67 @@
       cursor: grab;
       user-select: none;
     }
+    #slide-1 .cabinet-board-wrap:active {
+      cursor: grabbing;
+    }
+    /* Cinematic subtle zoom and vertical scroll for Cabinet slide (Zero Horizontal Pan) */
+    .slide-pane#slide-1.active .cabinet-board:not(.user-interacting) {
+      animation: cabinetZoomScroll 20s ease-in-out infinite alternate;
+      will-change: transform;
+    }
+    @keyframes cabinetZoomScroll {
+      0% {
+        transform: scale(1) translateY(0);
+      }
+      20% {
+        transform: scale(1.12) translateY(24px);
+      }
+      50% {
+        transform: scale(1.16) translateY(-28px);
+      }
+      75% {
+        transform: scale(1.12) translateY(18px);
+      }
+      90% {
+        transform: scale(1.06) translateY(-10px);
+      }
+      100% {
+        transform: scale(1) translateY(0);
+      }
+    }
+    .cabinet-zoom-controls {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      display: flex;
+      gap: 6px;
+      z-index: 25;
+      background: rgba(10, 10, 12, 0.88);
+      border: 1px solid rgba(212, 175, 55, 0.45);
+      border-radius: 9999px;
+      padding: 4px 8px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(6px);
+    }
+    .cab-ctrl-btn {
+      background: rgba(212, 175, 55, 0.12);
+      border: 1px solid rgba(212, 175, 55, 0.35);
+      color: #FCD34D;
+      font-size: 13px;
+      font-weight: 800;
+      border-radius: 9999px;
+      padding: 4px 10px;
+      cursor: pointer;
+      line-height: 1;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+    .cab-ctrl-btn:hover {
+      background: rgba(212, 175, 55, 0.3);
+      border-color: #FCD34D;
+      color: #FFFFFF;
+      transform: scale(1.05);
+    }
     #slide-1 .cabinet-board {
       display: flex;
       flex-direction: column;
@@ -884,6 +945,11 @@
       <section class="slide-pane" id="slide-1">
         <!-- 54 Card Physical Cabinet Board (Left: 7 Rows) -->
         <div class="cabinet-board-wrap">
+          <div class="cabinet-zoom-controls">
+            <button type="button" class="cab-ctrl-btn" onclick="cabinetZoom(0.12)" title="Zoom In">🔍+</button>
+            <button type="button" class="cab-ctrl-btn" onclick="cabinetZoom(-0.12)" title="Zoom Out">🔍−</button>
+            <button type="button" class="cab-ctrl-btn" onclick="cabinetResetZoom()" title="Reset View">↺</button>
+          </div>
           <div class="cabinet-board" id="cabinet-grid-container">
             <!-- Dynamically generated 7 rows (7, 8, 8, 8, 8, 7, 8 = 54 cards) -->
           </div>
@@ -1567,7 +1633,7 @@
       }
       generateCabinetGrid();
 
-      // 4. INTERACTIVE ZOOM & VERTICAL SCROLL FOR CABINET BOARD (NO HORIZONTAL PAN)
+      // 4. INTERACTIVE ZOOM & VERTICAL SCROLL FOR CABINET BOARD (ZERO HORIZONTAL PAN)
       (function initCabinetInteractivity() {
         var wrap = document.querySelector('.cabinet-board-wrap');
         var grid = document.getElementById('cabinet-grid-container');
@@ -1589,26 +1655,41 @@
             grid.classList.remove('user-interacting');
             scale = 1.0;
             panY = 0;
-          }, 15000);
+          }, 18000);
         }
+
+        window.cabinetZoom = function(delta) {
+          scale = Math.min(Math.max(1.0, +(scale + delta).toFixed(2)), 1.55);
+          var maxPanY = Math.max(140, (scale - 1) * 380 + 80);
+          panY = Math.min(Math.max(-maxPanY, panY), maxPanY);
+          updateTransform();
+        };
+
+        window.cabinetResetZoom = function() {
+          grid.style.transform = '';
+          grid.classList.remove('user-interacting');
+          scale = 1.0;
+          panY = 0;
+        };
 
         wrap.addEventListener('wheel', function(e) {
           e.preventDefault();
-          if (e.ctrlKey) {
-            // Pinch / Ctrl+wheel zoom
-            var delta = e.deltaY < 0 ? 0.08 : -0.08;
-            scale = Math.min(Math.max(1.0, scale + delta), 1.5);
+          if (e.ctrlKey || e.shiftKey) {
+            // Zoom via pinch / Ctrl+wheel / Shift+wheel
+            var zoomDelta = e.deltaY < 0 ? 0.08 : -0.08;
+            window.cabinetZoom(zoomDelta);
           } else {
             // Natural vertical scroll to browse from Card #1 down to Card #54
-            panY -= e.deltaY * 0.85;
-            var maxPanY = Math.max(90, (scale - 1) * 350 + 60);
+            panY -= e.deltaY * 0.9;
+            var maxPanY = Math.max(140, (scale - 1) * 380 + 80);
             panY = Math.min(Math.max(-maxPanY, panY), maxPanY);
+            updateTransform();
           }
-          updateTransform();
         }, { passive: false });
 
         wrap.addEventListener('mousedown', function(e) {
           if (e.button !== 0) return;
+          if (e.target.closest && e.target.closest('.cabinet-zoom-controls')) return;
           isDragging = true;
           startY = e.clientY - panY;
         });
@@ -1616,7 +1697,7 @@
         window.addEventListener('mousemove', function(e) {
           if (!isDragging) return;
           panY = e.clientY - startY;
-          var maxPanY = Math.max(90, (scale - 1) * 350 + 60);
+          var maxPanY = Math.max(140, (scale - 1) * 380 + 80);
           panY = Math.min(Math.max(-maxPanY, panY), maxPanY);
           updateTransform();
         });
@@ -1625,11 +1706,34 @@
           isDragging = false;
         });
 
-        wrap.addEventListener('dblclick', function() {
-          grid.style.transform = '';
-          grid.classList.remove('user-interacting');
-          scale = 1.0;
-          panY = 0;
+        // Touch support for touchscreens / kiosks
+        wrap.addEventListener('touchstart', function(e) {
+          if (e.touches.length === 1) {
+            if (e.target.closest && e.target.closest('.cabinet-zoom-controls')) return;
+            isDragging = true;
+            startY = e.touches[0].clientY - panY;
+          }
+        }, { passive: true });
+
+        window.addEventListener('touchmove', function(e) {
+          if (!isDragging || e.touches.length !== 1) return;
+          panY = e.touches[0].clientY - startY;
+          var maxPanY = Math.max(140, (scale - 1) * 380 + 80);
+          panY = Math.min(Math.max(-maxPanY, panY), maxPanY);
+          updateTransform();
+        }, { passive: true });
+
+        window.addEventListener('touchend', function() {
+          isDragging = false;
+        });
+
+        wrap.addEventListener('dblclick', function(e) {
+          if (e.target.closest && e.target.closest('.cabinet-zoom-controls')) return;
+          if (scale > 1.05) {
+            window.cabinetResetZoom();
+          } else {
+            window.cabinetZoom(0.25);
+          }
         });
       })();
 

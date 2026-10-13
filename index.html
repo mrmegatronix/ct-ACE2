@@ -462,41 +462,100 @@
       letter-spacing: 0.5px;
     }
 
-    /* Cinematic sweep/pan animation across ALL 54 cards */
-    .slide-pane#slide-1.active .cabinet-board:not(.user-interacting) {
-      animation: cabinetCameraPan 28s ease-in-out infinite;
-      will-change: transform;
+    /* Slide 1: Side-by-Side Cabinet & Status Showcase */
+    #slide-1 {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      padding: 130px 60px 40px 60px;
+      gap: 50px;
+      box-sizing: border-box;
+      width: 100%;
+      height: 100%;
     }
-    @keyframes cabinetCameraPan {
-      /* Full View of ALL 54 Cards */
-      0%, 10% {
-        transform: scale(1) translate(0, 0);
-      }
-      /* Sweep Top Rows (Cards 1 - 15, including drawn 5♣) */
-      22% {
-        transform: scale(1.22) translate(5%, 4%);
-      }
-      34% {
-        transform: scale(1.22) translate(-5%, 4%);
-      }
-      /* Sweep Middle Rows (Cards 16 - 31) */
-      46% {
-        transform: scale(1.22) translate(-5%, 0%);
-      }
-      58% {
-        transform: scale(1.22) translate(5%, 0%);
-      }
-      /* Sweep Bottom Rows (Cards 32 - 54 down to final card) */
-      70% {
-        transform: scale(1.22) translate(5%, -4%);
-      }
-      82% {
-        transform: scale(1.22) translate(-5%, -4%);
-      }
-      /* Return to Full View of ALL 54 Cards */
-      92%, 100% {
-        transform: scale(1) translate(0, 0);
-      }
+    #slide-1 .cabinet-board-wrap {
+      flex: 0 0 auto;
+      width: 980px;
+      max-width: 980px;
+      height: 860px;
+      margin: 0;
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      cursor: grab;
+      user-select: none;
+    }
+    #slide-1 .cabinet-board {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      height: 100%;
+      justify-content: center;
+      transform-origin: center center;
+      transition: transform 0.3s ease-out;
+    }
+    #slide-1 .cabinet-row {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+    }
+    #slide-1 .vault-card {
+      width: 74px;
+      height: 104px;
+    }
+    .slide1-sidebar {
+      flex: 1;
+      max-width: 680px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 22px;
+    }
+    .slide1-header-block {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+    .slide1-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 46px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      line-height: 1.15;
+      margin: 0;
+      color: #FCD34D;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.9);
+      white-space: nowrap;
+    }
+    .slide1-subtitle {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      font-weight: 800;
+      color: #E2E8F0;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin: 0;
+      line-height: 1.25;
+      white-space: nowrap;
+    }
+    .slide1-info-panel {
+      width: 100%;
+      padding: 24px 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      box-sizing: border-box;
+      border: 2px solid #D4AF37;
+      box-shadow: 0 16px 45px rgba(0,0,0,0.9), 0 0 35px rgba(212,175,55,0.35);
     }
     .vault-card-logo-wrap {
       width: 34px;
@@ -800,27 +859,45 @@
       </section>
 
       <!-- ====================================================================
-           SLIDE 1: LOCKED CARD CABINET (54 PLAYING CARDS)
+           SLIDE 1: LOCKED CARD CABINET (54 PLAYING CARDS & STATUS SHOWCASE)
            ==================================================================== -->
-      <section class="slide-pane slide-with-header" id="slide-1">
-        <div class="slide-header-block">
-          <h2 class="slide-header-title sheen-text">
-            <span class="color-cycle-spade">♠</span> CURRENT CARD STATUS <span class="color-cycle-spade">♠</span>
-          </h2>
-          <p class="slide-header-subtitle">
-            <span class="color-cycle-spade">♠</span> DIGITAL LIVE VIEW OF CARD CABINET <span class="color-cycle-spade">♠</span>
-          </p>
-        </div>
-
-        <span id="cabinet-title-cards" style="display: none;"></span>
-        <span id="cabinet-status-pill" style="display: none;"></span>
-
-        <!-- 54 Card Physical Cabinet Board (7 Rows with Smooth Pan Feature) -->
+      <section class="slide-pane" id="slide-1">
+        <!-- 54 Card Physical Cabinet Board (Left: 7 Rows) -->
         <div class="cabinet-board-wrap">
           <div class="cabinet-board" id="cabinet-grid-container">
             <!-- Dynamically generated 7 rows (7, 8, 8, 8, 8, 7, 8 = 54 cards) -->
           </div>
         </div>
+
+        <!-- Right Side: Header Titles & Status Feature Showcase -->
+        <div class="slide1-sidebar">
+          <div class="slide1-header-block">
+            <h2 class="slide1-title sheen-text">
+              <span class="color-cycle-spade">♠</span> CURRENT CARD STATUS <span class="color-cycle-spade">♠</span>
+            </h2>
+            <p class="slide1-subtitle">
+              <span class="color-cycle-spade">♠</span> DIGITAL LIVE VIEW OF CARD CABINET <span class="color-cycle-spade">♠</span>
+            </p>
+          </div>
+
+          <div class="gold-panel slide1-info-panel">
+            <div style="font-size: 22px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">CARDS REMAINING</div>
+            <div id="slide1-cards-remaining" style="font-family: 'Bebas Neue', sans-serif; font-size: 86px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: -2px 0;">53 OF 54</div>
+            <div id="slide1-odds" style="font-size: 20px; font-weight: 800; color: #10B981; text-transform: uppercase; letter-spacing: 0.05em;">1 IN 53 ODDS IN PLAY</div>
+            
+            <div style="height: 1px; width: 100%; background: rgba(212,175,55,0.3); margin: 4px 0;"></div>
+            
+            <div style="font-size: 20px; font-weight: 900; color: #F59E0B; text-transform: uppercase; letter-spacing: 0.08em;">CASH JACKPOT</div>
+            <div class="live-jackpot-val" style="font-family: 'Bebas Neue', sans-serif; font-size: 82px; font-weight: 900; color: #FFFFFF; line-height: 1; text-shadow: 0 0 25px rgba(212,175,55,0.6); margin: -2px 0;">$600.00</div>
+            
+            <div style="height: 1px; width: 100%; background: rgba(212,175,55,0.3); margin: 4px 0;"></div>
+            
+            <div id="slide1-recent-draw" style="font-size: 19px; font-weight: 800; color: #E5E5E5;">RECENT DRAW: <span style="color: #FCD34D;">CARD #14 (5♣)</span></div>
+          </div>
+        </div>
+
+        <span id="cabinet-title-cards" style="display: none;"></span>
+        <span id="cabinet-status-pill" style="display: none;"></span>
       </section>
 
       <!-- ====================================================================
@@ -1415,31 +1492,41 @@
         
         var statOddsRatio = document.getElementById('status-odds-ratio');
         if (statOddsRatio) statOddsRatio.textContent = '1 IN ' + cardsRemaining + ' ODDS IN PLAY';
+
+        // Slide 1 Sidebar Live Badges
+        var s1CardsRem = document.getElementById('slide1-cards-remaining');
+        if (s1CardsRem) s1CardsRem.textContent = cardsRemaining + ' OF ' + TOTAL_CARDS;
+        var s1Odds = document.getElementById('slide1-odds');
+        if (s1Odds) s1Odds.textContent = '1 IN ' + cardsRemaining + ' ODDS IN PLAY';
+        var s1Recent = document.getElementById('slide1-recent-draw');
+        if (s1Recent && activeDrawnCards.length > 0) {
+          var lastD = activeDrawnCards[activeDrawnCards.length - 1];
+          s1Recent.innerHTML = 'RECENT DRAW: <span style="color: #FCD34D;">CARD #' + lastD.num + ' (' + lastD.card + ')</span>';
+        }
       }
       generateCabinetGrid();
 
-      // 4. INTERACTIVE ZOOM & DRAG FOR CABINET BOARD (SEE ALL CARDS)
+      // 4. INTERACTIVE ZOOM & VERTICAL SCROLL FOR CABINET BOARD (NO HORIZONTAL PAN)
       (function initCabinetInteractivity() {
         var wrap = document.querySelector('.cabinet-board-wrap');
         var grid = document.getElementById('cabinet-grid-container');
         if (!wrap || !grid) return;
 
         var scale = 1.0;
-        var panX = 0;
         var panY = 0;
         var isDragging = false;
-        var startX = 0, startY = 0;
+        var startY = 0;
         var resetTimeout = null;
 
         function updateTransform() {
           grid.classList.add('user-interacting');
-          grid.style.transform = 'translate(' + panX + 'px, ' + panY + 'px) scale(' + scale + ')';
+          // Pure vertical scroll and zoom - zero horizontal pan
+          grid.style.transform = 'translateY(' + panY + 'px) scale(' + scale + ')';
           clearTimeout(resetTimeout);
           resetTimeout = setTimeout(function() {
             grid.style.transform = '';
             grid.classList.remove('user-interacting');
             scale = 1.0;
-            panX = 0;
             panY = 0;
           }, 15000);
         }
@@ -1449,11 +1536,11 @@
           if (e.ctrlKey) {
             // Pinch / Ctrl+wheel zoom
             var delta = e.deltaY < 0 ? 0.08 : -0.08;
-            scale = Math.min(Math.max(1.0, scale + delta), 1.6);
+            scale = Math.min(Math.max(1.0, scale + delta), 1.5);
           } else {
             // Natural vertical scroll to browse from Card #1 down to Card #54
-            panY -= e.deltaY * 0.9;
-            var maxPanY = 220;
+            panY -= e.deltaY * 0.85;
+            var maxPanY = Math.max(90, (scale - 1) * 350 + 60);
             panY = Math.min(Math.max(-maxPanY, panY), maxPanY);
           }
           updateTransform();
@@ -1462,17 +1549,13 @@
         wrap.addEventListener('mousedown', function(e) {
           if (e.button !== 0) return;
           isDragging = true;
-          startX = e.clientX - panX;
           startY = e.clientY - panY;
         });
 
         window.addEventListener('mousemove', function(e) {
           if (!isDragging) return;
-          panX = e.clientX - startX;
           panY = e.clientY - startY;
-          var maxPanX = 350;
-          var maxPanY = 240;
-          panX = Math.min(Math.max(-maxPanX, panX), maxPanX);
+          var maxPanY = Math.max(90, (scale - 1) * 350 + 60);
           panY = Math.min(Math.max(-maxPanY, panY), maxPanY);
           updateTransform();
         });
@@ -1485,7 +1568,6 @@
           grid.style.transform = '';
           grid.classList.remove('user-interacting');
           scale = 1.0;
-          panX = 0;
           panY = 0;
         });
       })();

@@ -353,15 +353,15 @@
 
     /* 3D Playing Card */
     .card-3d-wrap {
-      width: 340px;
-      height: 480px;
-      border-radius: 28px;
+      width: 320px;
+      height: 440px;
+      border-radius: 26px;
       padding: 6px;
       background: linear-gradient(to bottom, #FFE082, #D4AF37, #78540B);
-      box-shadow: 0 30px 70px rgba(0,0,0,0.95), 0 0 60px rgba(212,175,55,0.7);
+      box-shadow: 0 25px 60px rgba(0,0,0,0.95), 0 0 50px rgba(212,175,55,0.65);
       animation: float-card 6s ease-in-out infinite;
       cursor: pointer;
-      margin: 15px 0 25px 0;
+      margin: 10px 0 16px 0;
     }
     .card-inner {
       width: 100%;
@@ -476,8 +476,8 @@
     }
     #slide-1 .cabinet-board-wrap {
       flex: 0 0 auto;
-      width: 980px;
-      max-width: 980px;
+      width: 1040px;
+      max-width: 1040px;
       height: 860px;
       margin: 0;
       position: relative;
@@ -489,28 +489,26 @@
     #slide-1 .cabinet-board-wrap:active {
       cursor: grabbing;
     }
-    /* Cinematic subtle zoom and vertical scroll for Cabinet slide (Zero Horizontal Pan) */
+    /* Cinematic smooth fluid zoom-in, scroll down, and zoom-out for Cabinet slide */
     .slide-pane#slide-1.active .cabinet-board:not(.user-interacting) {
-      animation: cabinetZoomScroll 20s ease-in-out infinite alternate;
+      animation: cabinetZoomScroll 18s cubic-bezier(0.42, 0, 0.58, 1) infinite;
       will-change: transform;
     }
     @keyframes cabinetZoomScroll {
-      0% {
+      0%, 8% {
+        /* Phase 1: Full 54-card cabinet overview */
         transform: scale(1) translateY(0);
       }
-      20% {
-        transform: scale(1.12) translateY(24px);
+      26%, 36% {
+        /* Phase 2: Smooth fluid zoom in to top rows */
+        transform: scale(1.55) translateY(110px);
       }
-      50% {
-        transform: scale(1.16) translateY(-28px);
+      62%, 72% {
+        /* Phase 3: Smooth fluid scroll down through cabinet rows */
+        transform: scale(1.55) translateY(-110px);
       }
-      75% {
-        transform: scale(1.12) translateY(18px);
-      }
-      90% {
-        transform: scale(1.06) translateY(-10px);
-      }
-      100% {
+      90%, 100% {
+        /* Phase 4: Smooth fluid zoom out back to full overview */
         transform: scale(1) translateY(0);
       }
     }
@@ -816,8 +814,8 @@
       <div class="background-effects" id="confetti-container" style="position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 2;"></div>
     </div>
 
-    <!-- Top Persistent Header (Hidden on Slide 0 Intro) -->
-    <header id="top-header" style="opacity: 0; pointer-events: none; justify-content: center; height: 120px;">
+    <!-- Top Persistent Header -->
+    <header id="top-header" style="opacity: 1; pointer-events: auto; justify-content: center; height: 120px;">
       <h1 class="header-title" style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin: 0; padding: 0 60px;">
         <span class="animate-spade-loop" style="font-size: 80px;">♠</span>
         <span class="sheen-text" style="font-size: 90px;">CHASE</span>
@@ -839,9 +837,9 @@
       <!-- ====================================================================
            SLIDE 0: HERO INTRO (PROMO STAGE)
            ==================================================================== -->
-      <section class="slide-pane active" id="slide-0">
+      <section class="slide-pane slide-with-header active" id="slide-0">
 
-        <!-- Center Cinematic Stage: 3D Floating Hero Card & Colossal Title -->
+        <!-- Center Cinematic Stage: 3D Floating Hero Card & Subtitle -->
         <div style="z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0;">
           <!-- Hero Playing Card -->
           <div class="card-3d-wrap" onclick="nextSlide()" title="Click to advance">
@@ -870,19 +868,8 @@
             </div>
           </div>
 
-          <!-- Colossal Main Title: ♠ CHASE ♠ THE ♠ ACE ♠ -->
-          <h1 class="title-colossal" style="font-size: 140px; margin: 12px 0 6px 0;">
-            <span class="animate-spade-loop" style="font-size: 90px; line-height: 1;">♠</span>
-            <span class="sheen-text">CHASE</span>
-            <span class="animate-spade-loop" style="font-size: 90px; line-height: 1; animation-delay: 1.5s;">♠</span>
-            <span class="sheen-text">THE</span>
-            <span class="animate-spade-loop" style="font-size: 90px; line-height: 1; animation-delay: 3s;">♠</span>
-            <span class="sheen-text">ACE</span>
-            <span class="animate-spade-loop" style="font-size: 90px; line-height: 1; animation-delay: 4.5s;">♠</span>
-          </h1>
-
           <!-- High Impact Subtitle -->
-          <p class="subtitle-colossal" style="font-size: 42px; margin: 6px 0 0 0;">
+          <p class="subtitle-colossal" style="font-size: 40px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin: 18px 0 0 0;">
             <span class="color-cycle-spade">♠</span> FIND THE ACE OF SPADES <span class="color-cycle-spade">♠</span> WIN THE CASH JACKPOT <span class="color-cycle-spade">♠</span>
           </p>
         </div>
@@ -1781,8 +1768,8 @@
         }
 
         window.cabinetZoom = function(delta) {
-          scale = Math.min(Math.max(1.0, +(scale + delta).toFixed(2)), 1.55);
-          var maxPanY = Math.max(140, (scale - 1) * 380 + 80);
+          scale = Math.min(Math.max(1.0, +(scale + delta).toFixed(2)), 1.75);
+          var maxPanY = Math.max(160, (scale - 1) * 440 + 90);
           panY = Math.min(Math.max(-maxPanY, panY), maxPanY);
           updateTransform();
         };
@@ -1803,7 +1790,7 @@
           } else {
             // Natural vertical scroll to browse from Card #1 down to Card #54
             panY -= e.deltaY * 0.9;
-            var maxPanY = Math.max(140, (scale - 1) * 380 + 80);
+            var maxPanY = Math.max(160, (scale - 1) * 440 + 90);
             panY = Math.min(Math.max(-maxPanY, panY), maxPanY);
             updateTransform();
           }
@@ -1922,15 +1909,10 @@
           slides[currentSlide].classList.add('active');
         }
 
-        // Header visibility (hidden on Slide 0, visible on 1-6)
-        if (currentSlide === 0) {
-          topHeader.style.opacity = '0';
-          topHeader.style.pointerEvents = 'none';
-        } else {
-          topHeader.style.opacity = '1';
-          topHeader.style.pointerEvents = 'auto';
-          slideNumInd.textContent = 'SLIDE ' + (currentSlide + 1) + ' OF ' + totalSlides;
-        }
+        // Header visibility (visible on all slides including Slide 0)
+        topHeader.style.opacity = '1';
+        topHeader.style.pointerEvents = 'auto';
+        slideNumInd.textContent = 'SLIDE ' + (currentSlide + 1) + ' OF ' + totalSlides;
 
         resetProgressTimer();
       }
@@ -1968,6 +1950,7 @@
           resetProgressTimer();
         }
       }
+      window.togglePause = togglePause;
 
       function toggleLock() {
         isLocked = !isLocked;
@@ -1980,6 +1963,7 @@
           resetProgressTimer();
         }
       }
+      window.toggleLock = toggleLock;
 
       function resetProgressTimer() {
         clearTimeout(slideTimer);
@@ -2345,7 +2329,7 @@
           if (diff <= 10 * 60 * 1000) {
             window.wasLocked = true;
             if (s5) s5.classList.add('epic-mode');
-            if (topH) topH.style.opacity = '0';
+            if (topH) topH.style.opacity = '1';
             var cdTitle = document.getElementById('cd-slide-title');
             if (cdTitle) cdTitle.innerHTML = '<span class="color-cycle-spade">♠</span> FINAL COUNTDOWN <span class="color-cycle-spade">♠</span>';
             var cdSub = document.getElementById('cd-slide-subtitle');
@@ -2356,7 +2340,7 @@
             if (progressBar) progressBar.style.width = '100%';
           } else {
             if (s5) s5.classList.remove('epic-mode');
-            if (topH && topH.style.opacity === '0') topH.style.opacity = '1';
+            if (topH) topH.style.opacity = '1';
             var cdTitle = document.getElementById('cd-slide-title');
             if (cdTitle) cdTitle.innerHTML = '<span class="color-cycle-spade">♠</span> NEXT DRAW COUNTDOWN <span class="color-cycle-spade">♠</span>';
             var cdSub = document.getElementById('cd-slide-subtitle');
@@ -2377,7 +2361,7 @@
           if (slideTimer) clearTimeout(slideTimer);
           if (progressInterval) clearInterval(progressInterval);
           if (progressBar) progressBar.style.width = '100%';
-          if (topH) topH.style.opacity = '0';
+          if (topH) topH.style.opacity = '1';
 
           if (countdownStage) countdownStage.style.display = 'none';
           if (ceremonyStage) ceremonyStage.style.display = 'flex';

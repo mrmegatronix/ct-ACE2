@@ -339,6 +339,9 @@
   </div>
 
   <script>
+    if (window.location.protocol === 'file:') {
+      window.location.replace('http://localhost:8088/admin.html' + window.location.search + window.location.hash);
+    }
     const bc = new BroadcastChannel('ct_ace_signage_channel');
 
     function sendAction(action, value = null) {

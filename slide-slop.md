@@ -92,7 +92,7 @@
   * Subtext: `1 IN 53 ODDS IN PLAY` (Dynamic: `1 IN [N] ODDS IN PLAY`)
 * **Box 4: Target Card**:
   * Heading: `TARGET CARD`
-  * Value: `♠ ACE`
+  * Graphic: Animated Hero Ace of Spades Card (Floating 3D playing card with glowing gold spade center, matching intro stage)
   * Subtext: `ACE OF SPADES WINS ALL`
 * **Bottom Suits Visual Bar (Dynamic Countdown)**:
   * `♠ 13 SPADES` (Dynamic: Decrements with each Spade drawn)
@@ -110,7 +110,7 @@
 * **Header Title**:
   * `♠ CURRENT CASH JACKPOT ♠`
 * **Header Subtitle**:
-  * `♠ MUST BE PRESENT TO WIN ♠ +$100 ACCUMULATES EVERY DRAW ♠`
+  * *(Removed)*
 * **Colossal Amount Display**:
   * `$600.00` (Dynamic: Live synced jackpot value with gold drop glow)
 * **Accumulator / Warning Pill**:
@@ -149,11 +149,11 @@
 * **Header Title**:
   * `♠ NEXT DRAW COUNTDOWN ♠`
 * **Header Subtitle**:
-  * `♠ TUESDAYS AT 5:30 PM & SATURDAYS AT 6:30 PM ♠`
+  * *(Removed)*
 * **Timer Units**:
   * `DAYS` : `HOURS` : `MINUTES` : `SECONDS` (High-contrast gold digits with blinking colons `:`)
 * **Schedule Notice**:
-  * `♠ RESUMES SATURDAY 10 OCTOBER 2026 ♠ 6:30 PM NZST ♠` (Dynamic schedule text)
+  * `♠ RESUMES SATURDAY 10 OCTOBER 2026 ♠ 6:30 PM NZST ♠` (Enlarged 60px dynamic schedule text)
 
 ### Stage B: 10-Minute Lock Mode (Epic Mode)
 * **Header Title**:

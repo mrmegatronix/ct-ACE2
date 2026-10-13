@@ -1007,8 +1007,32 @@
 
           <div class="gold-panel" style="padding: 34px 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center; min-height: 380px; box-sizing: border-box;">
             <div style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.2;">TARGET CARD</div>
-            <div style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #F3E5AB; line-height: 1; margin: auto 0; display: flex; align-items: center; justify-content: center;">♠ ACE</div>
-            <div style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; line-height: 1.2;">ACE OF SPADES WINS ALL</div>
+            <div class="card-3d-wrap target-card-hero" style="width: 154px; height: 218px; border-radius: 16px; padding: 4px; margin: auto 0; cursor: default; animation: float-card 5s ease-in-out infinite; box-shadow: 0 16px 40px rgba(0,0,0,0.92), 0 0 32px rgba(212,175,55,0.75);">
+              <div class="card-inner" style="border-radius: 13px; padding: 10px; border-width: 1.5px;">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; line-height: 1;">
+                  <div style="display: flex; flex-direction: column; align-items: center; color: #F3E5AB;">
+                    <span style="font-size: 22px; font-weight: 900;">A</span>
+                    <span style="font-size: 16px; color: #D4AF37;">♠</span>
+                  </div>
+                  <span style="font-size: 14px; font-weight: 900; color: #D4AF37; border: 1.5px solid rgba(212,175,55,0.6); padding: 1px 6px; border-radius: 4px; background: rgba(0,0,0,0.6); text-transform: uppercase; letter-spacing: 0.05em;">
+                    ACE
+                  </span>
+                </div>
+                <div class="card-spade-center" style="width: 88px; height: 88px; border-width: 2px; box-shadow: 0 0 25px rgba(212,175,55,0.85);">
+                  <span style="font-size: 68px; color: #F3E5AB; filter: drop-shadow(0 0 14px rgba(212,175,55,1)); line-height: 1;">♠</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: flex-end; line-height: 1; transform: rotate(180deg);">
+                  <div style="display: flex; flex-direction: column; align-items: center; color: #F3E5AB;">
+                    <span style="font-size: 22px; font-weight: 900;">A</span>
+                    <span style="font-size: 16px; color: #D4AF37;">♠</span>
+                  </div>
+                  <span style="font-size: 14px; font-weight: 900; color: #D4AF37; border: 1.5px solid rgba(212,175,55,0.6); padding: 1px 6px; border-radius: 4px; background: rgba(0,0,0,0.6); text-transform: uppercase; letter-spacing: 0.05em;">
+                    ACE
+                  </span>
+                </div>
+              </div>
+            </div>
+            <div style="font-size: 25px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; line-height: 1.2; white-space: nowrap;">ACE OF SPADES WINS ALL</div>
           </div>
         </div>
 
@@ -1040,9 +1064,6 @@
           <h2 class="slide-header-title sheen-text">
             <span class="color-cycle-spade">♠</span> CURRENT CASH JACKPOT <span class="color-cycle-spade">♠</span>
           </h2>
-          <p class="slide-header-subtitle">
-            <span class="color-cycle-spade">♠</span> MUST BE PRESENT TO WIN <span class="color-cycle-spade">♠</span> +$100 ACCUMULATES EVERY DRAW <span class="color-cycle-spade">♠</span>
-          </p>
         </div>
 
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0;">
@@ -1130,9 +1151,6 @@
           <h2 class="slide-header-title sheen-text" id="cd-slide-title">
             <span class="color-cycle-spade">♠</span> NEXT DRAW COUNTDOWN <span class="color-cycle-spade">♠</span>
           </h2>
-          <p class="slide-header-subtitle" id="cd-slide-subtitle">
-            <span class="color-cycle-spade">♠</span> TUESDAYS AT 5:30 PM & SATURDAYS AT 6:30 PM <span class="color-cycle-spade">♠</span>
-          </p>
         </div>
 
         <div id="countdown-main-stage" style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0; width: 100%;">
@@ -1178,7 +1196,7 @@
           </div>
 
           <!-- Draw Schedule positioned below the clock digits (Larger font per request) -->
-          <p class="dynamic-draw-date" style="font-size: 46px; font-weight: 800; color: #F3E5AB; letter-spacing: 0.12em; text-transform: uppercase; margin-top: 14px;">
+          <p class="dynamic-draw-date" style="font-size: 60px; font-weight: 800; color: #F3E5AB; letter-spacing: 0.08em; text-transform: uppercase; margin-top: 20px; white-space: nowrap;">
             <span class="color-cycle-spade">♠</span> RESUMES SATURDAY 10 OCTOBER 2026 <span class="color-cycle-spade">♠</span> 6:30 PM NZST <span class="color-cycle-spade">♠</span>
           </p>
         </div>

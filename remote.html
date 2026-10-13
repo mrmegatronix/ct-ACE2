@@ -187,6 +187,7 @@
       const payload = { action, value, time: Date.now() };
       try { bc.postMessage(payload); } catch(e) {}
       try { localStorage.setItem('ct_ace_sync_action', JSON.stringify(payload)); } catch(e) {}
+      try { if (window.opener) window.opener.postMessage(payload, '*'); } catch(e) {}
       const fb = document.getElementById('feedback-text');
       fb.innerText = 'Command: ' + action + (value !== null ? ' (' + value + ')' : '');
       if (navigator.vibrate) navigator.vibrate(40);

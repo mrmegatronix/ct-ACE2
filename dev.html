@@ -693,13 +693,29 @@
       display: none;
     }
 
-    #slide-5.epic-mode h2,
-    #slide-5.epic-mode p,
-    #slide-5.epic-mode > div > div:last-child {
-      display: none !important;
+    #slide-5.epic-mode .slide-header-block {
+      margin-top: 15px;
+      margin-bottom: 5px;
+    }
+    #slide-5.epic-mode .slide-header-title {
+      font-size: 64px;
+      color: #FCD34D;
+      text-shadow: 0 0 35px rgba(212,175,55,0.95), 0 0 65px rgba(245,158,11,0.7);
+      letter-spacing: 0.1em;
+    }
+    #slide-5.epic-mode .slide-header-subtitle {
+      font-size: 26px;
+      color: #FFFFFF;
+      letter-spacing: 0.14em;
     }
     #slide-5.epic-mode #countdown-timer-container {
-      transform: scale(1.6) translateY(20px);
+      transform: scale(1.22);
+      transform-origin: center center;
+      margin: 35px 0 25px 0;
+    }
+    #slide-5.epic-mode .dynamic-draw-date {
+      font-size: 42px;
+      letter-spacing: 0.12em;
     }
   </style>
 </head>
@@ -1060,10 +1076,10 @@
            ==================================================================== -->
       <section class="slide-pane slide-with-header" id="slide-5">
         <div class="slide-header-block">
-          <h2 class="slide-header-title sheen-text">
+          <h2 class="slide-header-title sheen-text" id="cd-slide-title">
             <span class="color-cycle-spade">♠</span> NEXT DRAW COUNTDOWN <span class="color-cycle-spade">♠</span>
           </h2>
-          <p class="slide-header-subtitle">
+          <p class="slide-header-subtitle" id="cd-slide-subtitle">
             <span class="color-cycle-spade">♠</span> TUESDAYS AT 5:30 PM & SATURDAYS AT 6:30 PM <span class="color-cycle-spade">♠</span>
           </p>
         </div>
@@ -1426,6 +1442,19 @@
         { num: 14, card: '5♣', event: '1', date: '10/10/2026', comment: '$500 missed' }
       ];
 
+      try {
+        var savedState = localStorage.getItem('ct_ace_persisted_state');
+        if (savedState) {
+          var parsedState = JSON.parse(savedState);
+          if (parsedState && parsedState.drawnCards && Array.isArray(parsedState.drawnCards) && parsedState.drawnCards.length >= activeDrawnCards.length) {
+            activeDrawnCards = parsedState.drawnCards;
+          }
+          if (parsedState && parsedState.jackpot) {
+            activeJackpot = parsedState.jackpot;
+          }
+        }
+      } catch(e) {}
+
       // 3. GENERATE 54 PLAYING CARDS IN 7 PHYSICAL CABINET ROWS
       function renderCardHtml(num, drawnCard) {
         if (drawnCard) {
@@ -1507,6 +1536,8 @@
         if (statCardsRemaining) statCardsRemaining.textContent = cardsRemaining;
         var statCardsDrawn = document.getElementById('status-cards-drawn');
         if (statCardsDrawn) statCardsDrawn.textContent = activeDrawnCards.length;
+        var statCardsDrawnSub = document.getElementById('status-cards-drawn-sub');
+        if (statCardsDrawnSub) statCardsDrawnSub.textContent = activeDrawnCards.length + (activeDrawnCards.length === 1 ? ' CARD REVEALED' : ' CARDS REVEALED');
         
         var pctPlay = Math.round((cardsRemaining / TOTAL_CARDS) * 100);
         var statDeckPct = document.getElementById('status-deck-pct');
@@ -1828,6 +1859,25 @@
             var statOddsRatio = document.getElementById('status-odds-ratio');
             if (statOddsRatio) statOddsRatio.textContent = '1 IN ' + cardsRemaining + ' ODDS IN PLAY';
 
+            // Preserve locally persisted manual draws / higher jackpot if newer than Google Sheet CSV
+            try {
+              var localSaved = localStorage.getItem('ct_ace_persisted_state');
+              if (localSaved) {
+                var localState = JSON.parse(localSaved);
+                if (localState && localState.drawnCards && localState.drawnCards.length > parsedDrawnCards.length) {
+                  parsedDrawnCards = localState.drawnCards;
+                }
+                if (localState && localState.jackpot) {
+                  var pNum = parseFloat(localState.jackpot.replace(/[$,]/g, '')) || 0;
+                  var curNum = parseFloat(parsedJackpot.replace(/[$,]/g, '')) || 0;
+                  if (pNum > curNum) {
+                    parsedJackpot = localState.jackpot;
+                    activeJackpot = localState.jackpot;
+                  }
+                }
+              }
+            } catch(e) {}
+
             activeDrawnCards = parsedDrawnCards;
             generateCabinetGrid();
 
@@ -2068,17 +2118,26 @@
             stopFireworks();
           }
 
-          // 10-Minute Lock before draw
+          // 10-Minute Lock before draw (Epic Mode)
           if (diff <= 10 * 60 * 1000) {
             window.wasLocked = true;
             if (s5) s5.classList.add('epic-mode');
             if (topH) topH.style.opacity = '0';
+            var cdTitle = document.getElementById('cd-slide-title');
+            if (cdTitle) cdTitle.innerHTML = '<span class="color-cycle-spade">♠</span> FINAL COUNTDOWN <span class="color-cycle-spade">♠</span>';
+            var cdSub = document.getElementById('cd-slide-subtitle');
+            if (cdSub) cdSub.innerHTML = '<span class="color-cycle-spade">♠</span> DRAW COMMENCING SHORTLY • MUST BE PRESENT TO WIN <span class="color-cycle-spade">♠</span>';
             if (currentSlide !== 5) showSlide(5);
             if (slideTimer) clearTimeout(slideTimer);
             if (progressInterval) clearInterval(progressInterval);
             if (progressBar) progressBar.style.width = '100%';
           } else {
             if (s5) s5.classList.remove('epic-mode');
+            if (topH && topH.style.opacity === '0') topH.style.opacity = '1';
+            var cdTitle = document.getElementById('cd-slide-title');
+            if (cdTitle) cdTitle.innerHTML = '<span class="color-cycle-spade">♠</span> NEXT DRAW COUNTDOWN <span class="color-cycle-spade">♠</span>';
+            var cdSub = document.getElementById('cd-slide-subtitle');
+            if (cdSub) cdSub.innerHTML = '<span class="color-cycle-spade">♠</span> TUESDAYS AT 5:30 PM & SATURDAYS AT 6:30 PM <span class="color-cycle-spade">♠</span>';
             if (window.wasLocked) {
               window.wasLocked = false;
               window.nextSlide();
@@ -2237,38 +2296,66 @@
             }
           }, 15 * 60 * 1000);
         }
-        else if (data.action === 'card_drawn') {
-          // ACE NOT STRUCK - RECORD DRAW & ADVANCE
-          var cNum = parseInt(data.number, 10);
+        else if (data.action === 'card_drawn' || data.action === 'jackpot_not_struck') {
+          // ACE / JACKPOT NOT STRUCK - RECORD DRAW & INCREMENT JACKPOT
+          var cNum = data.number ? parseInt(data.number, 10) : null;
           var cardStr = data.card || '';
-          if (cNum >= 1 && cNum <= 54 && cardStr) {
-            activeDrawnCards.push({
-              num: cNum,
-              card: cardStr,
-              event: (activeDrawnCards.length + 1).toString(),
-              date: new Date().toLocaleDateString('en-GB'),
-              comment: 'Missed'
-            });
-            generateCabinetGrid();
-            
-            // Increment jackpot +$100
-            var curPot = parseFloat(activeJackpot.replace(/[$,]/g, '')) || 600;
-            curPot += 100;
-            activeJackpot = '$' + curPot.toFixed(2);
-            var els = document.querySelectorAll('.live-jackpot-val');
-            for (var j = 0; j < els.length; j++) {
-              els[j].textContent = activeJackpot;
+          if (cNum && cNum >= 1 && cNum <= 54 && cardStr) {
+            var exists = false;
+            for (var d = 0; d < activeDrawnCards.length; d++) {
+              if (activeDrawnCards[d].num === cNum) { exists = true; break; }
             }
-
-            // Hide ceremony if active and resume slide rotation
-            ceremonyActive = false;
-            stopFireworks();
-            var cStage = document.getElementById('ceremony-stage');
-            var cdStage = document.getElementById('countdown-main-stage');
-            if (cStage) cStage.style.display = 'none';
-            if (cdStage) cdStage.style.display = 'flex';
-            window.nextSlide();
+            if (!exists) {
+              activeDrawnCards.push({
+                num: cNum,
+                card: cardStr,
+                event: (activeDrawnCards.length + 1).toString(),
+                date: new Date().toLocaleDateString('en-GB'),
+                comment: 'Missed'
+              });
+            }
           }
+
+          // Increment jackpot +$100
+          var curPot = parseFloat(activeJackpot.replace(/[$,]/g, '')) || 600;
+          curPot += 100;
+          activeJackpot = '$' + curPot.toFixed(2);
+          var els = document.querySelectorAll('.live-jackpot-val');
+          for (var j = 0; j < els.length; j++) {
+            els[j].textContent = activeJackpot;
+          }
+
+          generateCabinetGrid();
+
+          // Slide 6 Draw History updates
+          if (activeDrawnCards.length > 0) {
+            var lastD = activeDrawnCards[activeDrawnCards.length - 1];
+            var pTitle = document.getElementById('prior-draw-title');
+            if (pTitle) pTitle.textContent = 'EVENT ' + lastD.event + ' • ' + lastD.date + ' • CARD #' + lastD.num + ' (' + lastD.card + ') DRAWN';
+            var pSub = document.getElementById('prior-draw-sub');
+            if (pSub) pSub.textContent = 'ACE OF SPADES MISSED • +$100 ACCUMULATES TO ' + activeJackpot;
+          }
+
+          // Persist to localStorage so CSV polling doesn't overwrite it
+          try {
+            localStorage.setItem('ct_ace_persisted_state', JSON.stringify({
+              jackpot: activeJackpot,
+              drawnCards: activeDrawnCards,
+              updatedAt: Date.now()
+            }));
+          } catch(e) {}
+
+          // Switch to Slide 1 (Cabinet View) immediately so changes are clearly visible
+          showSlide(1);
+          resetProgressTimer();
+
+          // Hide ceremony if active and resume slide rotation
+          ceremonyActive = false;
+          stopFireworks();
+          var cStage = document.getElementById('ceremony-stage');
+          var cdStage = document.getElementById('countdown-main-stage');
+          if (cStage) cStage.style.display = 'none';
+          if (cdStage) cdStage.style.display = 'flex';
         }
       }
 
@@ -2285,6 +2372,12 @@
             var parsed = JSON.parse(e.newValue);
             handleAction(parsed);
           } catch(err) {}
+        }
+      });
+
+      window.addEventListener('message', function(ev) {
+        if (ev.data && ev.data.action) {
+          handleAction(ev.data);
         }
       });
 

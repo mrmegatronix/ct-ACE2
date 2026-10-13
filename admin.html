@@ -146,11 +146,15 @@
     <div class="card" style="background: rgba(212,175,55,0.06); border: 1px solid rgba(212,175,55,0.3); padding: 16px 20px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; text-align: center;">
       <div>
         <div style="font-size: 11px; font-weight: 800; color: #D4AF37; text-transform: uppercase;">Current Jackpot</div>
-        <div id="admin-current-pot" style="font-size: 32px; font-weight: 900; color: white; font-family: 'JetBrains Mono', monospace;">$600.00</div>
+        <div style="display: flex; align-items: center; justify-content: center; gap: 8px; margin-top: 4px;">
+          <button onclick="adjustJackpot(-100)" style="padding: 2px 8px; font-size: 12px; min-height: 24px; background: #26262E; color: #94A3B8; border: 1px solid #4B5563; border-radius: 6px; cursor: pointer;">-$100</button>
+          <div id="admin-current-pot" style="font-size: 32px; font-weight: 900; color: white; font-family: 'JetBrains Mono', monospace;">$600.00</div>
+          <button onclick="adjustJackpot(100)" style="padding: 2px 8px; font-size: 12px; min-height: 24px; background: #064E3B; color: #34D399; border: 1px solid #10B981; border-radius: 6px; cursor: pointer;">+$100</button>
+        </div>
       </div>
       <div>
         <div style="font-size: 11px; font-weight: 800; color: #10B981; text-transform: uppercase;">Cards Remaining</div>
-        <div id="admin-cards-rem" style="font-size: 32px; font-weight: 900; color: white; font-family: 'JetBrains Mono', monospace;">53 / 54</div>
+        <div id="admin-cards-rem" style="font-size: 32px; font-weight: 900; color: white; font-family: 'JetBrains Mono', monospace; margin-top: 4px;">53 / 54</div>
       </div>
       <div>
         <div style="font-size: 11px; font-weight: 800; color: #F59E0B; text-transform: uppercase;">Last Drawn Card</div>
@@ -169,9 +173,9 @@
         </button>
 
         <!-- Ace Missed / Jackpot Not Struck Button -->
-        <button onclick="openDrawModal()" style="background: linear-gradient(135deg, #F59E0B, #B45309); color: white; padding: 18px 8px; font-size: 13px; font-weight: 900; border: none; box-shadow: 0 0 15px rgba(245,158,11,0.3);">
+        <button onclick="triggerJackpotNotStruck()" style="background: linear-gradient(135deg, #F59E0B, #B45309); color: white; padding: 18px 8px; font-size: 13px; font-weight: 900; border: none; box-shadow: 0 0 15px rgba(245,158,11,0.3);">
           🃏 JACKPOT NOT STRUCK
-          <span style="display: block; font-size: 10px; font-weight: 700; opacity: 0.9; margin-top: 3px;">(+$100 • Record Draw)</span>
+          <span style="display: block; font-size: 10px; font-weight: 700; opacity: 0.9; margin-top: 3px;">(+$100 INCREMENT)</span>
         </button>
 
         <!-- Confetti Burst Button -->
@@ -187,7 +191,7 @@
 
       <div style="font-size: 13px; color: #94A3B8; line-height: 1.4;">
         • <strong>ACE WINNER</strong>: Triggers 15-minute victory fireworks celebration and pauses slide progression.<br>
-        • <strong>JACKPOT NOT STRUCK</strong>: Records the drawn card & slot number, marks card face-up in cabinet, increments jackpot (+$100), and updates signage.<br>
+        • <strong>JACKPOT NOT STRUCK</strong>: Increments jackpot by +$100, updates signage displays, and opens card record selector.<br>
         • <strong>CONFETTI</strong>: Fires a high-density burst of gold, emerald, ruby, and playing-suit confetti across all displays.<br>
         • <strong>FIREWORKS</strong>: Launches full-screen particle fireworks show across all displays for 15 seconds.
       </div>
@@ -321,13 +325,13 @@
 
         <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 8px;">
           <button onclick="confirmCardDraw()" class="primary" style="width: 100%; padding: 14px;">
-            ✅ Confirm Draw & Flip Card (+$100)
+            ✅ Confirm Drawn Card & Flip in Cabinet
           </button>
           <button onclick="quickBumpJackpot()" style="width: 100%; padding: 12px; background: #1E293B; border: 1px solid #3B82F6; color: #60A5FA; font-weight: 800; border-radius: 10px;">
-            ⚡ Quick Increment Only (+$100 No Card Flip)
+            ⚡ Quick Increment Jackpot (+$100)
           </button>
           <button onclick="closeDrawModal()" style="width: 100%; padding: 10px; background: #2A2A32; border-radius: 10px;">
-            Cancel
+            Close
           </button>
         </div>
       </div>
@@ -417,13 +421,77 @@
       setTimeout(() => { tag.innerText = 'Connected'; }, 1800);
     }
 
-    // Card Draw Modal Controls
-    function openDrawModal() {
+    function adjustJackpot(delta) {
+      const state = getAdminState();
+      let curVal = parseFloat(state.jackpot.replace(/[$,]/g, '')) || 600;
+      curVal = Math.max(100, curVal + delta);
+      const newPot = '$' + curVal.toFixed(2);
+      state.jackpot = newPot;
+      try {
+        localStorage.setItem('ct_ace_persisted_state', JSON.stringify({
+          jackpot: state.jackpot,
+          drawnCards: state.drawnCards,
+          updatedAt: Date.now()
+        }));
+      } catch(e) {}
+      sendAction('set_jackpot', newPot);
       renderAdminDashboard();
-      document.getElementById('draw-modal').style.display = 'flex';
+      const tag = document.getElementById('status-tag');
+      if (tag) {
+        tag.innerText = '✅ Jackpot Set to ' + newPot;
+        setTimeout(() => { tag.innerText = 'Connected'; }, 2000);
+      }
     }
+
+    let isPostIncrementModal = false;
+
+    function triggerJackpotNotStruck() {
+      const state = getAdminState();
+      const curVal = parseFloat(state.jackpot.replace(/[$,]/g, '')) || 600;
+      const newPot = '$' + (curVal + 100).toFixed(2);
+      state.jackpot = newPot;
+      try {
+        localStorage.setItem('ct_ace_persisted_state', JSON.stringify({
+          jackpot: state.jackpot,
+          drawnCards: state.drawnCards,
+          updatedAt: Date.now()
+        }));
+      } catch(e) {}
+
+      sendAction('jackpot_not_struck', newPot);
+      renderAdminDashboard();
+
+      const tag = document.getElementById('status-tag');
+      if (tag) {
+        tag.innerText = '✅ Jackpot +$100 to ' + newPot;
+        setTimeout(() => { tag.innerText = 'Connected'; }, 2500);
+      }
+
+      openDrawModal(true);
+    }
+
+    // Card Draw Modal Controls
+    function openDrawModal(alreadyIncremented = false) {
+      isPostIncrementModal = alreadyIncremented;
+      renderAdminDashboard();
+      const modal = document.getElementById('draw-modal');
+      const potPreview = document.getElementById('modal-pot-preview');
+      const state = getAdminState();
+      if (potPreview) {
+        if (alreadyIncremented) {
+          potPreview.innerHTML = 'Jackpot updated to <span id="modal-next-pot-val" style="color: #34D399; font-weight: 800;">' + state.jackpot + '</span>. Select drawn card to flip in cabinet (optional):';
+        } else {
+          const cur = parseFloat(state.jackpot.replace(/[$,]/g, '')) || 600;
+          potPreview.innerHTML = 'Jackpot will increment +$100 to <span id="modal-next-pot-val" style="color: #34D399; font-weight: 800;">$' + (cur + 100).toFixed(2) + '</span>';
+        }
+      }
+      if (modal) modal.style.display = 'flex';
+    }
+
     function closeDrawModal() {
-      document.getElementById('draw-modal').style.display = 'none';
+      const modal = document.getElementById('draw-modal');
+      if (modal) modal.style.display = 'none';
+      isPostIncrementModal = false;
     }
 
     function confirmCardDraw() {
@@ -431,21 +499,13 @@
       const rank = document.getElementById('draw-card-rank').value;
       const suit = document.getElementById('draw-card-suit').value;
       const cardStr = rank + suit;
-      const payload = {
-        action: 'card_drawn',
-        number: num,
-        card: cardStr,
-        time: Date.now()
-      };
 
-      try { bc.postMessage(payload); } catch(e) {}
-      try { localStorage.setItem('ct_ace_sync_action', JSON.stringify(payload)); } catch(e) {}
-      try { if (window.opener) window.opener.postMessage(payload, '*'); } catch(e) {}
-
-      // Update local admin state
       const state = getAdminState();
-      const curVal = parseFloat(state.jackpot.replace(/[$,]/g, '')) || 600;
-      state.jackpot = '$' + (curVal + 100).toFixed(2);
+      if (!isPostIncrementModal) {
+        const curVal = parseFloat(state.jackpot.replace(/[$,]/g, '')) || 600;
+        state.jackpot = '$' + (curVal + 100).toFixed(2);
+      }
+
       let exists = false;
       for (let i = 0; i < state.drawnCards.length; i++) {
         if (state.drawnCards[i].num === num) { exists = true; break; }
@@ -467,17 +527,12 @@
         }));
       } catch(e) {}
 
-      renderAdminDashboard();
-
-      const tag = document.getElementById('status-tag');
-      tag.innerText = '✅ Saved: Card #' + num + ' (' + cardStr + ') +$100';
-      closeDrawModal();
-      setTimeout(() => { tag.innerText = 'Connected'; }, 2500);
-    }
-
-    function quickBumpJackpot() {
       const payload = {
-        action: 'jackpot_not_struck',
+        action: 'card_drawn',
+        number: num,
+        card: cardStr,
+        value: state.jackpot,
+        skipPotIncrement: isPostIncrementModal,
         time: Date.now()
       };
 
@@ -485,28 +540,24 @@
       try { localStorage.setItem('ct_ace_sync_action', JSON.stringify(payload)); } catch(e) {}
       try { if (window.opener) window.opener.postMessage(payload, '*'); } catch(e) {}
 
-      const state = getAdminState();
-      const curVal = parseFloat(state.jackpot.replace(/[$,]/g, '')) || 600;
-      state.jackpot = '$' + (curVal + 100).toFixed(2);
-      try {
-        localStorage.setItem('ct_ace_persisted_state', JSON.stringify({
-          jackpot: state.jackpot,
-          drawnCards: state.drawnCards,
-          updatedAt: Date.now()
-        }));
-      } catch(e) {}
-
       renderAdminDashboard();
 
       const tag = document.getElementById('status-tag');
-      tag.innerText = '✅ Jackpot +$100 Recorded!';
+      if (tag) {
+        tag.innerText = '✅ Saved: Card #' + num + ' (' + cardStr + ')';
+        setTimeout(() => { tag.innerText = 'Connected'; }, 2500);
+      }
       closeDrawModal();
-      setTimeout(() => { tag.innerText = 'Connected'; }, 2500);
+    }
+
+    function quickBumpJackpot() {
+      triggerJackpotNotStruck();
+      closeDrawModal();
     }
 
     try {
       bc.onmessage = function(ev) {
-        if (ev.data && (ev.data.action === 'card_drawn' || ev.data.action === 'jackpot_not_struck')) {
+        if (ev.data && (ev.data.action === 'card_drawn' || ev.data.action === 'jackpot_not_struck' || ev.data.action === 'set_jackpot')) {
           renderAdminDashboard();
         }
       };

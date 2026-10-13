@@ -1451,6 +1451,10 @@
           }
           if (parsedState && parsedState.jackpot) {
             activeJackpot = parsedState.jackpot;
+            var initEls = document.querySelectorAll('.live-jackpot-val');
+            for (var j = 0; j < initEls.length; j++) {
+              initEls[j].textContent = activeJackpot;
+            }
           }
         }
       } catch(e) {}
@@ -1873,6 +1877,10 @@
                   if (pNum > curNum) {
                     parsedJackpot = localState.jackpot;
                     activeJackpot = localState.jackpot;
+                    var potEls = document.querySelectorAll('.live-jackpot-val');
+                    for (var j = 0; j < potEls.length; j++) {
+                      potEls[j].textContent = activeJackpot;
+                    }
                   }
                 }
               }
@@ -2296,6 +2304,22 @@
             }
           }, 15 * 60 * 1000);
         }
+        else if (data.action === 'set_jackpot') {
+          if (data.value) {
+            activeJackpot = data.value;
+            var els = document.querySelectorAll('.live-jackpot-val');
+            for (var j = 0; j < els.length; j++) {
+              els[j].textContent = activeJackpot;
+            }
+            try {
+              localStorage.setItem('ct_ace_persisted_state', JSON.stringify({
+                jackpot: activeJackpot,
+                drawnCards: activeDrawnCards,
+                updatedAt: Date.now()
+              }));
+            } catch(e) {}
+          }
+        }
         else if (data.action === 'card_drawn' || data.action === 'jackpot_not_struck') {
           // ACE / JACKPOT NOT STRUCK - RECORD DRAW & INCREMENT JACKPOT
           var cNum = data.number ? parseInt(data.number, 10) : null;
@@ -2316,10 +2340,14 @@
             }
           }
 
-          // Increment jackpot +$100
-          var curPot = parseFloat(activeJackpot.replace(/[$,]/g, '')) || 600;
-          curPot += 100;
-          activeJackpot = '$' + curPot.toFixed(2);
+          // Increment jackpot +$100 or apply synced value
+          if (data.value) {
+            activeJackpot = data.value;
+          } else if (!data.skipPotIncrement) {
+            var curPot = parseFloat(activeJackpot.replace(/[$,]/g, '')) || 600;
+            curPot += 100;
+            activeJackpot = '$' + curPot.toFixed(2);
+          }
           var els = document.querySelectorAll('.live-jackpot-val');
           for (var j = 0; j < els.length; j++) {
             els[j].textContent = activeJackpot;

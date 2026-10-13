@@ -8,24 +8,24 @@
   * `ACE`
   * `A ♠`
 * **Main Title**:
-  * `♠ CHASE ♠ THE ♠ ACE ♠`
+  * `♠ CHASE ♠ THE ♠ ACE ♠` (Colossal center title with animated spades & sheen)
 * **Subtitle**:
   * `FIND THE ACE OF SPADES ♠ WIN THE CASH JACKPOT`
 * **Left Box (The Vault)**:
-  * Icon: `🃏`
+  * Icon: `🃏` (Animated floating/pulsing)
   * Heading: `THE VAULT`
   * Value: `53 CARDS`
-  * Detail: `53 OF 54 REMAINING`
+  * Detail: `OUT OF 54 TOTAL`
 * **Center Box (Current Jackpot)**:
-  * Icon: `💰`
+  * Icon: `💰` (Animated floating/pulsing)
   * Heading: `CURRENT JACKPOT`
   * Value: `$600.00`
   * Detail: `+$100 EVERY DRAW`
 * **Right Box (Next Draw)**:
-  * Icon: `🎟️`
+  * Icon: `🎟️` (Animated floating/pulsing)
   * Heading: `NEXT DRAW`
-  * Value: `TUE 13 OCT`
-  * Detail: `5:30 PM ♠ MUST BE PRESENT`
+  * Value: Dynamic date (e.g. `TUE 13 OCT` / `SAT 17 OCT`)
+  * Detail: Dynamic time (`5:30 PM` on Tue / `6:30 PM` on Sat) `♠ MUST BE PRESENT`
 
 ---
 
@@ -62,7 +62,7 @@
   * Value: `1`
   * Subtext: `1 CARD REVEALED`
 * **Box 3 (Winning Chance)**:
-  * Heading: `WINNING CHANCE`
+  * Heading: `NEXT DRAWS WINNING CHANCE`
   * Value: `1.89%`
   * Subtext: `1 IN 53 ODDS IN PLAY`
 * **Box 4 (Target Card)**:
@@ -80,7 +80,7 @@
 
 ## Slide 3: Current Cash Jackpot
 
-* **Icon**: `💰` (Enlarged 92px money bag)
+* **Icon**: `💰` (Animated floating/pulsing 92px money bag)
 * **Heading**:
   * `CURRENT CASH JACKPOT`
 * **Amount**:
@@ -155,8 +155,7 @@
 * **Header Subtitle**:
   * *(Removed)*
 * **Table Header**:
-  * `VERIFIED JACKPOT WINNERS`
-  * `COASTERS TAVERN`
+  * `VERIFIED JACKPOT WINNERS` (With animated floating 🏆 trophy icon)
 * **Columns**:
   * `WINNER` | `DATE` | `JACKPOT WON`
 * **Rows**:
@@ -176,7 +175,7 @@
 * **Header Subtitle**:
   * *(Removed)*
 * **Feature Panel**:
-  * Icons: `💰💰💰💰💰`
+  * Icons: `💰💰💰💰💰` (Animated with staggered floating/pulse keyframe effect)
   * Eyebrow: *(Removed)*
   * Colossal Amount: `$16,500.00` (195px neon emerald glow with 50% reduced sheen)
 * **Pill Badges**:

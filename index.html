@@ -124,6 +124,21 @@
       animation: blink-colon-anim 1s infinite;
       margin: 0 0.05em;
     }
+    .anim-icon {
+      display: inline-block;
+      animation: iconFloatPulse 3s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes iconFloatPulse {
+      0%, 100% {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 0 8px rgba(212, 175, 55, 0.6));
+      }
+      50% {
+        transform: translateY(-6px) scale(1.08);
+        filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.9));
+      }
+    }
 
     /* ==========================================================================
        CONTAINER & HEADER
@@ -814,8 +829,8 @@
       <div class="background-effects" id="confetti-container" style="position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 2;"></div>
     </div>
 
-    <!-- Top Persistent Header -->
-    <header id="top-header" style="opacity: 1; pointer-events: auto; justify-content: center; height: 120px;">
+    <!-- Top Persistent Header (Hidden on Slide 0) -->
+    <header id="top-header" style="opacity: 0; pointer-events: none; justify-content: center; height: 120px;">
       <h1 class="header-title" style="display: flex; align-items: center; justify-content: space-between; width: 100%; margin: 0; padding: 0 60px;">
         <span class="animate-spade-loop" style="font-size: 80px;">♠</span>
         <span class="sheen-text" style="font-size: 90px;">CHASE</span>
@@ -837,9 +852,9 @@
       <!-- ====================================================================
            SLIDE 0: HERO INTRO (PROMO STAGE)
            ==================================================================== -->
-      <section class="slide-pane slide-with-header active" id="slide-0">
+      <section class="slide-pane active" id="slide-0">
 
-        <!-- Center Cinematic Stage: 3D Floating Hero Card & Subtitle -->
+        <!-- Center Cinematic Stage: 3D Floating Hero Card & Colossal Title -->
         <div style="z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0;">
           <!-- Hero Playing Card -->
           <div class="card-3d-wrap" onclick="nextSlide()" title="Click to advance">
@@ -868,8 +883,19 @@
             </div>
           </div>
 
+          <!-- Colossal Main Title: ♠ CHASE ♠ THE ♠ ACE ♠ -->
+          <h1 class="title-colossal" style="font-size: 140px; margin: 12px 0 6px 0;">
+            <span class="animate-spade-loop" style="font-size: 90px; line-height: 1;">♠</span>
+            <span class="sheen-text">CHASE</span>
+            <span class="animate-spade-loop" style="font-size: 90px; line-height: 1; animation-delay: 1.5s;">♠</span>
+            <span class="sheen-text">THE</span>
+            <span class="animate-spade-loop" style="font-size: 90px; line-height: 1; animation-delay: 3s;">♠</span>
+            <span class="sheen-text">ACE</span>
+            <span class="animate-spade-loop" style="font-size: 90px; line-height: 1; animation-delay: 4.5s;">♠</span>
+          </h1>
+
           <!-- High Impact Subtitle -->
-          <p class="subtitle-colossal" style="font-size: 40px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin: 18px 0 0 0;">
+          <p class="subtitle-colossal" style="font-size: 40px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; margin: 6px 0 0 0;">
             <span class="color-cycle-spade">♠</span> FIND THE ACE OF SPADES <span class="color-cycle-spade">♠</span> WIN THE CASH JACKPOT <span class="color-cycle-spade">♠</span>
           </p>
         </div>
@@ -879,7 +905,7 @@
           <!-- Tile 1: The Vault (Left - Playing Card / Safe) -->
           <div class="gold-panel" style="padding: 22px 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
             <div style="width: 76px; height: 76px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 44px; color: #D4AF37; margin-bottom: 6px; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
-              🃏
+              <span class="anim-icon">🃏</span>
             </div>
             <span style="font-size: 30px; font-weight: 900; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
               THE VAULT
@@ -888,14 +914,14 @@
               53 CARDS
             </span>
             <span style="font-size: 30px; font-weight: 800; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
-              <span id="intro-cards-remaining">53</span> OF 54 REMAINING
+              OUT OF 54 TOTAL
             </span>
           </div>
 
           <!-- Tile 2: Current Cash Jackpot (Center - Money Bag) -->
           <div class="gold-panel" style="padding: 22px 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; border: 2px solid #D4AF37; box-shadow: 0 16px 45px rgba(0,0,0,0.9), 0 0 35px rgba(212,175,55,0.45);">
             <div style="width: 76px; height: 76px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 44px; color: #F59E0B; margin-bottom: 6px; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
-              💰
+              <span class="anim-icon">💰</span>
             </div>
             <span style="font-size: 30px; font-weight: 900; color: #FCD34D; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
               CURRENT JACKPOT
@@ -911,7 +937,7 @@
           <!-- Tile 3: Next Draw (Right - Ticket) -->
           <div class="gold-panel" style="padding: 22px 28px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center;">
             <div style="width: 76px; height: 76px; border-radius: 20px; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 44px; color: #D4AF37; margin-bottom: 6px; box-shadow: 0 0 25px rgba(212,175,55,0.5);">
-              🎟️
+              <span class="anim-icon">🎟️</span>
             </div>
             <span style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap;">
               NEXT DRAW
@@ -920,7 +946,7 @@
               TUE 13 OCT
             </span>
             <span style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
-              5:30 PM <span class="color-cycle-spade">♠</span> MUST BE PRESENT
+              <span class="dynamic-draw-time-val">5:30 PM</span> <span class="color-cycle-spade">♠</span> MUST BE PRESENT
             </span>
           </div>
         </div>
@@ -1002,7 +1028,7 @@
           </div>
 
           <div class="gold-panel" style="padding: 34px 20px; display: flex; flex-direction: column; align-items: center; justify-content: space-between; text-align: center; min-height: 380px; box-sizing: border-box;">
-            <div style="font-size: 30px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em; line-height: 1.2;">WINNING CHANCE</div>
+            <div style="font-size: 26px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.04em; line-height: 1.2; white-space: nowrap;">NEXT DRAWS WINNING CHANCE</div>
             <div id="status-winning-chance" style="font-family: 'Bebas Neue', sans-serif; font-size: 135px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: auto 0; display: flex; align-items: center; justify-content: center;">1.89%</div>
             <div id="status-odds-ratio" style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; line-height: 1.2;">1 IN 53 ODDS IN PLAY</div>
           </div>
@@ -1049,7 +1075,7 @@
 
         <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; margin: auto 0;">
           <div style="width: 140px; height: 140px; border-radius: 36px; background: rgba(212,175,55,0.22); border: 3px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 82px; line-height: 1; color: #D4AF37; box-shadow: 0 0 55px rgba(212,175,55,0.65); margin-bottom: 12px;">
-            💰
+            <span class="anim-icon">💰</span>
           </div>
           <div class="live-jackpot-val" style="font-family: 'Oswald', sans-serif; font-size: 210px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: 8px 0; text-shadow: 0 0 55px rgba(212,175,55,0.85); letter-spacing: 0.02em;">
             $600.00
@@ -1233,14 +1259,11 @@
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; border-bottom: 2px solid rgba(212,175,55,0.4); padding-bottom: 12px;">
               <div style="display: flex; align-items: center; gap: 20px;">
                 <div style="width: 64px; height: 64px; border-radius: 50%; background: rgba(212,175,55,0.22); border: 2px solid #D4AF37; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: 900; color: #D4AF37; box-shadow: 0 0 20px rgba(212,175,55,0.5);">
-                  🏆
+                  <span class="anim-icon">🏆</span>
                 </div>
                 <div style="font-size: 38px; font-weight: 900; color: #F3E5AB; letter-spacing: 0.05em; text-transform: uppercase;">
                   VERIFIED JACKPOT WINNERS
                 </div>
-              </div>
-              <div style="font-size: 30px; font-weight: 800; color: #D4AF37; text-transform: uppercase;">
-                COASTERS TAVERN
               </div>
             </div>
             
@@ -1304,7 +1327,11 @@
         <div style="width: 100%; max-width: 1680px; display: flex; flex-direction: column; align-items: center; margin: auto 0;">
           <div class="gold-panel" style="width: 100%; padding: 45px 50px; display: flex; flex-direction: column; align-items: center; text-align: center; border: 3px solid #D4AF37; box-shadow: 0 20px 60px rgba(0,0,0,0.95), 0 0 50px rgba(212,175,55,0.45);">
             <div style="display: flex; align-items: center; gap: 20px; font-size: 55px; line-height: 1; margin-bottom: 12px;">
-              <span>💰</span> <span>💰</span> <span>💰</span> <span>💰</span> <span>💰</span>
+              <span class="anim-icon" style="animation-delay: 0s;">💰</span>
+              <span class="anim-icon" style="animation-delay: 0.3s;">💰</span>
+              <span class="anim-icon" style="animation-delay: 0.6s;">💰</span>
+              <span class="anim-icon" style="animation-delay: 0.9s;">💰</span>
+              <span class="anim-icon" style="animation-delay: 1.2s;">💰</span>
             </div>
             <div class="live-total-payments-val sheen-text" style="font-family: 'Oswald', sans-serif; font-size: 195px; font-weight: 900; color: #10B981; line-height: 1.05; text-shadow: 0 0 70px rgba(16,185,129,0.85); letter-spacing: 0.02em; margin: 18px 0;">
               $16,500.00
@@ -1914,10 +1941,15 @@
           slides[currentSlide].classList.add('active');
         }
 
-        // Header visibility (visible on all slides including Slide 0)
-        topHeader.style.opacity = '1';
-        topHeader.style.pointerEvents = 'auto';
-        slideNumInd.textContent = 'SLIDE ' + (currentSlide + 1) + ' OF ' + totalSlides;
+        // Header visibility (hidden on Slide 0, visible on Slides 1-8)
+        if (currentSlide === 0) {
+          topHeader.style.opacity = '0';
+          topHeader.style.pointerEvents = 'none';
+        } else {
+          topHeader.style.opacity = '1';
+          topHeader.style.pointerEvents = 'auto';
+          slideNumInd.textContent = 'SLIDE ' + (currentSlide + 1) + ' OF ' + totalSlides;
+        }
 
         resetProgressTimer();
       }
@@ -2231,6 +2263,10 @@
         var targetShortStr = shortDay + ' ' + targetDate.getDate() + ' ' + shortMonth;
         dynamicShortTexts.forEach(function(el) { el.textContent = targetShortStr; });
 
+        var drawTimeStr = (targetDate.getDay() === 2 ? '5:30 PM' : '6:30 PM');
+        var dynamicTimeEls = document.querySelectorAll('.dynamic-draw-time-val');
+        dynamicTimeEls.forEach(function(el) { el.textContent = drawTimeStr; });
+
         var dEl = document.getElementById('cd-days');
         var hEl = document.getElementById('cd-hours');
         var mEl = document.getElementById('cd-mins');
@@ -2278,7 +2314,7 @@
             if (progressBar) progressBar.style.width = '100%';
           } else {
             if (s5) s5.classList.remove('epic-mode');
-            if (topH) topH.style.opacity = '1';
+            if (topH && currentSlide !== 0) topH.style.opacity = '1';
             var cdTitle = document.getElementById('cd-slide-title');
             if (cdTitle) cdTitle.innerHTML = '<span class="color-cycle-spade">♠</span> NEXT DRAW COUNTDOWN <span class="color-cycle-spade">♠</span>';
             var cdSub = document.getElementById('cd-slide-subtitle');

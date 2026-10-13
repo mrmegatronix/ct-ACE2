@@ -1829,29 +1829,31 @@
       }
 
       function updateJackpotFromCsv() {
-        fetch(REMOTE_SHEET_CSV + '&t=' + Date.now())
+        var bustUrl = REMOTE_SHEET_CSV + '&_cb=' + Date.now();
+        fetch(bustUrl, { cache: 'no-store' })
           .then(function(res) {
-            if (!res.ok) throw new Error('Remote Sheet response ' + res.status);
+            if (!res.ok) throw new Error('Remote Sheet HTTP status ' + res.status);
             return res.text();
           })
           .then(function(csvText) {
             var ok = parseCsvJackpot(csvText);
-            if (!ok) throw new Error('Could not parse remote CSV jackpot');
+            if (ok) {
+              console.log('[Live CSV Sync] Live jackpot & cabinet successfully updated from Google Sheet:', activeJackpot);
+            }
           })
-          .catch(function() {
-            // Fallback to local data.csv
-            fetch('./data.csv?t=' + Date.now())
-              .then(function(res) { return res.text(); })
-              .then(function(csvText) {
-                parseCsvJackpot(csvText);
-              })
-              .catch(function(err) {
-                console.warn('[Signage CSV Valve Error]', err);
-              });
+          .catch(function(err) {
+            if (window.location.protocol === 'file:') {
+              fetch('./data.csv?_cb=' + Date.now(), { cache: 'no-store' })
+                .then(function(res) { return res.text(); })
+                .then(function(csvText) { parseCsvJackpot(csvText); })
+                .catch(function(e) { console.warn('[Local CSV Error]', e); });
+            } else {
+              console.warn('[Live CSV Valve Warning] Retaining live memory state during network jitter:', err);
+            }
           });
       }
       updateJackpotFromCsv();
-      setInterval(updateJackpotFromCsv, 60 * 1000);
+      setInterval(updateJackpotFromCsv, 30 * 1000);
 
       // 4b. LIVE WINNERS CSV FETCHING (gid=2141332002)
       var REMOTE_WINNERS_CSV = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQDwqNaCeNn7Q6WSgc5gN8aOS08Ltkxu2v9QBSVuaKrJFX61PZ1Nuninkqh_F62wQ5t47usf2e19dxx/pub?gid=2141332002&output=csv';
@@ -1912,29 +1914,31 @@
       }
 
       function updateWinnersFromCsv() {
-        fetch(REMOTE_WINNERS_CSV + '&t=' + Date.now())
+        var bustUrl = REMOTE_WINNERS_CSV + '&_cb=' + Date.now();
+        fetch(bustUrl, { cache: 'no-store' })
           .then(function(res) {
-            if (!res.ok) throw new Error('Remote Winners response ' + res.status);
+            if (!res.ok) throw new Error('Remote Winners HTTP status ' + res.status);
             return res.text();
           })
           .then(function(csvText) {
             var ok = parseWinnersCsv(csvText);
-            if (!ok) throw new Error('Could not parse remote winners CSV');
+            if (ok) {
+              console.log('[Live CSV Sync] Live winners list successfully updated from Google Sheet.');
+            }
           })
-          .catch(function() {
-            // Fallback to local winners.csv
-            fetch('./winners.csv?t=' + Date.now())
-              .then(function(res) { return res.text(); })
-              .then(function(csvText) {
-                parseWinnersCsv(csvText);
-              })
-              .catch(function(err) {
-                console.warn('[Winners CSV Error]', err);
-              });
+          .catch(function(err) {
+            if (window.location.protocol === 'file:') {
+              fetch('./winners.csv?_cb=' + Date.now(), { cache: 'no-store' })
+                .then(function(res) { return res.text(); })
+                .then(function(csvText) { parseWinnersCsv(csvText); })
+                .catch(function(e) { console.warn('[Local Winners CSV Error]', e); });
+            } else {
+              console.warn('[Live Winners CSV Warning] Retaining live memory state during network jitter:', err);
+            }
           });
       }
       updateWinnersFromCsv();
-      setInterval(updateWinnersFromCsv, 60 * 1000);
+      setInterval(updateWinnersFromCsv, 30 * 1000);
 
       // 5. BLINKING NZ CLOCK & COUNTDOWN LOGIC (WITH T-0 CEREMONY)
       var ceremonyActive = false;

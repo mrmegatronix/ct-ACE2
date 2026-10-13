@@ -524,35 +524,39 @@
     }
     .slide1-title {
       font-family: 'Outfit', sans-serif;
-      font-size: 46px;
+      font-size: 80px;
       font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
-      line-height: 1.15;
+      letter-spacing: 0.08em;
+      line-height: 0.95;
       margin: 0;
       color: #FCD34D;
-      text-shadow: 0 4px 20px rgba(0,0,0,0.9);
-      white-space: nowrap;
+      text-shadow: 0 4px 25px rgba(0,0,0,0.9);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      text-align: center;
     }
     .slide1-subtitle {
       font-family: 'Cinzel', serif;
-      font-size: 22px;
+      font-size: 24px;
       font-weight: 800;
       color: #E2E8F0;
-      letter-spacing: 0.12em;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      margin: 0;
+      margin: 6px 0 0 0;
       line-height: 1.25;
       white-space: nowrap;
     }
     .slide1-info-panel {
       width: 100%;
-      padding: 24px 30px;
+      padding: 22px 30px;
       display: flex;
       flex-direction: column;
       align-items: center;
       text-align: center;
-      gap: 12px;
+      gap: 10px;
       box-sizing: border-box;
       border: 2px solid #D4AF37;
       box-shadow: 0 16px 45px rgba(0,0,0,0.9), 0 0 35px rgba(212,175,55,0.35);
@@ -873,7 +877,9 @@
         <div class="slide1-sidebar">
           <div class="slide1-header-block">
             <h2 class="slide1-title sheen-text">
-              <span class="color-cycle-spade">♠</span> CURRENT CARD STATUS <span class="color-cycle-spade">♠</span>
+              <span>CURRENT</span>
+              <span>CARD</span>
+              <span>STATUS</span>
             </h2>
             <p class="slide1-subtitle">
               <span class="color-cycle-spade">♠</span> DIGITAL LIVE VIEW OF CARD CABINET <span class="color-cycle-spade">♠</span>
@@ -881,18 +887,18 @@
           </div>
 
           <div class="gold-panel slide1-info-panel">
-            <div style="font-size: 22px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">CARDS REMAINING</div>
-            <div id="slide1-cards-remaining" style="font-family: 'Bebas Neue', sans-serif; font-size: 86px; font-weight: 900; color: #FFFFFF; line-height: 1; margin: -2px 0;">53 OF 54</div>
-            <div id="slide1-odds" style="font-size: 20px; font-weight: 800; color: #10B981; text-transform: uppercase; letter-spacing: 0.05em;">1 IN 53 ODDS IN PLAY</div>
+            <div style="font-size: 24px; font-weight: 900; color: #D4AF37; text-transform: uppercase; letter-spacing: 0.08em;">CARDS REMAINING</div>
+            <div id="slide1-cards-remaining" style="font-family: 'Bebas Neue', sans-serif; font-size: 104px; font-weight: 900; color: #FFFFFF; line-height: 0.9; margin: 2px 0;">53 OF 54</div>
+            <div id="slide1-odds" style="font-size: 24px; font-weight: 800; color: #10B981; text-transform: uppercase; letter-spacing: 0.05em;">1 IN 53 ODDS IN PLAY</div>
             
-            <div style="height: 1px; width: 100%; background: rgba(212,175,55,0.3); margin: 4px 0;"></div>
+            <div style="height: 1px; width: 100%; background: rgba(212,175,55,0.35); margin: 6px 0;"></div>
             
-            <div style="font-size: 20px; font-weight: 900; color: #F59E0B; text-transform: uppercase; letter-spacing: 0.08em;">CASH JACKPOT</div>
-            <div class="live-jackpot-val" style="font-family: 'Bebas Neue', sans-serif; font-size: 82px; font-weight: 900; color: #FFFFFF; line-height: 1; text-shadow: 0 0 25px rgba(212,175,55,0.6); margin: -2px 0;">$600.00</div>
+            <div style="font-size: 22px; font-weight: 900; color: #F59E0B; text-transform: uppercase; letter-spacing: 0.08em;">CASH JACKPOT</div>
+            <div class="live-jackpot-val" style="font-family: 'Bebas Neue', sans-serif; font-size: 96px; font-weight: 900; color: #FFFFFF; line-height: 0.9; text-shadow: 0 0 25px rgba(212,175,55,0.6); margin: 2px 0;">$600.00</div>
             
-            <div style="height: 1px; width: 100%; background: rgba(212,175,55,0.3); margin: 4px 0;"></div>
+            <div style="height: 1px; width: 100%; background: rgba(212,175,55,0.35); margin: 6px 0;"></div>
             
-            <div id="slide1-recent-draw" style="font-size: 19px; font-weight: 800; color: #E5E5E5;">RECENT DRAW: <span style="color: #FCD34D;">CARD #14 (5♣)</span></div>
+            <div id="slide1-recent-draw" style="font-size: 22px; font-weight: 800; color: #E5E5E5;">RECENT DRAW: <span style="color: #FCD34D;">CARD #14 (5♣)</span></div>
           </div>
         </div>
 

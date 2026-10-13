@@ -1226,55 +1226,8 @@
           </h2>
         </div>
 
-        <div style="width: 100%; max-width: 1680px; display: flex; flex-direction: column; align-items: center; margin: auto 0;">
-          <!-- Event 1 Draw Showcase with Authentic 5 of Clubs Playing Card -->
-          <div class="gold-panel" style="width: 100%; padding: 40px 55px; display: flex; justify-content: space-between; align-items: center; border: 2.5px solid #D4AF37; box-shadow: 0 16px 50px rgba(0,0,0,0.9), 0 0 35px rgba(212,175,55,0.4);">
-            <div style="display: flex; align-items: center; gap: 45px;">
-              <!-- Authentic Playing Card 5 of Clubs (Quincunx 5-Pip Layout) -->
-              <div style="width: 160px; height: 230px; background: #FFFFFF; border-radius: 14px; border: 3px solid #1C1A14; box-shadow: 0 14px 36px rgba(0,0,0,0.85); position: relative; flex-shrink: 0; color: #0A0A0A; padding: 10px 12px; box-sizing: border-box;">
-                <!-- Top-Left Index -->
-                <div style="position: absolute; top: 10px; left: 10px; display: flex; flex-direction: column; align-items: center; width: 26px; line-height: 1;">
-                  <span style="font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 900; color: #0A0A0A;">5</span>
-                  <span style="font-size: 24px; line-height: 1; color: #0A0A0A;">♣</span>
-                </div>
-
-                <!-- 5 Pips Body (Quincunx Dice Pattern) -->
-                <div style="position: absolute; inset: 26px 32px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; align-items: center; justify-items: center; font-size: 40px; color: #0A0A0A; line-height: 1;">
-                  <span style="grid-column: 1; grid-row: 1;">♣</span>
-                  <span style="grid-column: 2; grid-row: 1;">♣</span>
-                  <span style="grid-column: 1 / span 2; grid-row: 2;">♣</span>
-                  <span style="grid-column: 1; grid-row: 3; transform: rotate(180deg);">♣</span>
-                  <span style="grid-column: 2; grid-row: 3; transform: rotate(180deg);">♣</span>
-                </div>
-
-                <!-- Bottom-Right Index (Rotated) -->
-                <div style="position: absolute; bottom: 10px; right: 10px; display: flex; flex-direction: column; align-items: center; width: 26px; line-height: 1; transform: rotate(180deg);">
-                  <span style="font-family: 'Outfit', sans-serif; font-size: 30px; font-weight: 900; color: #0A0A0A;">5</span>
-                  <span style="font-size: 24px; line-height: 1; color: #0A0A0A;">♣</span>
-                </div>
-              </div>
-
-              <!-- Draw Text Meta -->
-              <div>
-                <div id="prior-draw-title" style="font-size: 46px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em;">
-                  EVENT 1 <span class="color-cycle-spade">♠</span> 10/10/2026 <span class="color-cycle-spade">♠</span> CARD #14 (5♣) DRAWN
-                </div>
-                <div id="prior-draw-sub" style="font-size: 34px; font-weight: 700; color: #F3E5AB; text-transform: uppercase; margin-top: 10px;">
-                  ACE OF SPADES MISSED <span class="color-cycle-spade">♠</span> +$100 ACCUMULATES TO $600
-                </div>
-                <div style="font-size: 30px; font-weight: 600; color: #94A3B8; margin-top: 8px;">
-                  CUSTOMER LAUNCH AT $500 <span class="color-cycle-spade">♠</span> DRAW #1 AUDITED & VERIFIED
-                </div>
-              </div>
-            </div>
-
-            <div id="prior-draw-badge" style="display: flex; flex-direction: column; align-items: flex-end;">
-              <span style="font-size: 28px; font-weight: 800; color: #94A3B8; text-transform: uppercase;">OUTCOME</span>
-              <span style="font-family: 'Bebas Neue', sans-serif; font-size: 88px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.05em; line-height: 1;">
-                MISSED $500
-              </span>
-            </div>
-          </div>
+        <div id="draw-history-container" style="width: 100%; max-width: 1680px; display: flex; flex-direction: column; gap: 24px; align-items: center; margin: auto 0;">
+          <!-- Dynamically populated by renderDrawHistory() -->
         </div>
       </section>
 
@@ -1633,6 +1586,175 @@
       }
       generateCabinetGrid();
 
+      // 3b. DYNAMIC DRAW HISTORY CARD & MULTI-EVENT RENDERER
+      function parseCardRankAndSuit(cardStr) {
+        var s = (cardStr || '').trim().toUpperCase();
+        var suit = '♠';
+        var isRed = false;
+        if (s.indexOf('♥') !== -1 || s.indexOf('HEART') !== -1) {
+          suit = '♥';
+          isRed = true;
+        } else if (s.indexOf('♦') !== -1 || s.indexOf('DIAMOND') !== -1) {
+          suit = '♦';
+          isRed = true;
+        } else if (s.indexOf('♣') !== -1 || s.indexOf('CLUB') !== -1) {
+          suit = '♣';
+          isRed = false;
+        } else if (s.indexOf('♠') !== -1 || s.indexOf('SPADE') !== -1) {
+          suit = '♠';
+          isRed = false;
+        }
+
+        var rank = s.replace(/[\uFE0E\uFE0F]/g, '')
+                    .replace(/[♠♥♦♣️]/g, '')
+                    .replace(/OF\s+(HEARTS|DIAMONDS|CLUBS|SPADES)/g, '')
+                    .replace(/(HEARTS|DIAMONDS|CLUBS|SPADES)/g, '')
+                    .trim();
+        if (rank === 'ACE') rank = 'A';
+        if (rank === 'KING') rank = 'K';
+        if (rank === 'QUEEN') rank = 'Q';
+        if (rank === 'JACK') rank = 'J';
+        if (!rank) rank = 'A';
+
+        return { rank: rank, suit: suit, isRed: isRed, color: isRed ? '#DC2626' : '#111827' };
+      }
+
+      function renderAuthenticPlayingCard(cardStr) {
+        var c = parseCardRankAndSuit(cardStr);
+        var centerHtml = '';
+
+        if (c.rank === '5') {
+          // 5 Pips (Quincunx dice pattern)
+          centerHtml = '<div style="position: absolute; inset: 20px 24px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr 1fr; align-items: center; justify-items: center; font-size: 28px; color: ' + c.color + '; line-height: 1;">' +
+            '<span style="grid-column: 1; grid-row: 1;">' + c.suit + '</span>' +
+            '<span style="grid-column: 2; grid-row: 1;">' + c.suit + '</span>' +
+            '<span style="grid-column: 1 / span 2; grid-row: 2;">' + c.suit + '</span>' +
+            '<span style="grid-column: 1; grid-row: 3; transform: rotate(180deg);">' + c.suit + '</span>' +
+            '<span style="grid-column: 2; grid-row: 3; transform: rotate(180deg);">' + c.suit + '</span>' +
+          '</div>';
+        } else if (c.rank === '9') {
+          // 9 Pips authentic pattern
+          centerHtml = '<div style="position: absolute; inset: 16px 22px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(5, 1fr); align-items: center; justify-items: center; font-size: 22px; color: ' + c.color + '; line-height: 1;">' +
+            '<span style="grid-column: 1; grid-row: 1;">' + c.suit + '</span>' +
+            '<span style="grid-column: 2; grid-row: 1;">' + c.suit + '</span>' +
+            '<span style="grid-column: 1; grid-row: 2;">' + c.suit + '</span>' +
+            '<span style="grid-column: 2; grid-row: 2;">' + c.suit + '</span>' +
+            '<span style="grid-column: 1 / span 2; grid-row: 3;">' + c.suit + '</span>' +
+            '<span style="grid-column: 1; grid-row: 4; transform: rotate(180deg);">' + c.suit + '</span>' +
+            '<span style="grid-column: 2; grid-row: 4; transform: rotate(180deg);">' + c.suit + '</span>' +
+            '<span style="grid-column: 1; grid-row: 5; transform: rotate(180deg);">' + c.suit + '</span>' +
+            '<span style="grid-column: 2; grid-row: 5; transform: rotate(180deg);">' + c.suit + '</span>' +
+          '</div>';
+        } else if (c.rank === 'A') {
+          centerHtml = '<div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 60px; color: ' + c.color + '; line-height: 1;">' + c.suit + '</div>';
+        } else {
+          centerHtml = '<div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; pointer-events: none;">' +
+            '<span style="font-family: \'Bebas Neue\', sans-serif; font-size: 52px; font-weight: 900; color: ' + c.color + '; line-height: 0.9;">' + c.rank + c.suit + '</span>' +
+          '</div>';
+        }
+
+        return '<div style="width: 125px; height: 175px; background: #FFFFFF; border-radius: 12px; border: 2.5px solid ' + c.color + '; box-shadow: 0 12px 30px rgba(0,0,0,0.85); position: relative; flex-shrink: 0; padding: 8px 10px; box-sizing: border-box; overflow: hidden;">' +
+          '<div style="position: absolute; top: 8px; left: 8px; display: flex; flex-direction: column; align-items: center; width: 22px; line-height: 1;">' +
+            '<span style="font-family: \'Outfit\', sans-serif; font-size: 24px; font-weight: 900; color: ' + c.color + ';">' + c.rank + '</span>' +
+            '<span style="font-size: 18px; line-height: 1; color: ' + c.color + '; margin-top: 1px;">' + c.suit + '</span>' +
+          '</div>' +
+          centerHtml +
+          '<div style="position: absolute; bottom: 8px; right: 8px; display: flex; flex-direction: column; align-items: center; width: 22px; line-height: 1; transform: rotate(180deg);">' +
+            '<span style="font-family: \'Outfit\', sans-serif; font-size: 24px; font-weight: 900; color: ' + c.color + ';">' + c.rank + '</span>' +
+            '<span style="font-size: 18px; line-height: 1; color: ' + c.color + '; margin-top: 1px;">' + c.suit + '</span>' +
+          '</div>' +
+        '</div>';
+      }
+
+      function renderDrawHistory() {
+        var container = document.getElementById('draw-history-container');
+        if (!container) return;
+
+        var draws = (activeDrawnCards && activeDrawnCards.length > 0) ? activeDrawnCards.slice() : [
+          { num: 14, card: '5♣', event: '1', date: '10/10/2026', comment: 'Game start $500' }
+        ];
+
+        // Ensure Event 1 and Event 2 metadata is fully formed
+        for (var d = 0; d < draws.length; d++) {
+          if (!draws[d].event) {
+            draws[d].event = (draws[d].num === 14 ? '1' : (d + 1).toString());
+          }
+          if (!draws[d].date) {
+            draws[d].date = (draws[d].event === '1' || draws[d].num === 14 ? '10/10/2026' : (draws[d].event === '2' ? '13/10/2026' : new Date().toLocaleDateString('en-GB')));
+          }
+        }
+
+        // Sort descending by event number so Latest (Event 2) is on top, Event 1 is below
+        draws.sort(function(a, b) {
+          var ea = parseInt(a.event, 10) || 0;
+          var eb = parseInt(b.event, 10) || 0;
+          return eb - ea;
+        });
+
+        var html = '';
+        for (var i = 0; i < draws.length; i++) {
+          var draw = draws[i];
+          var eventNum = parseInt(draw.event, 10) || (draws.length - i);
+          var drawDate = draw.date || (eventNum === 1 ? '10/10/2026' : (eventNum === 2 ? '13/10/2026' : new Date().toLocaleDateString('en-GB')));
+          var cardStr = draw.card || (eventNum === 1 ? '5♣' : '9♥');
+          var slotNum = draw.num || (eventNum === 1 ? 14 : 7);
+
+          var isLatest = (i === 0 && draws.length > 1);
+          var isAce = cardStr.indexOf('♠') !== -1 && (cardStr.toUpperCase().indexOf('A') !== -1 || cardStr.toUpperCase().indexOf('ACE') !== -1);
+
+          var prevPotNum = 400 + (eventNum * 100);
+          var prevPotStr = '$' + prevPotNum;
+          var nextPotNum = prevPotNum + 100;
+          var nextPotStr = '$' + nextPotNum;
+
+          var cardGraphic = renderAuthenticPlayingCard(cardStr);
+
+          var borderStyle = isLatest
+            ? 'border: 2.5px solid #10B981; box-shadow: 0 16px 50px rgba(0,0,0,0.9), 0 0 35px rgba(16,185,129,0.35);'
+            : 'border: 2.5px solid #D4AF37; box-shadow: 0 16px 50px rgba(0,0,0,0.9), 0 0 35px rgba(212,175,55,0.35);';
+
+          var badgeTag = isLatest
+            ? '<span style="font-size: 13px; font-weight: 900; color: #34D399; letter-spacing: 0.12em; text-transform: uppercase; background: rgba(16,185,129,0.18); border: 1.5px solid #10B981; border-radius: 9999px; padding: 3px 14px; margin-bottom: 6px; display: inline-block;">♠ LATEST DRAW • EVENT ' + eventNum + ' ♠</span>'
+            : '<span style="font-size: 13px; font-weight: 900; color: #D4AF37; letter-spacing: 0.12em; text-transform: uppercase; background: rgba(212,175,55,0.16); border: 1.5px solid rgba(212,175,55,0.6); border-radius: 9999px; padding: 3px 14px; margin-bottom: 6px; display: inline-block;">EVENT ' + eventNum + ' • PRIOR DRAW</span>';
+
+          var outcomeText = isAce ? ('WON ' + prevPotStr) : ('MISSED ' + prevPotStr);
+          var outcomeColor = isAce ? '#34D399' : '#FFFFFF';
+
+          var subText = isAce
+            ? 'ACE OF SPADES REVEALED <span class="color-cycle-spade">♠</span> CASH JACKPOT WON!'
+            : 'ACE OF SPADES MISSED <span class="color-cycle-spade">♠</span> +$100 ACCUMULATES TO ' + nextPotStr;
+
+          var detailText = (draw.comment && draw.comment !== 'Missed' ? draw.comment + ' <span class="color-cycle-spade">♠</span> ' : '') + 'DRAW #' + eventNum + ' AUDITED & VERIFIED';
+
+          html += '<div class="gold-panel" style="width: 100%; padding: 22px 40px; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; ' + borderStyle + '">' +
+            '<div style="display: flex; align-items: center; gap: 35px;">' +
+              cardGraphic +
+              '<div>' +
+                badgeTag +
+                '<div style="font-size: 34px; font-weight: 900; color: #FFFFFF; letter-spacing: 0.04em; line-height: 1.15; white-space: nowrap;">' +
+                  'EVENT ' + eventNum + ' <span class="color-cycle-spade">♠</span> ' + drawDate + ' <span class="color-cycle-spade">♠</span> CARD #' + slotNum + ' (' + cardStr + ') DRAWN' +
+                '</div>' +
+                '<div style="font-size: 24px; font-weight: 700; color: #F3E5AB; text-transform: uppercase; margin-top: 5px; white-space: nowrap;">' +
+                  subText +
+                '</div>' +
+                '<div style="font-size: 20px; font-weight: 600; color: #94A3B8; margin-top: 5px; white-space: nowrap;">' +
+                  detailText +
+                '</div>' +
+              '</div>' +
+            '</div>' +
+            '<div style="display: flex; flex-direction: column; align-items: flex-end; flex-shrink: 0;">' +
+              '<span style="font-size: 22px; font-weight: 800; color: #94A3B8; text-transform: uppercase;">OUTCOME</span>' +
+              '<span style="font-family: \'Bebas Neue\', sans-serif; font-size: 68px; font-weight: 900; color: ' + outcomeColor + '; letter-spacing: 0.05em; line-height: 1; white-space: nowrap;">' +
+                outcomeText +
+              '</span>' +
+            '</div>' +
+          '</div>';
+        }
+
+        container.innerHTML = html;
+      }
+      renderDrawHistory();
+
       // 4. INTERACTIVE ZOOM & VERTICAL SCROLL FOR CABINET BOARD (ZERO HORIZONTAL PAN)
       (function initCabinetInteractivity() {
         var wrap = document.querySelector('.cabinet-board-wrap');
@@ -1821,6 +1943,8 @@
         showSlide((currentSlide - 1 + totalSlides) % totalSlides);
       };
 
+      window.showSlide = showSlide;
+
       function restartModule() {
         showSlide(0);
       }
@@ -1993,22 +2117,9 @@
             activeDrawnCards = parsedDrawnCards;
             generateCabinetGrid();
 
-            // Dynamically populate Slide 6 Verified Prior Draws with latest draw
-            if (parsedDrawnCards.length > 0) {
-              var lastDraw = parsedDrawnCards[parsedDrawnCards.length - 1];
-              var pTitle = document.getElementById('prior-draw-title');
-              if (pTitle) pTitle.textContent = 'EVENT ' + lastDraw.event + ' • ' + lastDraw.date + ' • CARD #' + lastDraw.num + ' (' + lastDraw.card + ') DRAWN';
-              var pSub = document.getElementById('prior-draw-sub');
-              var isAce = lastDraw.card.indexOf('♠') !== -1 && (lastDraw.card.toUpperCase().indexOf('A') !== -1 || lastDraw.card.toUpperCase().indexOf('ACE') !== -1);
-              if (pSub) {
-                pSub.textContent = isAce ? 'ACE OF SPADES REVEALED • JACKPOT WON!' : 'ACE OF SPADES MISSED • +$100 ACCUMULATES TO ' + activeJackpot;
-              }
-              var pBadge = document.getElementById('prior-draw-badge');
-              if (pBadge) {
-                var prevPotMatch = (lastDraw.comment || '').match(/\$([0-9,.]+)/);
-                var prevPot = prevPotMatch ? ('$' + prevPotMatch[1]) : '$500';
-                pBadge.textContent = isAce ? 'WON JACKPOT' : 'MISSED ' + prevPot;
-              }
+            // Dynamically populate Slide 6 Verified Prior Draws
+            if (typeof renderDrawHistory === 'function') {
+              renderDrawHistory();
             }
           }
         }
@@ -2460,12 +2571,8 @@
           generateCabinetGrid();
 
           // Slide 6 Draw History updates
-          if (activeDrawnCards.length > 0) {
-            var lastD = activeDrawnCards[activeDrawnCards.length - 1];
-            var pTitle = document.getElementById('prior-draw-title');
-            if (pTitle) pTitle.textContent = 'EVENT ' + lastD.event + ' • ' + lastD.date + ' • CARD #' + lastD.num + ' (' + lastD.card + ') DRAWN';
-            var pSub = document.getElementById('prior-draw-sub');
-            if (pSub) pSub.textContent = 'ACE OF SPADES MISSED • +$100 ACCUMULATES TO ' + activeJackpot;
+          if (typeof renderDrawHistory === 'function') {
+            renderDrawHistory();
           }
 
           // Persist to localStorage so CSV polling doesn't overwrite it
@@ -2503,6 +2610,16 @@
           try {
             var parsed = JSON.parse(e.newValue);
             handleAction(parsed);
+          } catch(err) {}
+        }
+        if (e.key === 'ct_ace_persisted_state' && e.newValue) {
+          try {
+            var pState = JSON.parse(e.newValue);
+            if (pState.drawnCards) {
+              activeDrawnCards = pState.drawnCards;
+              generateCabinetGrid();
+              if (typeof renderDrawHistory === 'function') renderDrawHistory();
+            }
           } catch(err) {}
         }
       });

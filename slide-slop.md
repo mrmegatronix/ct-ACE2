@@ -43,7 +43,7 @@
   * Slot `#14`: Face-up `5♣` (`#14`, `5♣`, `DRAWN`)
 * **Motion & Interactivity**:
   * Smooth cinematic Ken Burns camera sweep traversing ALL 54 cards: Full view overview (all 54 cards) -> Top rows (Cards 1-15 & drawn 5♣) -> Mid rows (Cards 16-31) -> Bottom rows (Cards 32-54) -> Full view hold (all 54 cards)
-  * Natural vertical mouse wheel scrolling to browse from Card #1 down to Card #54, Ctrl+wheel zoom, click-and-drag pan, double-click reset to full view
+  * Pure automated 18s animation (no manual zoom buttons, drag, or wheel controls)
 
 ---
 
@@ -70,11 +70,12 @@
   * Value: `♠ ACE`
   * Subtext: `ACE OF SPADES WINS ALL`
 * **Bottom Suits Bar**:
-  * `♠ 13 SPADES`
-  * `♥ 13 HEARTS`
-  * `🃏 2 JOKERS`
-  * `♦ 13 DIAMONDS`
-  * `♣ 13 CLUBS`
+  * Dynamic countdown per suit based on drawn cards in active deck:
+    * `♠ [N] SPADES`
+    * `♥ [N] HEARTS`
+    * `🃏 [N] JOKERS`
+    * `♦ [N] DIAMONDS`
+    * `♣ [N] CLUBS`
 
 ---
 
@@ -155,28 +156,28 @@
 * **Header Subtitle**:
   * *(Removed)*
 * **Table Header**:
-  * `VERIFIED JACKPOT WINNERS` (With animated floating 🏆 trophy icon)
+  * `PREVIOUS JACKPOT WINNERS` (With animated floating 🏆 trophy icon)
 * **Columns**:
-  * `WINNER` | `DATE` | `JACKPOT WON`
+  * `WINNER` | `DATE WON` | `AMOUNT WON`
 * **Rows**:
-  * `♠ H.` | `19/Sep/2026` | `$2,700.00`
-  * `♠ C. W.` | `23/June/2026` | `$3,400.00`
-  * `♠ P. M.` | `28/Feb/2026` | `$3,400.00`
-  * `♠ R. N.` | `28/Oct/2025` | `$500.00`
-  * `♠ K. M.` | `11/Oct/2025` | `$1,500.00`
-  * `♠ S.` | `26/Jul/2025` | `$5,000.00`
+  * `♠    H.` | `19/Sep/2026` | `$2,700.00`
+  * `♠    C. W.` | `23/June/2026` | `$3,400.00`
+  * `♠    P. M.` | `28/Feb/2026` | `$3,400.00`
+  * `♠    R. N.` | `28/Oct/2025` | `$500.00`
+  * `♠    K. M.` | `11/Oct/2025` | `$1,500.00`
+  * `♠    S.` | `26/Jul/2025` | `$5,000.00`
 
 ---
 
 ## Slide 8: Total Ace Payments Showcase
 
 * **Header Title**:
-  * `♠ TOTAL CHASE THE ACE JACKPOTS WON ♠`
+  * `♠ GRAND TOTAL OF CHASE THE ACE JACKPOTS WON: ♠`
 * **Header Subtitle**:
   * *(Removed)*
 * **Feature Panel**:
   * Icons: `💰💰💰💰💰` (Animated with staggered floating/pulse keyframe effect)
   * Eyebrow: *(Removed)*
-  * Colossal Amount: `$16,500.00` (195px neon emerald glow with 50% reduced sheen)
+  * Colossal Amount: `$16,500.00` (195px subtle breathing scale pulse, 100% gold metallic sheen, zero green glow)
 * **Pill Badges**:
   * `♠ 6 VERIFIED JACKPOT WINNERS ♠`

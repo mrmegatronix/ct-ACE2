@@ -139,6 +139,19 @@
         filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.9));
       }
     }
+    .total-amount-pulse {
+      display: inline-block;
+      animation: metallic-sheen 8s linear infinite, totalAmountPulse 3s ease-in-out infinite;
+      transform-origin: center;
+    }
+    @keyframes totalAmountPulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.04);
+      }
+    }
 
     /* ==========================================================================
        CONTAINER & HEADER
@@ -498,14 +511,11 @@
       position: relative;
       overflow: hidden;
       border-radius: 18px;
-      cursor: grab;
+      cursor: default;
       user-select: none;
     }
-    #slide-1 .cabinet-board-wrap:active {
-      cursor: grabbing;
-    }
     /* Cinematic smooth fluid zoom-in, scroll down, and zoom-out for Cabinet slide */
-    .slide-pane#slide-1.active .cabinet-board:not(.user-interacting) {
+    .slide-pane#slide-1.active .cabinet-board {
       animation: cabinetZoomScroll 18s cubic-bezier(0.42, 0, 0.58, 1) infinite;
       will-change: transform;
     }
@@ -526,39 +536,6 @@
         /* Phase 4: Smooth fluid zoom out back to full overview */
         transform: scale(1) translateY(0);
       }
-    }
-    .cabinet-zoom-controls {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      display: flex;
-      gap: 6px;
-      z-index: 25;
-      background: rgba(10, 10, 12, 0.88);
-      border: 1px solid rgba(212, 175, 55, 0.45);
-      border-radius: 9999px;
-      padding: 4px 8px;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(6px);
-    }
-    .cab-ctrl-btn {
-      background: rgba(212, 175, 55, 0.12);
-      border: 1px solid rgba(212, 175, 55, 0.35);
-      color: #FCD34D;
-      font-size: 13px;
-      font-weight: 800;
-      border-radius: 9999px;
-      padding: 4px 10px;
-      cursor: pointer;
-      line-height: 1;
-      transition: all 0.2s ease;
-      user-select: none;
-    }
-    .cab-ctrl-btn:hover {
-      background: rgba(212, 175, 55, 0.3);
-      border-color: #FCD34D;
-      color: #FFFFFF;
-      transform: scale(1.05);
     }
     #slide-1 .cabinet-board {
       display: flex;
@@ -958,11 +935,6 @@
       <section class="slide-pane" id="slide-1">
         <!-- 54 Card Physical Cabinet Board (Left: 7 Rows) -->
         <div class="cabinet-board-wrap">
-          <div class="cabinet-zoom-controls">
-            <button type="button" class="cab-ctrl-btn" onclick="cabinetZoom(0.12)" title="Zoom In">🔍+</button>
-            <button type="button" class="cab-ctrl-btn" onclick="cabinetZoom(-0.12)" title="Zoom Out">🔍−</button>
-            <button type="button" class="cab-ctrl-btn" onclick="cabinetResetZoom()" title="Reset View">↺</button>
-          </div>
           <div class="cabinet-board" id="cabinet-grid-container">
             <!-- Dynamically generated 7 rows (7, 8, 8, 8, 8, 7, 8 = 54 cards) -->
           </div>
@@ -1043,19 +1015,19 @@
         <!-- 5 Suits & Jokers Visual Bar -->
         <div class="gold-panel" style="width: 100%; max-width: 1800px; padding: 24px 40px; display: flex; justify-content: space-around; align-items: center;">
           <div style="display: flex; align-items: center; gap: 18px; font-size: 30px; font-weight: 900;">
-            <span style="font-size: 48px; color: #D4AF37;">♠</span> <span>13 SPADES</span>
+            <span style="font-size: 48px; color: #D4AF37;">♠</span> <span id="count-spades">13 SPADES</span>
           </div>
           <div style="display: flex; align-items: center; gap: 18px; font-size: 30px; font-weight: 900;">
-            <span style="font-size: 48px; color: #EF4444;">♥</span> <span>13 HEARTS</span>
+            <span style="font-size: 48px; color: #EF4444;">♥</span> <span id="count-hearts">13 HEARTS</span>
           </div>
           <div style="display: flex; align-items: center; gap: 18px; font-size: 30px; font-weight: 900;">
-            <span style="font-size: 48px; color: #FCD34D;">🃏</span> <span>2 JOKERS</span>
+            <span style="font-size: 48px; color: #FCD34D;">🃏</span> <span id="count-jokers">2 JOKERS</span>
           </div>
           <div style="display: flex; align-items: center; gap: 18px; font-size: 30px; font-weight: 900;">
-            <span style="font-size: 48px; color: #EF4444;">♦</span> <span>13 DIAMONDS</span>
+            <span style="font-size: 48px; color: #EF4444;">♦</span> <span id="count-diamonds">13 DIAMONDS</span>
           </div>
           <div style="display: flex; align-items: center; gap: 18px; font-size: 30px; font-weight: 900;">
-            <span style="font-size: 48px; color: #D4AF37;">♣</span> <span>13 CLUBS</span>
+            <span style="font-size: 48px; color: #D4AF37;">♣</span> <span id="count-clubs">13 CLUBS</span>
           </div>
         </div>
       </section>
@@ -1262,7 +1234,7 @@
                   <span class="anim-icon">🏆</span>
                 </div>
                 <div style="font-size: 38px; font-weight: 900; color: #F3E5AB; letter-spacing: 0.05em; text-transform: uppercase;">
-                  VERIFIED JACKPOT WINNERS
+                  PREVIOUS JACKPOT WINNERS
                 </div>
               </div>
             </div>
@@ -1272,38 +1244,38 @@
                 <thead>
                   <tr style="color: #D4AF37; font-size: 32px; font-weight: 800; text-transform: uppercase; border-bottom: 2px solid rgba(212,175,55,0.3);">
                     <th style="padding: 12px 20px; text-align: left;">WINNER</th>
-                    <th style="padding: 12px 20px; text-align: center;">DATE</th>
-                    <th style="padding: 12px 20px; text-align: right;">JACKPOT WON</th>
+                    <th style="padding: 12px 20px; text-align: center;">DATE WON</th>
+                    <th style="padding: 12px 20px; text-align: right;">AMOUNT WON</th>
                   </tr>
                 </thead>
                 <tbody id="winners-table-body">
                   <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    <td style="padding: 14px 20px; font-size: 34px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">♠ H.</td>
+                    <td style="padding: 14px 20px; font-size: 34px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">♠&nbsp;&nbsp;&nbsp;&nbsp;H.</td>
                     <td style="padding: 14px 20px; font-size: 30px; font-weight: 700; color: #94A3B8; text-align: center; white-space: nowrap;">19/Sep/2026</td>
                     <td style="padding: 14px 20px; font-family: 'Bebas Neue', sans-serif; font-size: 50px; font-weight: 900; color: #10B981; text-align: right; white-space: nowrap;">$2,700.00</td>
                   </tr>
                   <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    <td style="padding: 14px 20px; font-size: 34px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">♠ C. W.</td>
+                    <td style="padding: 14px 20px; font-size: 34px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">♠&nbsp;&nbsp;&nbsp;&nbsp;C. W.</td>
                     <td style="padding: 14px 20px; font-size: 30px; font-weight: 700; color: #94A3B8; text-align: center; white-space: nowrap;">23/June/2026</td>
                     <td style="padding: 14px 20px; font-family: 'Bebas Neue', sans-serif; font-size: 50px; font-weight: 900; color: #10B981; text-align: right; white-space: nowrap;">$3,400.00</td>
                   </tr>
                   <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    <td style="padding: 14px 20px; font-size: 34px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">♠ P. M.</td>
+                    <td style="padding: 14px 20px; font-size: 34px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">♠&nbsp;&nbsp;&nbsp;&nbsp;P. M.</td>
                     <td style="padding: 14px 20px; font-size: 30px; font-weight: 700; color: #94A3B8; text-align: center; white-space: nowrap;">28/Feb/2026</td>
                     <td style="padding: 14px 20px; font-family: 'Bebas Neue', sans-serif; font-size: 50px; font-weight: 900; color: #10B981; text-align: right; white-space: nowrap;">$3,400.00</td>
                   </tr>
                   <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    <td style="padding: 14px 20px; font-size: 34px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">♠ R. N.</td>
+                    <td style="padding: 14px 20px; font-size: 34px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">♠&nbsp;&nbsp;&nbsp;&nbsp;R. N.</td>
                     <td style="padding: 14px 20px; font-size: 30px; font-weight: 700; color: #94A3B8; text-align: center; white-space: nowrap;">28/Oct/2025</td>
                     <td style="padding: 14px 20px; font-family: 'Bebas Neue', sans-serif; font-size: 50px; font-weight: 900; color: #10B981; text-align: right; white-space: nowrap;">$500.00</td>
                   </tr>
                   <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    <td style="padding: 14px 20px; font-size: 34px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">♠ K. M.</td>
+                    <td style="padding: 14px 20px; font-size: 34px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">♠&nbsp;&nbsp;&nbsp;&nbsp;K. M.</td>
                     <td style="padding: 14px 20px; font-size: 30px; font-weight: 700; color: #94A3B8; text-align: center; white-space: nowrap;">11/Oct/2025</td>
                     <td style="padding: 14px 20px; font-family: 'Bebas Neue', sans-serif; font-size: 50px; font-weight: 900; color: #10B981; text-align: right; white-space: nowrap;">$1,500.00</td>
                   </tr>
                   <tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">
-                    <td style="padding: 14px 20px; font-size: 34px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">♠ S.</td>
+                    <td style="padding: 14px 20px; font-size: 34px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">♠&nbsp;&nbsp;&nbsp;&nbsp;S.</td>
                     <td style="padding: 14px 20px; font-size: 30px; font-weight: 700; color: #94A3B8; text-align: center; white-space: nowrap;">26/Jul/2025</td>
                     <td style="padding: 14px 20px; font-family: 'Bebas Neue', sans-serif; font-size: 50px; font-weight: 900; color: #10B981; text-align: right; white-space: nowrap;">$5,000.00</td>
                   </tr>
@@ -1320,7 +1292,7 @@
       <section class="slide-pane slide-with-header" id="slide-8">
         <div class="slide-header-block">
           <h2 class="slide-header-title sheen-text">
-            <span class="color-cycle-spade">♠</span> TOTAL CHASE THE ACE JACKPOTS WON <span class="color-cycle-spade">♠</span>
+            <span class="color-cycle-spade">♠</span> GRAND TOTAL OF CHASE THE ACE JACKPOTS WON: <span class="color-cycle-spade">♠</span>
           </h2>
         </div>
 
@@ -1333,7 +1305,7 @@
               <span class="anim-icon" style="animation-delay: 0.9s;">💰</span>
               <span class="anim-icon" style="animation-delay: 1.2s;">💰</span>
             </div>
-            <div class="live-total-payments-val sheen-text" style="font-family: 'Oswald', sans-serif; font-size: 195px; font-weight: 900; color: #10B981; line-height: 1.05; text-shadow: 0 0 70px rgba(16,185,129,0.85); letter-spacing: 0.02em; margin: 18px 0;">
+            <div class="live-total-payments-val sheen-text total-amount-pulse" style="font-family: 'Oswald', sans-serif; font-size: 195px; font-weight: 900; line-height: 1.05; text-shadow: none; letter-spacing: 0.02em; margin: 18px 0;">
               $16,500.00
             </div>
             <div style="display: flex; gap: 28px; align-items: center; justify-content: center; margin-top: 10px;">
@@ -1602,6 +1574,27 @@
           var lastD = activeDrawnCards[activeDrawnCards.length - 1];
           s1Recent.innerHTML = 'RECENT DRAW: <span style="color: #FCD34D;">CARD #' + lastD.num + ' (' + lastD.card + ')</span>';
         }
+
+        // Dynamic countdown of remaining cards per suit on Slide 2
+        var spadesRem = 13, heartsRem = 13, jokersRem = 2, diamondsRem = 13, clubsRem = 13;
+        for (var d = 0; d < activeDrawnCards.length; d++) {
+          var cardStr = (activeDrawnCards[d].card || '').toUpperCase();
+          if (cardStr.indexOf('♠') !== -1 || cardStr.indexOf('SPADE') !== -1) spadesRem--;
+          else if (cardStr.indexOf('♥') !== -1 || cardStr.indexOf('HEART') !== -1) heartsRem--;
+          else if (cardStr.indexOf('♦') !== -1 || cardStr.indexOf('DIAMOND') !== -1) diamondsRem--;
+          else if (cardStr.indexOf('♣') !== -1 || cardStr.indexOf('CLUB') !== -1) clubsRem--;
+          else if (cardStr.indexOf('JOKER') !== -1 || cardStr.indexOf('🃏') !== -1) jokersRem--;
+        }
+        var elSpades = document.getElementById('count-spades');
+        if (elSpades) elSpades.textContent = Math.max(0, spadesRem) + ' SPADES';
+        var elHearts = document.getElementById('count-hearts');
+        if (elHearts) elHearts.textContent = Math.max(0, heartsRem) + ' HEARTS';
+        var elJokers = document.getElementById('count-jokers');
+        if (elJokers) elJokers.textContent = Math.max(0, jokersRem) + (jokersRem === 1 ? ' JOKER' : ' JOKERS');
+        var elDiamonds = document.getElementById('count-diamonds');
+        if (elDiamonds) elDiamonds.textContent = Math.max(0, diamondsRem) + ' DIAMONDS';
+        var elClubs = document.getElementById('count-clubs');
+        if (elClubs) elClubs.textContent = Math.max(0, clubsRem) + ' CLUBS';
       }
       generateCabinetGrid();
 
@@ -1774,109 +1767,9 @@
       }
       renderDrawHistory();
 
-      // 4. INTERACTIVE ZOOM & VERTICAL SCROLL FOR CABINET BOARD (ZERO HORIZONTAL PAN)
-      (function initCabinetInteractivity() {
-        var wrap = document.querySelector('.cabinet-board-wrap');
-        var grid = document.getElementById('cabinet-grid-container');
-        if (!wrap || !grid) return;
-
-        var scale = 1.0;
-        var panY = 0;
-        var isDragging = false;
-        var startY = 0;
-        var resetTimeout = null;
-
-        function updateTransform() {
-          grid.classList.add('user-interacting');
-          // Pure vertical scroll and zoom - zero horizontal pan
-          grid.style.transform = 'translateY(' + panY + 'px) scale(' + scale + ')';
-          clearTimeout(resetTimeout);
-          resetTimeout = setTimeout(function() {
-            grid.style.transform = '';
-            grid.classList.remove('user-interacting');
-            scale = 1.0;
-            panY = 0;
-          }, 18000);
-        }
-
-        window.cabinetZoom = function(delta) {
-          scale = Math.min(Math.max(1.0, +(scale + delta).toFixed(2)), 1.75);
-          var maxPanY = Math.max(160, (scale - 1) * 440 + 90);
-          panY = Math.min(Math.max(-maxPanY, panY), maxPanY);
-          updateTransform();
-        };
-
-        window.cabinetResetZoom = function() {
-          grid.style.transform = '';
-          grid.classList.remove('user-interacting');
-          scale = 1.0;
-          panY = 0;
-        };
-
-        wrap.addEventListener('wheel', function(e) {
-          e.preventDefault();
-          if (e.ctrlKey || e.shiftKey) {
-            // Zoom via pinch / Ctrl+wheel / Shift+wheel
-            var zoomDelta = e.deltaY < 0 ? 0.08 : -0.08;
-            window.cabinetZoom(zoomDelta);
-          } else {
-            // Natural vertical scroll to browse from Card #1 down to Card #54
-            panY -= e.deltaY * 0.9;
-            var maxPanY = Math.max(160, (scale - 1) * 440 + 90);
-            panY = Math.min(Math.max(-maxPanY, panY), maxPanY);
-            updateTransform();
-          }
-        }, { passive: false });
-
-        wrap.addEventListener('mousedown', function(e) {
-          if (e.button !== 0) return;
-          if (e.target.closest && e.target.closest('.cabinet-zoom-controls')) return;
-          isDragging = true;
-          startY = e.clientY - panY;
-        });
-
-        window.addEventListener('mousemove', function(e) {
-          if (!isDragging) return;
-          panY = e.clientY - startY;
-          var maxPanY = Math.max(140, (scale - 1) * 380 + 80);
-          panY = Math.min(Math.max(-maxPanY, panY), maxPanY);
-          updateTransform();
-        });
-
-        window.addEventListener('mouseup', function() {
-          isDragging = false;
-        });
-
-        // Touch support for touchscreens / kiosks
-        wrap.addEventListener('touchstart', function(e) {
-          if (e.touches.length === 1) {
-            if (e.target.closest && e.target.closest('.cabinet-zoom-controls')) return;
-            isDragging = true;
-            startY = e.touches[0].clientY - panY;
-          }
-        }, { passive: true });
-
-        window.addEventListener('touchmove', function(e) {
-          if (!isDragging || e.touches.length !== 1) return;
-          panY = e.touches[0].clientY - startY;
-          var maxPanY = Math.max(140, (scale - 1) * 380 + 80);
-          panY = Math.min(Math.max(-maxPanY, panY), maxPanY);
-          updateTransform();
-        }, { passive: true });
-
-        window.addEventListener('touchend', function() {
-          isDragging = false;
-        });
-
-        wrap.addEventListener('dblclick', function(e) {
-          if (e.target.closest && e.target.closest('.cabinet-zoom-controls')) return;
-          if (scale > 1.05) {
-            window.cabinetResetZoom();
-          } else {
-            window.cabinetZoom(0.25);
-          }
-        });
-      })();
+      // 4. CABINET BOARD AUTOMATED CAMERA ANIMATION (Pure 18s CSS Ken Burns sweep)
+      window.cabinetZoom = function() {};
+      window.cabinetResetZoom = function() {};
 
       // Confetti generation
       function triggerConfetti(count) {
@@ -2177,7 +2070,8 @@
           var html = '';
           winners.forEach(function(w) {
             var amtColor = (w.amount && w.amount !== '?' && w.amount !== '—') ? '#10B981' : '#FCD34D';
-            var displayName = (w.name.indexOf('♠') === 0 ? '' : '♠ ') + w.name;
+            var cleanName = w.name.replace(/^♠\s*/, '').trim();
+            var displayName = '♠&nbsp;&nbsp;&nbsp;&nbsp;' + cleanName;
             html += '<tr style="border-bottom: 1px solid rgba(255,255,255,0.1);">' +
               '<td style="padding: 14px 20px; font-size: 34px; font-weight: 800; color: #FFFFFF; white-space: nowrap;">' + displayName + '</td>' +
               '<td style="padding: 14px 20px; font-size: 30px; font-weight: 700; color: #94A3B8; text-align: center; white-space: nowrap;">' + w.date + '</td>' +

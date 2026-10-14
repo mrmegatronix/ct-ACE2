@@ -141,6 +141,29 @@
           suggestedFix: 'Reduce internal padding or child font-size/height.'
         });
       }
+
+      // Check child element clipping/spilling past parent right edge
+      const parent = el.parentElement;
+      if (parent && parent !== document.body && parent !== document.documentElement && isVisible(parent)) {
+        const parentStyle = window.getComputedStyle(parent);
+        const parentRect = parent.getBoundingClientRect();
+        const elRect = el.getBoundingClientRect();
+
+        // If parent has explicit or max width (like .slide1-sidebar, .gold-panel)
+        if (parentRect.width > 0 && elRect.width > 0 && (parentStyle.maxWidth !== 'none' || parentStyle.overflow === 'hidden' || parent.classList.contains('slide1-sidebar') || parent.classList.contains('slide1-header-block'))) {
+          if (elRect.right > parentRect.right + 2 || elRect.left < parentRect.left - 2) {
+            violations.push({
+              severity: 'CRITICAL',
+              category: 'CONTAINER_EDGE_CLIPPING',
+              context: contextName,
+              selector: getElementSelector(el),
+              elementText: getTextSummary(el),
+              message: `Element overflows parent container [child right: ${Math.round(elRect.right)}px > parent right: ${Math.round(parentRect.right)}px]`,
+              suggestedFix: 'Reduce font-size, reduce letter-spacing, or add max-width: 100% with text-overflow: ellipsis.'
+            });
+          }
+        }
+      }
     }
     return violations;
   }
@@ -204,9 +227,10 @@
   function checkFontsLoaded() {
     const violations = [];
     const requiredFonts = [
-      'Cinzel',
+      'Outfit',
+      'Inter',
       'Bebas Neue',
-      'Inter'
+      'Oswald'
     ];
 
     const loadedFamilies = new Set();
@@ -231,6 +255,46 @@
           message: `Required font "${font}" is not verified as loaded in document.fonts.`,
           suggestedFix: 'Check Google Fonts <link> tags or font-family fallback declarations.'
         });
+      }
+    }
+    return violations;
+  }
+
+  // Check 4b: Font Family Consistency & Disallowed Fonts
+  function checkFontFamilyConsistency(container, contextName) {
+    const violations = [];
+    if (!container) return violations;
+
+    const disallowedSerifFonts = ['cinzel', 'playfair display', 'times new roman', 'times', 'georgia', 'garamond', 'serif'];
+    const elements = container.querySelectorAll('*');
+
+    for (const el of elements) {
+      if (!isVisible(el)) continue;
+      const text = (el.textContent || '').trim();
+      if (!text) continue; // Only inspect elements presenting text
+
+      const style = window.getComputedStyle(el);
+      const computedFont = (style.fontFamily || '').toLowerCase();
+
+      // Check if computed font explicitly uses serif or disallowed serif font families
+      for (const disallowed of disallowedSerifFonts) {
+        // Match word boundaries for "serif" so "sans-serif" is NOT flagged
+        const isMatched = disallowed === 'serif' 
+          ? /(^|,\s*)serif(\s*,|$)/i.test(computedFont)
+          : computedFont.includes(disallowed);
+
+        if (isMatched) {
+          violations.push({
+            severity: 'CRITICAL',
+            category: 'FONT_FAMILY_MISMATCH',
+            context: contextName,
+            selector: getElementSelector(el),
+            elementText: getTextSummary(el),
+            message: `Disallowed font "${disallowed}" detected in font-family: "${style.fontFamily}". Serif fonts do not match the project's modern sans-serif typography system.`,
+            suggestedFix: "Replace with 'Outfit' for titles/headings/subtitles or 'Inter' for body/UI."
+          });
+          break;
+        }
       }
     }
     return violations;
@@ -352,6 +416,7 @@
     violations.push(...checkViewportBounds(slideEl, contextName));
     violations.push(...checkContainerOverflow(slideEl, contextName));
     violations.push(...checkTextWrapping(slideEl, contextName));
+    violations.push(...checkFontFamilyConsistency(slideEl, contextName));
     violations.push(...checkClockBlinkingColons(slideEl, contextName));
     violations.push(...checkSiblingCollisions(slideEl, contextName));
     return violations;
@@ -365,6 +430,7 @@
     violations.push(...checkViewportBounds(document.body, contextName, { allowVerticalScroll: true, targetWidth: window.innerWidth }));
     violations.push(...checkContainerOverflow(document.body, contextName));
     violations.push(...checkTextWrapping(document.body, contextName));
+    violations.push(...checkFontFamilyConsistency(document.body, contextName));
     violations.push(...checkClockBlinkingColons(document.body, contextName));
     violations.push(...checkSiblingCollisions(document.body, contextName));
 
@@ -465,6 +531,7 @@
     auditPage,
     auditAllSlides,
     checkFontsLoaded,
+    checkFontFamilyConsistency,
     checkViewportBounds,
     checkContainerOverflow,
     checkTextWrapping,

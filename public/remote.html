@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Chase the Ace - Handheld Remote</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@700;900&family=Inter:wght@500;700;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&family=Outfit:wght@600;800;900&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     body {
@@ -36,7 +35,8 @@
       box-shadow: 0 4px 20px rgba(0,0,0,0.8);
     }
     h1 {
-      font-family: 'Cinzel', serif;
+      font-family: 'Outfit', 'Inter', sans-serif;
+      font-weight: 900;
       color: #D4AF37;
       font-size: 20px;
       letter-spacing: 2px;
@@ -139,6 +139,14 @@
         <button onclick="sendAction('togglePause')">⏸ PAUSE / PLAY</button>
         <button onclick="sendAction('toggleLock')" class="freeze">❄ FREEZE</button>
       </div>
+      <div class="btn-row" style="margin-top: 8px;">
+        <button onclick="sendAction('confetti', 80)" style="flex: 1; background: linear-gradient(135deg, #8B5CF6, #6D28D9); border-color: #8B5CF6; color: white; font-weight: 900;">
+          🎉 CONFETTI
+        </button>
+        <button onclick="sendAction('fireworks', 15)" style="flex: 1; background: linear-gradient(135deg, #EF4444, #B91C1C); border-color: #EF4444; color: white; font-weight: 900;">
+          🎆 FIREWORKS
+        </button>
+      </div>
     </div>
 
     <!-- Quick Jump to Slide -->
@@ -153,7 +161,9 @@
         <button class="jump-btn" onclick="sendAction('slide', 3)">3. Jackpot</button>
         <button class="jump-btn" onclick="sendAction('slide', 4)">4. Rules</button>
         <button class="jump-btn" onclick="sendAction('slide', 5)">5. Timer</button>
-        <button class="jump-btn" onclick="sendAction('slide', 6)">6. Winners</button>
+        <button class="jump-btn" onclick="sendAction('slide', 6)">6. History</button>
+        <button class="jump-btn" onclick="sendAction('slide', 7)">7. Winners</button>
+        <button class="jump-btn" onclick="sendAction('slide', 8)">8. Payouts</button>
       </div>
     </div>
 
@@ -174,7 +184,10 @@
     const bc = new BroadcastChannel('ct_ace_signage_channel');
 
     function sendAction(action, value = null) {
-      bc.postMessage({ action, value });
+      const payload = { action, value, time: Date.now() };
+      try { bc.postMessage(payload); } catch(e) {}
+      try { localStorage.setItem('ct_ace_sync_action', JSON.stringify(payload)); } catch(e) {}
+      try { if (window.opener) window.opener.postMessage(payload, '*'); } catch(e) {}
       const fb = document.getElementById('feedback-text');
       fb.innerText = 'Command: ' + action + (value !== null ? ' (' + value + ')' : '');
       if (navigator.vibrate) navigator.vibrate(40);

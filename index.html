@@ -2521,6 +2521,64 @@
 
       // 8. START PLAYBACK
       resetProgressTimer();
+
+      // 9. AUTOMATED ON-THE-HOUR RELOAD SCHEDULER (XX:00:00)
+      (function initHourlyReload() {
+        var scheduledTime = 0;
+        var reloadTimer = null;
+
+        function getNextHourlyTimestamp() {
+          var now = new Date();
+          var nextHour = new Date(now.getFullYear(), now.getMonth(), now.getDate(), now.getHours() + 1, 0, 0, 0);
+          return nextHour.getTime();
+        }
+
+        function executeSafeReload() {
+          // Guard 1: Postpone if winner celebration overlay is visible
+          var winOverlay = document.getElementById('winner-celebration-overlay');
+          if (winOverlay && winOverlay.style.display !== 'none') {
+            console.log('[HourlyReload] Winner celebration active. Postponing reload by 60s.');
+            setTimeout(executeSafeReload, 60000);
+            return;
+          }
+
+          // Guard 2: Postpone if display is locked via Key 0
+          if (typeof isLocked !== 'undefined' && isLocked) {
+            console.log('[HourlyReload] Display is locked. Postponing reload by 30s.');
+            setTimeout(executeSafeReload, 30000);
+            return;
+          }
+
+          // Cache-busting reload preserving existing query params
+          try {
+            var url = new URL(window.location.href);
+            url.searchParams.set('_hreload', Date.now().toString());
+            window.location.replace(url.toString());
+          } catch(e) {
+            window.location.reload(true);
+          }
+        }
+
+        function scheduleReload() {
+          if (reloadTimer) clearTimeout(reloadTimer);
+          scheduledTime = getNextHourlyTimestamp();
+          var msUntil = Math.max(1000, scheduledTime - Date.now());
+          console.log('[HourlyReload] Next automatic reload scheduled at ' + new Date(scheduledTime).toLocaleTimeString() + ' (' + Math.round(msUntil / 1000) + 's)');
+          reloadTimer = setTimeout(executeSafeReload, msUntil);
+        }
+
+        // Sleep / wake drift detection heartbeat (checks every 30 seconds)
+        setInterval(function() {
+          if (scheduledTime > 0 && Date.now() >= scheduledTime) {
+            executeSafeReload();
+          }
+        }, 30000);
+
+        scheduleReload();
+
+        // Testing & inspection helper
+        window.triggerHourlyReload = executeSafeReload;
+      })();
     })();
   </script>
   <script src="scripts/audit-engine.js"></script>

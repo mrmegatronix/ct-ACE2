@@ -28,7 +28,7 @@
   * Automatically forces Countdown slide (Slide 5) 10 minutes prior to draw time.
   * Hides top header, activates epic colossal countdown mode.
 * **Draw Sequence (T-0 to T+14m)**:
-  1. Particle fireworks FX launch at `00:00:00`.
+  1. Climax ceremony display activates at `00:00:00` (fireworks FX removed).
   2. Sequential messages:
      * "It's time for 1 lucky ticket to be drawn!" (x3)
      * "Good luck!" (x2)

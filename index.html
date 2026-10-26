@@ -942,7 +942,7 @@
               TUE 13 OCT
             </span>
             <span style="font-size: 30px; font-weight: 800; color: #E5E5E5; text-transform: uppercase; letter-spacing: 0.05em; white-space: nowrap; margin-top: 4px;">
-              <span class="dynamic-draw-time-val">5:30 PM</span> <span class="color-cycle-spade">♠</span> MUST BE PRESENT
+              <span class="dynamic-draw-time-val">5<span class="blink-colon">:</span>30 PM</span> <span class="color-cycle-spade">♠</span> MUST BE PRESENT
             </span>
           </div>
         </div>
@@ -2185,7 +2185,7 @@
                         targetDate.getDate() + ' ' + 
                         targetDate.toLocaleString('default', { month: 'long' }).toUpperCase() + ' ' + 
                         targetDate.getFullYear() + ' <span class="color-cycle-spade">♠</span> ' + 
-                        (targetDate.getDay() === 2 ? '5:30' : '6:30') + ' PM NZST <span class="color-cycle-spade">♠</span>';
+                        (targetDate.getDay() === 2 ? '5<span class="blink-colon">:</span>30' : '6<span class="blink-colon">:</span>30') + ' PM NZST <span class="color-cycle-spade">♠</span>';
         dynamicTexts.forEach(function(el) { el.innerHTML = targetStr; });
 
         var dynamicShortTexts = document.querySelectorAll('.dynamic-draw-date-short');
@@ -2194,9 +2194,9 @@
         var targetShortStr = shortDay + ' ' + targetDate.getDate() + ' ' + shortMonth;
         dynamicShortTexts.forEach(function(el) { el.textContent = targetShortStr; });
 
-        var drawTimeStr = (targetDate.getDay() === 2 ? '5:30 PM' : '6:30 PM');
+        var drawTimeStr = (targetDate.getDay() === 2 ? '5<span class="blink-colon">:</span>30 PM' : '6<span class="blink-colon">:</span>30 PM');
         var dynamicTimeEls = document.querySelectorAll('.dynamic-draw-time-val');
-        dynamicTimeEls.forEach(function(el) { el.textContent = drawTimeStr; });
+        dynamicTimeEls.forEach(function(el) { el.innerHTML = drawTimeStr; });
 
         var dEl = document.getElementById('cd-days');
         var hEl = document.getElementById('cd-hours');

@@ -249,16 +249,6 @@
       }
     }
 
-    @media (prefers-reduced-motion: reduce) {
-      .slide-pane,
-      #top-header,
-      .cabinet-board,
-      .card-3d-wrap {
-        transition: none !important;
-        animation: none !important;
-        transform: none !important;
-      }
-    }
 
     /* Header Bar (Visible on Slide 1+) */
     #top-header {
@@ -1740,9 +1730,10 @@
           return eb - ea;
         });
 
+        var displayDraws = draws.slice(0, 3);
         var html = '';
-        for (var i = 0; i < draws.length; i++) {
-          var draw = draws[i];
+        for (var i = 0; i < displayDraws.length; i++) {
+          var draw = displayDraws[i];
           var eventNum = parseInt(draw.event, 10) || (draws.length - i);
           var drawDate = draw.date || (eventNum === 1 ? '10/10/2026' : (eventNum === 2 ? '13/10/2026' : new Date().toLocaleDateString('en-GB')));
           var cardStr = draw.card || (eventNum === 1 ? '5♣' : '9♥');
